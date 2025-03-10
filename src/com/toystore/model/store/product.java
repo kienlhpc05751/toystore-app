@@ -29,6 +29,10 @@ public class product {
 //    public product(int aInt, String string, String string1, double aDouble) {
 //    }
 
+    public product() {
+    }
+
+    
     public product(int productId, String name, double price, int quantity) {
         this.productId = productId;
         this.name = name;
