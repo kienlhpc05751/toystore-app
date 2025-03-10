@@ -29,8 +29,8 @@ public class BrandDAO extends BaseDAO<Brand, Integer> {
         return new Brand(
             rs.getInt("brandId"),
             rs.getString("name"),
-            rs.getString("description"),
-            rs.getString("createdAt")
+            rs.getString("OriginBrand"),
+            rs.getString("Description")
         );
     }
     

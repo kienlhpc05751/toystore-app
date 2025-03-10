@@ -8,9 +8,17 @@ package com.toystore.form.store;
 import com.toystore.form.*;
 import com.toystore.dao.LoaiSpDAO;
 import com.toystore.dao.SanPhamDao;
+import com.toystore.dao.store.AgeDAO;
+import com.toystore.dao.store.BrandDAO;
+import com.toystore.dao.store.CategoryDAO;
+import com.toystore.dao.store.MaterialDAO;
 import com.toystore.dao.store.productDAO;
 import com.toystore.model.LoaiSanPham;
 import com.toystore.model.Sanpham;
+import com.toystore.model.store.Age;
+import com.toystore.model.store.Brand;
+import com.toystore.model.store.Category;
+import com.toystore.model.store.Material;
 import com.toystore.model.store.product;
 import com.toystore.utils.Auth;
 import java.util.List;
@@ -26,11 +34,24 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class productView extends javax.swing.JPanel {
 
+    public static int Index = 0;
     String masp = null;
     int row = 0;
 
     productDAO pDAO = new productDAO();
     List<product> listSP = new ArrayList<>();
+    CategoryDAO categoryDAO = new CategoryDAO();
+    List<Category> listCategory = new ArrayList<>();
+    BrandDAO brandDAO = new BrandDAO();
+    List<Brand> listBrand = new ArrayList<>();
+    AgeDAO ageDAO = new AgeDAO();
+    List<Age> listAge = new ArrayList<>();
+    MaterialDAO materialDAO = new MaterialDAO();
+    List<Material> listMaterial = new ArrayList<>();
+
+    //        listBrand = brandDAO.selectAll();
+//        listAge = ageDAO.selectAll();
+//        listMaterial = materialDAO.selectAll();
 //    List<Sanpham> listSP = new ArrayList<>();
     LoaiSpDAO daosp = new LoaiSpDAO() {
     };
@@ -52,6 +73,20 @@ public class productView extends javax.swing.JPanel {
         }
     }
 
+    void chonComboBox(int index, String stype) {
+        if (index >= 0) {
+            if (stype == "brand") {
+                Brand brand = listBrand.get(index);
+            } else if (stype == "age") {
+                Age age = listAge.get(index);
+            } else if (stype == "category") {
+                Category category = listCategory.get(index);
+            } else {
+                Material material = listMaterial.get(index);
+            }
+        }
+    }
+
     //fill dữ liệu lên cobombox cboMaloai
     void fillCombobox() {
 
@@ -63,38 +98,38 @@ public class productView extends javax.swing.JPanel {
 //            
 //            cboModel.addElement(itempCD.getMaloaiSP());
 //        }
-//        listCategory = categoryDAO.selectAll();
-//        listBrand = brandDAO.selectAll();
-//        listAge = ageDAO.selectAll();
-//        listMaterial = materialDAO.selectAll();
+        listCategory = categoryDAO.findAll();
+        listBrand = brandDAO.findAll();
+        listAge = ageDAO.findAll();
+        listMaterial = materialDAO.findAll();
 //
-//        DefaultComboBoxModel categoryModel = (DefaultComboBoxModel) CboCategory.getModel();
-//        DefaultComboBoxModel brandModel = (DefaultComboBoxModel) CboBrand.getModel();
-//        DefaultComboBoxModel ageModel = (DefaultComboBoxModel) CboAge.getModel();
-//        DefaultComboBoxModel materialModel = (DefaultComboBoxModel) CboMaterial.getModel();
+        DefaultComboBoxModel categoryModel = (DefaultComboBoxModel) CboCategory.getModel();
+        DefaultComboBoxModel brandModel = (DefaultComboBoxModel) CboBrand.getModel();
+        DefaultComboBoxModel ageModel = (DefaultComboBoxModel) CboAge.getModel();
+        DefaultComboBoxModel materialModel = (DefaultComboBoxModel) CboMaterial.getModel();
 //
-//        categoryModel.removeAllElements();
-//        brandModel.removeAllElements();
-//        ageModel.removeAllElements();
-//        materialModel.removeAllElements();
+        categoryModel.removeAllElements();
+        brandModel.removeAllElements();
+        ageModel.removeAllElements();
+        materialModel.removeAllElements();
 //
-//        categoryModel.addElement("Vui lòng chọn!");
-//        brandModel.addElement("Vui lòng chọn!");
-//        ageModel.addElement("Vui lòng chọn!");
-//        materialModel.addElement("Vui lòng chọn!");
-//
-//        for (Category category : listCategory) {
-//            categoryModel.addElement(category.getCategoryId());
-//        }
-//        for (Brand brand : listBrand) {
-//            brandModel.addElement(brand.getBrandId());
-//        }
-//        for (Age age : listAge) {
-//            ageModel.addElement(age.getAgeId());
-//        }
-//        for (Material material : listMaterial) {
-//            materialModel.addElement(material.getMaterialId());
-//        }
+        categoryModel.addElement("Vui lòng chọn!");
+        brandModel.addElement("Vui lòng chọn!");
+        ageModel.addElement("Vui lòng chọn!");
+        materialModel.addElement("Vui lòng chọn!");
+
+        for (Category category : listCategory) {
+            categoryModel.addElement(category.getName());
+        }
+        for (Brand brand : listBrand) {
+            brandModel.addElement(brand.getName());
+        }
+        for (Age age : listAge) {
+            ageModel.addElement(age.getAgeRange());
+        }
+        for (Material material : listMaterial) {
+            materialModel.addElement(material.getName());
+        }
     }
     // fill dữ liệu lên bảng
 
@@ -110,22 +145,23 @@ public class productView extends javax.swing.JPanel {
     }
 // fill lên from dữ liệu trong l
 
-void setForm(product p) {
-    txtTenSP.setText(p.getName());
-    txtGiaBan.setText(String.valueOf(p.getPrice()));
-    txtSoLuong.setText(String.valueOf(p.getQuantity()));
-//    txtMota.setText(product.getDescription());
+    void setForm(product p) {
+        txtTenSP.setText(p.getName());
+        txtGiaBan.setText(String.valueOf(p.getPrice()));
+        txtSoLuong.setText(String.valueOf(p.getQuantity()));
+        txtMota.setText(p.getDescription());
 //    txtBarcode.setText(product.getBarcode());
 //    CboCategory.setSelectedItem(product.getCategoryId());
 //    CboBrand.setSelectedItem(product.getBrandId());
 //    CboAge.setSelectedItem(product.getAgeId());
 //    CboMaterial.setSelectedItem(product.getMaterialId());
-}
-product getForm() {
-    product product = new product();
-    product.setName(txtTenSP.getText());
-    product.setPrice(Double.parseDouble(txtGiaBan.getText()));
-    product.setQuantity(Integer.parseInt(txtSoLuong.getText()));
+    }
+
+    product getForm() {
+        product product = new product();
+        product.setName(txtTenSP.getText());
+        product.setPrice(Double.parseDouble(txtGiaBan.getText()));
+        product.setQuantity(Integer.parseInt(txtSoLuong.getText()));
 //    product.setDescription(txtMota.getText());
 //    product.setBarcode(txtBarcode.getText());
 //    
@@ -140,9 +176,9 @@ product getForm() {
 //    
 //    Object selectedMaterial = CboMaterial.getSelectedItem();
 //    product.setMaterialId(selectedMaterial != null ? Integer.parseInt(selectedMaterial.toString()) : 0);
-    
-    return product;
-}
+
+        return product;
+    }
 
     void edit(int index) {
         product kh = listSP.get(index);
@@ -234,14 +270,14 @@ product getForm() {
     }
 
     void clearForm() {
-    product product = new product();
-    this.setForm(product);
-    fillCombobox();
-    this.row = -1;
-    this.updateStatus();
-    txtTenSP.setBackground(null);
-    txtGiaBan.setBackground(null);
-    txtSoLuong.setBackground(null);
+        product product = new product();
+        this.setForm(product);
+        fillCombobox();
+        this.row = -1;
+        this.updateStatus();
+        txtTenSP.setBackground(null);
+        txtGiaBan.setBackground(null);
+        txtSoLuong.setBackground(null);
 //    txtMota.setBackground(null);
 //    txtBarcode.setBackground(null);
 
@@ -287,12 +323,12 @@ product getForm() {
             txtMaSP.setBackground(null);  // Reset background to white if not empty
         }
 
-        if (txtMauSac.getText().isEmpty()) {
+        if (txtMota.getText().isEmpty()) {
             errorMessages.add("Vui lòng nhập màu !");
-            txtMauSac.setBackground(Color.red);
-            txtMauSac.requestFocus();
+            txtMota.setBackground(Color.red);
+            txtMota.requestFocus();
         } else {
-            txtMauSac.setBackground(null);  // Reset background to white if not empty
+            txtMota.setBackground(null);  // Reset background to white if not empty
         }
 
         if (txtTenSP.getText().isEmpty()) {
@@ -337,7 +373,7 @@ product getForm() {
             txtGiaBan.requestFocus();
         }
 
-        int d = CboMaloai.getSelectedIndex();
+        int d = CboBrand.getSelectedIndex();
         System.out.println("chọn:" + d);
         if (d != 0) {
 //            row = CboMaloai.getSelectedIndex() - 1;
@@ -414,16 +450,19 @@ product getForm() {
         jSeparator6 = new javax.swing.JSeparator();
         txtKichCo = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
-        txtMauSac = new javax.swing.JTextField();
+        txtMota = new javax.swing.JTextField();
         jSeparator5 = new javax.swing.JSeparator();
         lblGiaBan = new javax.swing.JLabel();
         txtGiaBan = new javax.swing.JTextField();
         jSeparator4 = new javax.swing.JSeparator();
         lblMaLoai = new javax.swing.JLabel();
-        CboMaloai = new javax.swing.JComboBox<>();
+        CboBrand = new javax.swing.JComboBox<>();
         lblSoLuong = new javax.swing.JLabel();
         txtSoLuong = new javax.swing.JTextField();
         jSeparator7 = new javax.swing.JSeparator();
+        CboCategory = new javax.swing.JComboBox<>();
+        CboAge = new javax.swing.JComboBox<>();
+        CboMaterial = new javax.swing.JComboBox<>();
         pnButton = new javax.swing.JPanel();
         btnfirst = new javax.swing.JButton();
         btnPrev = new javax.swing.JButton();
@@ -440,7 +479,7 @@ product getForm() {
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        pnUpdate.setBackground(new java.awt.Color(255, 255, 255));
+        pnUpdate.setBackground(new java.awt.Color(204, 204, 204));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -451,6 +490,11 @@ product getForm() {
 
         txtMaSP.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtMaSP.setBorder(null);
+        txtMaSP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMaSPActionPerformed(evt);
+            }
+        });
 
         lblMaNV1.setBackground(new java.awt.Color(102, 0, 204));
         lblMaNV1.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
@@ -465,7 +509,7 @@ product getForm() {
         lblMaNV7.setBackground(new java.awt.Color(102, 0, 204));
         lblMaNV7.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblMaNV7.setForeground(new java.awt.Color(27, 51, 61));
-        lblMaNV7.setText("Màu Sắc");
+        lblMaNV7.setText("Mô tả");
 
         txtTenSP.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtTenSP.setBorder(null);
@@ -478,11 +522,11 @@ product getForm() {
         txtKichCo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtKichCo.setBorder(null);
 
-        txtMauSac.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtMauSac.setBorder(null);
-        txtMauSac.addActionListener(new java.awt.event.ActionListener() {
+        txtMota.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtMota.setBorder(null);
+        txtMota.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMauSacActionPerformed(evt);
+                txtMotaActionPerformed(evt);
             }
         });
 
@@ -499,9 +543,9 @@ product getForm() {
         lblMaLoai.setForeground(new java.awt.Color(27, 51, 61));
         lblMaLoai.setText("MaLoai");
 
-        CboMaloai.addActionListener(new java.awt.event.ActionListener() {
+        CboBrand.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CboMaloaiActionPerformed(evt);
+                CboBrandActionPerformed(evt);
             }
         });
 
@@ -512,6 +556,24 @@ product getForm() {
 
         txtSoLuong.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtSoLuong.setBorder(null);
+
+        CboCategory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CboCategoryActionPerformed(evt);
+            }
+        });
+
+        CboAge.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CboAgeActionPerformed(evt);
+            }
+        });
+
+        CboMaterial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CboMaterialActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -525,12 +587,11 @@ product getForm() {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtMaSP)
-                            .addComponent(txtKichCo)
-                            .addComponent(jSeparator3)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblMaNV6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblMaSP, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblMaSP, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(241, 241, 241))
                     .addComponent(jSeparator4)
@@ -539,23 +600,28 @@ product getForm() {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblGiaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblMaNV7, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtGiaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtMauSac, javax.swing.GroupLayout.PREFERRED_SIZE, 673, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 668, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtGiaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMota, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblMaNV1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtTenSP, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtTenSP, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblMaNV7, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(26, 26, 26)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(CboMaloai, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(lblMaLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(CboMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(CboBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblMaLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(CboCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(CboAge, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtKichCo, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(531, 531, 531))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -572,19 +638,26 @@ product getForm() {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTenSP, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CboMaloai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(CboCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(lblMaNV6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtKichCo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblMaNV6)
+                            .addComponent(CboBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtKichCo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(CboAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(lblMaNV7)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblMaNV7)
+                    .addComponent(CboMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtMauSac, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtMota, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -737,7 +810,7 @@ product getForm() {
                         .addComponent(pnButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnUpdateLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, 0))
         );
 
@@ -869,13 +942,13 @@ product getForm() {
         first();
     }//GEN-LAST:event_btnfirstActionPerformed
 
-    private void txtMauSacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMauSacActionPerformed
+    private void txtMotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMotaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtMauSacActionPerformed
+    }//GEN-LAST:event_txtMotaActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
 
-        CboMaloai.setSelectedItem(2);
+        CboBrand.setSelectedItem(2);
         clearForm();
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
@@ -897,18 +970,54 @@ product getForm() {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTenSPActionPerformed
 
-    private void CboMaloaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CboMaloaiActionPerformed
+    private void CboBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CboBrandActionPerformed
         // TODO add your handling code here:
-        row = CboMaloai.getSelectedIndex() - 1;
-        System.out.println("roo");
+        String stype = "brand";
+        Index = CboBrand.getSelectedIndex() - 1;
+        System.out.println("CboBrandActionPerformed");
 
-        System.out.println(row);
-        chonComboBox(row);
-    }//GEN-LAST:event_CboMaloaiActionPerformed
+        System.out.println(Index);
+        chonComboBox(row, stype);
+    }//GEN-LAST:event_CboBrandActionPerformed
+
+    private void txtMaSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaSPActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMaSPActionPerformed
+
+    private void CboCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CboCategoryActionPerformed
+        // TODO add your handling code here:
+        String stype = "category";
+        Index = CboCategory.getSelectedIndex() - 1;
+        System.out.println("CboCategoryActionPerformed");
+
+        System.out.println(Index);
+        chonComboBox(Index, stype);
+    }//GEN-LAST:event_CboCategoryActionPerformed
+
+    private void CboAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CboAgeActionPerformed
+        String stype = "age";
+        Index = CboAge.getSelectedIndex() - 1;
+        System.out.println("CboAgeActionPerformed");
+
+        System.out.println(Index);
+        chonComboBox(Index, stype);
+    }//GEN-LAST:event_CboAgeActionPerformed
+
+    private void CboMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CboMaterialActionPerformed
+        String stype = "age";
+        Index = CboMaterial.getSelectedIndex() - 1;
+        System.out.println("CboMaterialActionPerformed");
+
+        System.out.println(Index);
+        chonComboBox(Index, stype);
+    }//GEN-LAST:event_CboMaterialActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> CboMaloai;
+    private javax.swing.JComboBox<String> CboAge;
+    private javax.swing.JComboBox<String> CboBrand;
+    private javax.swing.JComboBox<String> CboCategory;
+    private javax.swing.JComboBox<String> CboMaterial;
     private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnLast;
     private javax.swing.JPanel btnList;
@@ -943,7 +1052,7 @@ product getForm() {
     private javax.swing.JTextField txtGiaBan;
     private javax.swing.JTextField txtKichCo;
     private javax.swing.JTextField txtMaSP;
-    private javax.swing.JTextField txtMauSac;
+    private javax.swing.JTextField txtMota;
     private javax.swing.JTextField txtSoLuong;
     private javax.swing.JTextField txtTenSP;
     // End of variables declaration//GEN-END:variables
