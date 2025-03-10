@@ -16,6 +16,7 @@ import com.toystore.form.Login;
 import com.toystore.form.PosForm;
 import com.toystore.form.SanPhamView1;
 import com.toystore.form.loadJDialog;
+import com.toystore.form.store.Menu;
 import com.toystore.utils.Auth;
 import com.toystore.utils.XImage;
 import com.toystore.utils.MsgBox;
@@ -37,6 +38,7 @@ public class Main extends javax.swing.JFrame {
     private SanPhamView1 form5;
     private Login form1;
     private PosForm PosForm;
+    private Menu posMenu;
 //    private POSPanel oSPanel;
 //    private 
 //    private pOSPanel;
@@ -64,6 +66,7 @@ public class Main extends javax.swing.JFrame {
         PosForm = new PosForm();
         khachhang = new KhachHangView();
         form5 = new SanPhamView1();
+        posMenu = new Menu();
 //       fa = new NewJFrame();
         menu.initMoving(Main.this);
         menu.addEventMenuSelected(new EventMenuSelected() {
@@ -81,7 +84,7 @@ public class Main extends javax.swing.JFrame {
                     setForm(form4);
                     
                 } else if (index == 5) {
-                    setForm(PosForm);
+                    setForm(posMenu);
                 } else if (index == 8) {
                     setForm(home);
                 } else if (index == 9) {

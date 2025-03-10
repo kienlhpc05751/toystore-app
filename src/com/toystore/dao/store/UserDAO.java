@@ -2,12 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.toystore.dao;
+package com.toystore.dao.store;
 
 /**
  *
  * @author Asus
  */
+import com.toystore.dao.store.BaseDAO;
 import com.toystore.model.Roles;
 import com.toystore.model.User;
 import java.sql.*;
@@ -102,18 +103,18 @@ public class UserDAO extends BaseDAO<User> {
 
     @Override
     public User getById(int id) throws SQLException {
-        String sql = "SELECT * FROM User WHERE id = ?";
+        String sql = "SELECT * FROM Account WHERE RoleID = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
                 // Lấy thông tin role_id
-                long roleId = rs.getLong("role_id");
+                long roleId = rs.getLong("RoleID");
 
                 // Truy vấn lấy Role tương ứng
                 Roles role = getRoleById(roleId);
-                return new User(rs.getInt("id"), rs.getString("username"),
+                return new User(rs.getInt("AccountID"), rs.getString("username"),
                         rs.getString("password"), rs.getString("email"), role);
             }
         }
@@ -123,17 +124,17 @@ public class UserDAO extends BaseDAO<User> {
     @Override
     public List<User> getAll() throws SQLException {
         List<User> users = new ArrayList<>();
-        String sql = "select * from user";
+        String sql = "select * from Account";
         try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 // Lấy thông tin role_id
-                long roleId = rs.getLong("role_id");
+                long roleId = rs.getLong("RoleID");
 
                 // Truy vấn lấy Role tương ứng
                 Roles role = getRoleById(roleId);
 
                 // Thêm đối tượng User vào danh sách
-                users.add(new User(rs.getLong("id"),
+                users.add(new User(rs.getLong("AccountID"),
                         rs.getString("username"),
                         rs.getString("password"),
                         rs.getString("email"),
