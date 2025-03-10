@@ -3,38 +3,46 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.toystore.db;
-//import java.sql.Connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
-
-//import java.sql.DriverManager;
-//import java.sql.SQLException;
-
-//import java.sql.Connection;
-//import java.sql.DriverManager;
-//import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DatabaseConnection {
-	private static final String URL = "jdbc:mysql://localhost:3306/toystoredb";// ?useSSL=false
-	private static final String USER = "root";
-	private static final String PASSWORD = "123456789";
-//    
-	public static Connection getConnection() throws SQLException, ClassNotFoundException {
-		Class.forName("com.mysql.cj.jdbc.Driver");
-		return DriverManager.getConnection(URL, USER, PASSWORD);
-	}
-//
-//	public static Connection connectDB() {
-//		try {
-//			Class.forName("com.mysql.cj.jdbc.Driver");
-//			return DriverManager.getConnection("jdbc:mysql://sql11.freesqldatabase.com:3306/sql11589964", "sql11589964",
-//					"UnAPsV6nsM");
-//		} catch (Exception e) {
-//			return null;
-//		}
-//	}
-}
 
+    private static final String URL = "jdbc:mysql://localhost:3306/toystoredb";
+    private static final String USER = "root";
+    private static final String PASSWORD = "123456789";
+    private static Connection connection = null;
+    private static final Logger LOGGER = Logger.getLogger(DatabaseConnection.class.getName());
+
+    // Private constructor to prevent instantiation
+    private DatabaseConnection() {
+    }
+
+    public static Connection getConnection() throws SQLException, ClassNotFoundException {
+        if (connection == null || connection.isClosed()) {
+            synchronized (DatabaseConnection.class) {
+                if (connection == null || connection.isClosed()) {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    connection = DriverManager.getConnection(URL, USER, PASSWORD);
+                    LOGGER.log(Level.INFO, "Database connected successfully.");
+                }
+            }
+        }
+        return connection;
+    }
+
+    public static void closeConnection() {
+        try {
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+                LOGGER.log(Level.INFO, "Database connection closed.");
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error closing connection: {0}", e.getMessage());
+        }
+    }
+}

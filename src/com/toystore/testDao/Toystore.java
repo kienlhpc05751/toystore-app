@@ -4,7 +4,7 @@
  */
 package com.toystore.testDao;
 
-import com.toystore.dao.store.UserDAO;
+//import com.toystore.dao.store.UserDAO;
 //import com.toystore.dao.store.productDAO;
 import com.toystore.model.User;
 //import com.toystore.model.store.product;
@@ -25,22 +25,22 @@ public class Toystore {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        UserDAO userDao;
-        
-        try {
-            userDao = new UserDAO();
-            List<User> list = userDao.getAll();
-            for (User user : list) {
-                System.out.println("name: " + user.getUsername() + "  " + user.getEmail() + "" + user.getRole().getName());
-            }
-//            productDAO = new productDAO();
-//            list<product> listProduct = productDAO,
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(Toystore.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Toystore.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        UserDAO userDao;
+//        
+//        try {
+//            userDao = new UserDAO();
+//            List<User> list = userDao.getAll();
+//            for (User user : list) {
+//                System.out.println("name: " + user.getUsername() + "  " + user.getEmail() + "" + user.getRole().getName());
+//            }
+////            productDAO = new productDAO();
+////            list<product> listProduct = productDAO,
+//            
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Toystore.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(Toystore.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
     }
 

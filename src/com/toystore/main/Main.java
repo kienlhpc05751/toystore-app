@@ -48,6 +48,8 @@ public class Main extends javax.swing.JFrame {
 //          this.openWellcom();
 //        this.openlogin();
         initComponents();
+        this.setSize(1200, 800);
+        this.setLocationRelativeTo(null);
 //                setBackground(new Color(0, 0, 0, 0));
 //                SwingUtilities.invokeLater(() -> {
 //            setExtendedState(Main.MAXIMIZED_BOTH);

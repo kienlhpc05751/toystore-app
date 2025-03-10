@@ -75,10 +75,14 @@ public class Item extends javax.swing.JPanel {
 //        listKM = kmdao.selectAll();
 //        this.data = data;
 //        this.GiaSP = data.getGia();
-        ImageIcon imgIcon = new ImageIcon(getClass().getResource("/com/image/" + data.getImage()));
+        ImageIcon imgIcon = new ImageIcon(getClass().getResource("/com/toystore/image/" + data.getImage()));
 //        Image img = imgIcon.getImage();
         pictureBox1.setImage(imgIcon);
-        lbItemName.setText(data.getName());
+        String name = data.getName();
+        if(name.length()>17){
+            name = name.substring(0, 18) + "...";
+        }
+        lbItemName.setText(name);
 //        lbDescription.setText(data.getDescription());
 //        lbBrand.setText(data.getBrandName());
         DecimalFormat df = new DecimalFormat("#,###0.000");

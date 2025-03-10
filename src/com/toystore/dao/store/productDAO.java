@@ -19,53 +19,62 @@ import java.util.List;
  *
  * @author Asus
  */
-public class productDAO extends BaseDAO<product> {
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 
-    public productDAO() throws SQLException, ClassNotFoundException {
-        super();
+public class productDAO extends BaseDAO<product, Integer> {
+    @Override
+    public String getTableName() {
+        return "product";
     }
 
     @Override
-    public boolean add(product entity) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String getPrimaryKeyColumn() {
+        return "productId";
     }
 
     @Override
-    public boolean update(product entity) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public product mapResultSetToObject(ResultSet rs) throws SQLException {
+        return new product(
+            rs.getInt("productId"),
+            rs.getInt("categoryId"),
+            rs.getInt("brandId"),
+            rs.getInt("ageId"),
+            rs.getInt("materialId"),
+            rs.getString("name"),
+            rs.getDouble("price"),
+            rs.getDouble("originalPrice"),
+            rs.getString("createdAt"),
+            rs.getBoolean("status"),
+            rs.getString("description"),
+            rs.getBoolean("SexID"),
+            rs.getString("image"),
+            rs.getInt("quantity"),
+            rs.getString("barcode"),
+            rs.getString("urlBarcode")
+        );
     }
 
-    @Override
-    public boolean delete(int id) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean insertProduct(product product) {
+        String query = "INSERT INTO product (categoryId, brandId, ageId, materialId, name, price, originalPrice, createdAt, status, description, sex, image, quantity, barcode, urlBarcode) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        return insert(query, product.getCategoryId(), product.getBrandId(), product.getAgeId(), product.getMaterialId(), product.getName(), product.getPrice(), product.getOriginalPrice(), product.getCreatedAt(), product.isStatus(), product.getDescription(), product.isSex(), product.getImage(), product.getQuantity(), product.getBarcode(), product.getUrlBarcode());
     }
 
-    @Override
-    public product getById(int id) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean updateProduct(product product) {
+        String query = "UPDATE product SET categoryId=?, brandId=?, ageId=?, materialId=?, name=?, price=?, originalPrice=?, createdAt=?, status=?, description=?, sex=?, image=?, quantity=?, barcode=?, urlBarcode=? WHERE productId=?";
+        return update(query, product.getCategoryId(), product.getBrandId(), product.getAgeId(), product.getMaterialId(), product.getName(), product.getPrice(), product.getOriginalPrice(), product.getCreatedAt(), product.isStatus(), product.getDescription(), product.isSex(), product.getImage(), product.getQuantity(), product.getBarcode(), product.getUrlBarcode(), product.getProductId());
     }
 
-    @Override
-    public List<product> getAll() throws SQLException {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        List<product> products = new ArrayList<>();
-        String sql = "select * from product";
-        try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                // Lấy thông tin role_id
-//                long roleId = rs.getLong("role_id");
-
-                // Truy vấn lấy Role tương ứng
-                // Thêm đối tượng User vào danh sách
-                products.add(new product(
-                        rs.getInt("ProductID"),
-                        rs.getString("Name"),
-                        rs.getInt("Quantity"), (int) rs.getDouble("Price")));
-            }
-        }
-        return products;
+    public boolean deleteProduct(int productId) {
+        return delete(productId);
     }
-//        return users;
+
+    public product getProductById(int productId) {
+        return findById(productId);
+    }
+
+    public List<product> getAllProducts() {
+        return findAll();
+    }
 }
-
-//}

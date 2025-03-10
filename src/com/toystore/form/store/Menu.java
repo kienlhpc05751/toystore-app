@@ -115,8 +115,8 @@ public class Menu extends javax.swing.JPanel {
         initComponents();
 //        scroll1.setVerticalScrollBar(new ScrollBar());
         init();
-//        loadData();
 
+//        loadData();
     }
 
     public void setEvent(EventItem event) {
@@ -125,8 +125,9 @@ public class Menu extends javax.swing.JPanel {
 //
     private EventItem event;
 //
+
     public void addItem(product data) {
-        Item item  = new Item();
+        Item item = new Item();
         item.setData(data);
         item.addMouseListener(new MouseAdapter() {
             @Override
@@ -141,7 +142,6 @@ public class Menu extends javax.swing.JPanel {
         panelItem1.revalidate();
     }
 
-
     public void setSelected(Component item) {
         for (Component com : panelItem1.getComponents()) {
             Item i = (Item) com;
@@ -150,6 +150,15 @@ public class Menu extends javax.swing.JPanel {
             }
         }
         ((Item) item).setSelected(true);
+    }
+
+    public void fillpanelItem() {
+        productDao = new productDAO();
+        listSP = productDao.getAllProducts();
+        for (product p : listSP) {
+            addItem(p);
+            System.out.println("fillpanelItem :" + p.getName());
+        }
     }
 
 //    public void showItem(ModelItem data) {
@@ -835,6 +844,7 @@ public class Menu extends javax.swing.JPanel {
     public void init() {
 //        fillComBoBoxLoaiSP();
 //        fillToTableHoaDon();
+        fillpanelItem();
         rdoTienMat.setSelected(true);
         txtTienSP.setEditable(false);
         txtTienThua.setEditable(false);
@@ -1205,7 +1215,7 @@ public class Menu extends javax.swing.JPanel {
     List<product> listSP = new ArrayList<>();
 
     public void fillPanelSP() throws SQLException {
-        listSP = productDao.getAll();
+        listSP = productDao.getAllProducts();
         panelItem1.removeAll();
         testData();
     }
