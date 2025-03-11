@@ -10,19 +10,19 @@ package com.toystore.model.store;
  */
 public class product {
     private int productId;
-    private int categoryId;
-    private int brandId;
-    private int ageId;
-    private int materialId;
-    private String name;
+    private int categoryId;//có
+    private int brandId;//có
+    private int ageId;//có
+    private int materialId;//có
+    private String name;//có
     private double price;
-    private double originalPrice;
-    private String createdAt;
+    private double originalPrice;//có
+    private String createdAt; 
     private boolean status;
-    private String description;
+    private String description;//có
     private boolean sex; // true = Nam, false = Nữ
-    private String image;
-    private int quantity;
+    private String image;//có
+    private int quantity;//có
     private String barcode;
     private String urlBarcode;
 

@@ -720,6 +720,8 @@ public class NhanVienView extends javax.swing.JPanel {
         if (model.getHinhAnh() != null) {
             lblHinhAnh.setToolTipText(model.getHinhAnh());
             ImageIcon icon = XImage.read(model.getHinhAnh());  // Tạo ImageIcon từ hình
+            
+//            System.out.println(icon.);
             lblHinhAnh.setIcon(icon);
             // Cập nhật kích thước hình cho lblHinh
             int width = lblHinhAnh.getWidth();
@@ -732,6 +734,7 @@ public class NhanVienView extends javax.swing.JPanel {
             lblHinhAnh.setIcon(null);
         }
     }
+    
 
     NhanVien getModel() {
         NhanVien model = new NhanVien();

@@ -63,7 +63,7 @@ public class SanPhamView1 extends javax.swing.JPanel {
 
             cboModel.addElement(itempCD.getMaloaiSP());
         }
-    } 
+    }
     // fill dữ liệu lên bảng  id name price status code
 
     void fillTable(List<Sanpham> list) {
@@ -213,7 +213,6 @@ public class SanPhamView1 extends javax.swing.JPanel {
         txtMauSac.setBackground(null);
         txtSoLuong.setBackground(null);
         txtGiaBan.setBackground(null);
-
     }
 
     void updateStatus() {
@@ -809,17 +808,17 @@ public class SanPhamView1 extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        if (Auth.isLogin()){
-              if (CheckMa()) {
+        if (Auth.isLogin()) {
+            if (CheckMa()) {
                 if (checkFrom()) {
                     insert();
                 }
             }
         } else {
             MsgBox.alert(null, "Bạn không có quyền  thêm sp !");
-                    
+
         }
-          
+
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastActionPerformed

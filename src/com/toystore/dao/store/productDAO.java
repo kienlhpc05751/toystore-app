@@ -57,12 +57,12 @@ public class productDAO extends BaseDAO<product, Integer> {
     }
 
     public boolean insertProduct(product product) {
-        String query = "INSERT INTO product (categoryId, brandId, ageId, materialId, name, price, originalPrice, createdAt, status, description, sex, image, quantity, barcode, urlBarcode) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO product (categoryId, brandId, ageId, materialId, name, price, originalPrice, createdAt, status, description, sexId, image, quantity, barcode, urlBarcode) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         return insert(query, product.getCategoryId(), product.getBrandId(), product.getAgeId(), product.getMaterialId(), product.getName(), product.getPrice(), product.getOriginalPrice(), product.getCreatedAt(), product.isStatus(), product.getDescription(), product.isSex(), product.getImage(), product.getQuantity(), product.getBarcode(), product.getUrlBarcode());
     }
 
     public boolean updateProduct(product product) {
-        String query = "UPDATE product SET categoryId=?, brandId=?, ageId=?, materialId=?, name=?, price=?, originalPrice=?, createdAt=?, status=?, description=?, sex=?, image=?, quantity=?, barcode=?, urlBarcode=? WHERE productId=?";
+        String query = "UPDATE product SET categoryId=?, brandId=?, ageId=?, materialId=?, name=?, price=?, originalPrice=?, createdAt=?, status=?, description=?, sexId=?, image=?, quantity=?, barcode=?, urlBarcode=? WHERE productId=?";
         return update(query, product.getCategoryId(), product.getBrandId(), product.getAgeId(), product.getMaterialId(), product.getName(), product.getPrice(), product.getOriginalPrice(), product.getCreatedAt(), product.isStatus(), product.getDescription(), product.isSex(), product.getImage(), product.getQuantity(), product.getBarcode(), product.getUrlBarcode(), product.getProductId());
     }
 
