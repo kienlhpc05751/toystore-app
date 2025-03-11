@@ -3,15 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Asus/Documents/NetBeansProjects/toystore/src/com/toystore/dao/store/productDAO.java</file>
-            <file>file:/C:/Users/Asus/Documents/NetBeansProjects/toystore/src/com/toystore/dao/store/AccountDAO.java</file>
-            <file>file:/C:/Users/Asus/Documents/NetBeansProjects/toystore/src/com/toystore/form/SanPhamView1.java</file>
-            <file>file:/C:/Users/Asus/Documents/NetBeansProjects/toystore/src/com/toystore/dao/store/CategoryDAO.java</file>
-            <file>file:/C:/Users/Asus/Documents/NetBeansProjects/toystore/src/com/toystore/dao/store/AgeDAO.java</file>
+            <file>file:/C:/Users/Asus/Documents/NetBeansProjects/toystore/src/com/toystore/utils/XImage.java</file>
+            <file>file:/C:/Users/Asus/Documents/NetBeansProjects/toystore/src/com/toystore/utils/MsgBox.java</file>
+            <file>file:/C:/Users/Asus/Documents/NetBeansProjects/toystore/src/com/toystore/dao/store/BaseDAO.java</file>
+            <file>file:/C:/Users/Asus/Documents/NetBeansProjects/toystore/src/com/toystore/component/Menu.java</file>
             <file>file:/C:/Users/Asus/Documents/NetBeansProjects/toystore/src/com/toystore/model/store/product.java</file>
-            <file>file:/C:/Users/Asus/Documents/NetBeansProjects/toystore/src/com/toystore/main/Main.java</file>
-            <file>file:/C:/Users/Asus/Documents/NetBeansProjects/toystore/src/com/toystore/dao/store/SuperCategoryDAO.java</file>
-            <file>file:/C:/Users/Asus/Documents/NetBeansProjects/toystore/src/com/toystore/model/store/SuperCategory.java</file>
+            <file>file:/C:/Users/Asus/Documents/NetBeansProjects/toystore/src/com/toystore/main/Toystore.java</file>
+            <file>file:/C:/Users/Asus/Documents/NetBeansProjects/toystore/src/com/toystore/form/NhanVienView.java</file>
+            <file>file:/C:/Users/Asus/Documents/NetBeansProjects/toystore/src/com/toystore/swing/SearchText.java</file>
+            <file>file:/C:/Users/Asus/Documents/NetBeansProjects/toystore/src/com/toystore/utils/BarcodeScanner.java</file>
+            <file>file:/C:/Users/Asus/Documents/NetBeansProjects/toystore/src/com/toystore/utils/BarcodeUtil.java</file>
+            <file>file:/C:/Users/Asus/Documents/NetBeansProjects/toystore/src/com/toystore/swing/PanelBorder.java</file>
+            <file>file:/C:/Users/Asus/Documents/NetBeansProjects/toystore/src/com/toystore/form/store/productView.java</file>
+            <file>file:/C:/Users/Asus/Documents/NetBeansProjects/toystore/src/com/toystore/form/store/Menu.java</file>
         </group>
     </open-files>
 </project-private>
