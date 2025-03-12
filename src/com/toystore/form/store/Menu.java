@@ -265,7 +265,7 @@ public class Menu extends javax.swing.JPanel {
 
         jPanel5.add(scroll1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 590, 480));
 
-        jPanel6.setBackground(new java.awt.Color(244, 154, 157));
+        jPanel6.setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel13.setText("Tên sản phẩm");
@@ -344,7 +344,7 @@ public class Menu extends javax.swing.JPanel {
 
         jPanel5.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 70));
 
-        jPanel7.setBackground(new java.awt.Color(244, 154, 157));
+        jPanel7.setBackground(new java.awt.Color(153, 204, 255));
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tblHoaDon.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -597,18 +597,18 @@ public class Menu extends javax.swing.JPanel {
             .addGap(0, 1053, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 7, Short.MAX_VALUE)
+                    .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 1040, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 6, Short.MAX_VALUE)))
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 729, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 4, Short.MAX_VALUE)
+                    .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 5, Short.MAX_VALUE)))
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 

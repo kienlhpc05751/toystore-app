@@ -17,6 +17,8 @@ import com.toystore.form.PosForm;
 import com.toystore.form.SanPhamView1;
 import com.toystore.form.loadJDialog;
 import com.toystore.form.store.Menu;
+import com.toystore.form.store.categoryView;
+import com.toystore.form.store.productAttributesView;
 import com.toystore.form.store.productView;
 import com.toystore.utils.Auth;
 import com.toystore.utils.XImage;
@@ -41,6 +43,8 @@ public class Main extends javax.swing.JFrame {
     private PosForm PosForm;
     private Menu posMenu;
     private productView pView;
+    private categoryView cView;
+    private productAttributesView prAView;
 //    private POSPanel oSPanel;
 //    private 
 //    private pOSPanel;
@@ -70,10 +74,12 @@ public class Main extends javax.swing.JFrame {
         PosForm = new PosForm();
         khachhang = new KhachHangView();
         form5 = new SanPhamView1();
-        
-        
+
         posMenu = new Menu();
         pView = new productView();
+        cView = new categoryView();
+        prAView = new productAttributesView();
+
 //       fa = new NewJFrame();
         menu.initMoving(Main.this);
         menu.addEventMenuSelected(new EventMenuSelected() {
@@ -89,9 +95,12 @@ public class Main extends javax.swing.JFrame {
                     setForm(pView); // view product
                 } else if (index == 4) {
                     setForm(form4);
-                    
                 } else if (index == 5) {
-                    setForm(posMenu);
+                    setForm(posMenu);  // pos menu view
+                } else if (index == 6) {
+                    setForm(cView);// superCategory
+                } else if (index == 7) {
+                    setForm(prAView);// product attributes view
                 } else if (index == 8) {
                     setForm(home);
                 } else if (index == 9) {
@@ -110,25 +119,25 @@ public class Main extends javax.swing.JFrame {
         });
         setForm(new Form_Home());
     }
-    
+
     private void setForm(JComponent com) {
         mainPanel.removeAll();
         mainPanel.add(com);
         mainPanel.repaint();
         mainPanel.revalidate();
     }
-    
+
     void openlogin() {
 //        new LoginJDialog(this, true).setVisible(true);
         new Login().setVisible(true);
     }
-    
+
     void openWellcom() {
         new loadJDialog(this, true).setVisible(true);
 //          new Load().setVisible(true);
 
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
