@@ -31,6 +31,8 @@ import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,6 +40,7 @@ import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -200,6 +203,7 @@ public class productView extends javax.swing.JPanel {
                 return new ImageIcon(ImageIO.read(file));
             } else {
                 System.out.println("File không tồn tại: " + file.getAbsolutePath());
+                return new ImageIcon("src/com/toystore/image/noimg.jpg");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -1212,15 +1216,40 @@ public class productView extends javax.swing.JPanel {
 
     private void lblHinhAnhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHinhAnhMouseClicked
 
+//        JFileChooser fileChooser = new JFileChooser();
+//        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+//            File file = fileChooser.getSelectedFile();
+//            XImage.save(file);
+//            ImageIcon img = XImage.read(file.getName());
+//            Image img2 = XImage.resize(img.getImage(), lblHinhAnh.getWidth(), lblHinhAnh.getHeight());
+//            ImageIcon img3 = new ImageIcon(img2);
+//            lblHinhAnh.setIcon(img3);
+//            lblHinhAnh.setToolTipText(file.getName());
+//        }
         JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Hình ảnh", "jpg", "png", "jpeg", "gif"));
+
         if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-            File file = fileChooser.getSelectedFile();
-            XImage.save(file);
-            ImageIcon img = XImage.read(file.getName());
-            Image img2 = XImage.resize(img.getImage(), lblHinhAnh.getWidth(), lblHinhAnh.getHeight());
-            ImageIcon img3 = new ImageIcon(img2);
-            lblHinhAnh.setIcon(img3);
-            lblHinhAnh.setToolTipText(file.getName());
+            File selectedFile = fileChooser.getSelectedFile();
+            String fileName = selectedFile.getName();
+            File destination = new File("src/com/toystore/image/", fileName);
+
+            // Nếu ảnh chưa tồn tại thì sao chép vào thư mục
+            if (!destination.exists()) {
+                try {
+                    Files.copy(selectedFile.toPath(), destination.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    MsgBox.alert(this, "Lỗi khi sao chép ảnh!");
+                    return;
+                }
+            }
+
+            // Hiển thị ảnh lên JLabel
+            ImageIcon img = new ImageIcon(destination.getAbsolutePath());
+            Image resizedImg = img.getImage().getScaledInstance(lblHinhAnh.getWidth(), lblHinhAnh.getHeight(), Image.SCALE_SMOOTH);
+            lblHinhAnh.setIcon(new ImageIcon(resizedImg));
+            lblHinhAnh.setToolTipText(fileName); // Lưu tên file vào tooltip để lưu vào DB
         }
     }//GEN-LAST:event_lblHinhAnhMouseClicked
 

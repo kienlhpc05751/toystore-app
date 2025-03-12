@@ -12,6 +12,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,6 @@ public class Item extends javax.swing.JPanel {
 //    KhuyenMaiDao kmdao = new KhuyenMaiDao();
 //    List<KhuyenMai> listKM = new ArrayList();
 //    double giaKM = 0;
-
     public product getData() {
         return data;
     }
@@ -75,11 +75,19 @@ public class Item extends javax.swing.JPanel {
 //        listKM = kmdao.selectAll();
 //        this.data = data;
 //        this.GiaSP = data.getGia();
-        ImageIcon imgIcon = new ImageIcon(getClass().getResource("/com/toystore/image/" + data.getImage()));
+        ImageIcon imgIcon;
+        File file = new File("src/com/toystore/image/" + data.getImage());
+        if (file.exists()) {
+            imgIcon = new ImageIcon(file.getAbsolutePath());
+        } else {
+            imgIcon = new ImageIcon("src/com/toystore/image/noimg.jpg");
+        }
+//         = new ImageIcon(getClass().getResource("/com/toystore/image/" + data.getImage()));
 //        Image img = imgIcon.getImage();
+
         pictureBox1.setImage(imgIcon);
         String name = data.getName();
-        if(name.length()>17){
+        if (name.length() > 17) {
             name = name.substring(0, 18) + "...";
         }
         lbItemName.setText(name);
@@ -87,7 +95,7 @@ public class Item extends javax.swing.JPanel {
 //        lbBrand.setText(data.getBrandName());
         DecimalFormat df = new DecimalFormat("#,###0.000");
         lbPrice.setText(df.format(data.getPrice()));
-            lbPrice1.setText("");
+        lbPrice1.setText("");
 //        if (data.getKhuyenMai() != null) {
 //            for (KhuyenMai km : listKM) {
 //                if (data.getKhuyenMai().equals(km.getMaKM()) && km.isTrangThai() == true) {

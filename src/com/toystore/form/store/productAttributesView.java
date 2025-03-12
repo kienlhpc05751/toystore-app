@@ -4,10 +4,14 @@
  */
 package com.toystore.form.store;
 
+import com.toystore.dao.store.BrandDAO;
 import com.toystore.dao.store.CategoryDAO;
+import com.toystore.dao.store.MaterialDAO;
 import com.toystore.dao.store.SuperCategoryDAO;
 import com.toystore.model.StatusType;
+import com.toystore.model.store.Brand;
 import com.toystore.model.store.Category;
+import com.toystore.model.store.Material;
 import com.toystore.model.store.SuperCategory;
 import com.toystore.swing.ButtonRendererEditor;
 import com.toystore.utils.MsgBox;
@@ -33,6 +37,9 @@ public class productAttributesView extends javax.swing.JPanel {
     /**
      * Creates new form categoryView
      */
+    List<Brand> brandList = new ArrayList<>();
+    BrandDAO brandDAO = new BrandDAO();
+
     public productAttributesView() {
         initComponents();
         Init();
@@ -41,6 +48,12 @@ public class productAttributesView extends javax.swing.JPanel {
         tableCategory.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
         categoryList = categoryDAO.findAll();
         fillTable(categoryList);
+
+        brandList = brandDAO.findAll();
+        fillTableBrand(brandList);
+
+        materialList = materialDAO.findAll();
+        fillTableMaterial(materialList);
     }
 
     public void Init() {
@@ -113,7 +126,7 @@ public class productAttributesView extends javax.swing.JPanel {
         txtCategoryID.setText(String.valueOf(category.getCategoryId()));
         txtCategoryName1.setText(category.getName());
         txtCategoryDescription.setText(category.getDescription());
-        jTextAreaDescription.setText(category.getDescription());
+        txtCategoryDescription.setText(category.getDescription());
         String selectedSuperCategory = listSuperCategorys.stream()
                 .filter(cat -> cat.getSuperCategoryId() == category.getSuperCategoryId()) // Lọc danh mục có ID trùng
                 .map(SuperCategory::getName) // Lấy tên danh mục
@@ -149,6 +162,11 @@ public class productAttributesView extends javax.swing.JPanel {
             this.row++;
             this.edit(row);
         }
+    }
+
+    void last() {
+        this.row = table.getRowCount() - 1;
+        this.edit(row);
     }
 
     void insert() {
@@ -191,11 +209,6 @@ public class productAttributesView extends javax.swing.JPanel {
         }
     }
 
-    void last() {
-        this.row = table.getRowCount() - 1;
-        this.edit(row);
-    }
-
     void seacher() {
         String input = searchText1.getText().trim(); // Lấy giá trị nhập vào và loại bỏ khoảng trắng
         if (input.isEmpty()) {
@@ -229,12 +242,13 @@ public class productAttributesView extends javax.swing.JPanel {
         txtCategoryID.setBackground(null);
         txtCategoryName1.setBackground(null);
         txtCategoryDescription.setBackground(null);
-        jTextAreaDescription.setBackground(null);
+        txtCategoryDescription.setBackground(null);
 //    txtMota.setBackground(null);
 //    txtBarcode.setBackground(null);
 
     }
 
+    // brand
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -247,15 +261,14 @@ public class productAttributesView extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         pnButton = new javax.swing.JPanel();
-        btCategory = new javax.swing.JTabbedPane();
+        JTablePane = new javax.swing.JTabbedPane();
         tabCategory = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         CboSuperCategory = new javax.swing.JComboBox<>();
         txtCategoryID = new javax.swing.JTextField();
-        txtCategoryDescription = new javax.swing.JTextField();
         txtCategoryName1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextAreaDescription = new javax.swing.JTextArea();
+        txtCategoryDescription = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -274,6 +287,52 @@ public class productAttributesView extends javax.swing.JPanel {
         btnLamMoi = new javax.swing.JButton();
         tableCategory = new javax.swing.JScrollPane();
         table = new com.toystore.swing.Table();
+        tabBrand = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        txtBrandID = new javax.swing.JTextField();
+        txtOriginBrand = new javax.swing.JTextField();
+        txtBrandName = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtDescriptionBrand = new javax.swing.JTextArea();
+        lblBrandID = new javax.swing.JLabel();
+        lblBrandName = new javax.swing.JLabel();
+        lblDescriptionBrand = new javax.swing.JLabel();
+        lblOriginBrand = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        btnSeacherBrand = new javax.swing.JButton();
+        txtSeacherBrand = new com.toystore.swing.SearchText();
+        btnfirstBrand = new javax.swing.JButton();
+        btnPrevBrand = new javax.swing.JButton();
+        btnNextBrand = new javax.swing.JButton();
+        btnAddBrand = new javax.swing.JButton();
+        btnUpdateBrand = new javax.swing.JButton();
+        btnDeleteBrand = new javax.swing.JButton();
+        btnLastBrand = new javax.swing.JButton();
+        btnNewBrand = new javax.swing.JButton();
+        tableCategory1 = new javax.swing.JScrollPane();
+        tableBrand = new com.toystore.swing.Table();
+        tabMaterial = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        txtMaterialID = new javax.swing.JTextField();
+        txtMaterialName = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txtMaterialDescription = new javax.swing.JTextArea();
+        lblBrandID1 = new javax.swing.JLabel();
+        lblBrandName1 = new javax.swing.JLabel();
+        lblDescriptionBrand1 = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        btnSeacherMaterial = new javax.swing.JButton();
+        txtSeacherMaterial = new com.toystore.swing.SearchText();
+        btnfirstMaterial = new javax.swing.JButton();
+        btnPrevMaterial = new javax.swing.JButton();
+        btnNextMaterial = new javax.swing.JButton();
+        btnAddMaterial = new javax.swing.JButton();
+        btnUpdateMaterial = new javax.swing.JButton();
+        btnDeleteMaterial = new javax.swing.JButton();
+        btnLastMaterial = new javax.swing.JButton();
+        btnNewMaterial = new javax.swing.JButton();
+        JScrollPane = new javax.swing.JScrollPane();
+        tableMaterial = new com.toystore.swing.Table();
         panelBorder1 = new com.toystore.swing.PanelBorder();
 
         jLabel1.setText("jLabel1");
@@ -312,6 +371,12 @@ public class productAttributesView extends javax.swing.JPanel {
         setMinimumSize(new java.awt.Dimension(1040, 720));
         setPreferredSize(new java.awt.Dimension(960, 683));
 
+        JTablePane.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JTablePaneMouseClicked(evt);
+            }
+        });
+
         tabCategory.setLayout(null);
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
@@ -329,21 +394,15 @@ public class productAttributesView extends javax.swing.JPanel {
             }
         });
 
-        txtCategoryDescription.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCategoryDescriptionActionPerformed(evt);
-            }
-        });
-
         txtCategoryName1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCategoryName1ActionPerformed(evt);
             }
         });
 
-        jTextAreaDescription.setColumns(20);
-        jTextAreaDescription.setRows(5);
-        jScrollPane1.setViewportView(jTextAreaDescription);
+        txtCategoryDescription.setColumns(20);
+        txtCategoryDescription.setRows(5);
+        jScrollPane1.setViewportView(txtCategoryDescription);
 
         jLabel2.setText("ID");
 
@@ -366,12 +425,15 @@ public class productAttributesView extends javax.swing.JPanel {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCategoryDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CboSuperCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(CboSuperCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -388,13 +450,11 @@ public class productAttributesView extends javax.swing.JPanel {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCategoryDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCategoryName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtCategoryName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         tabCategory.add(jPanel5);
@@ -539,7 +599,424 @@ public class productAttributesView extends javax.swing.JPanel {
         tabCategory.add(tableCategory);
         tableCategory.setBounds(10, 210, 1000, 410);
 
-        btCategory.addTab("Category", tabCategory);
+        JTablePane.addTab("Category", tabCategory);
+
+        tabBrand.setLayout(null);
+
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        txtBrandID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBrandIDActionPerformed(evt);
+            }
+        });
+
+        txtOriginBrand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtOriginBrandActionPerformed(evt);
+            }
+        });
+
+        txtBrandName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBrandNameActionPerformed(evt);
+            }
+        });
+
+        txtDescriptionBrand.setColumns(20);
+        txtDescriptionBrand.setRows(5);
+        jScrollPane2.setViewportView(txtDescriptionBrand);
+
+        lblBrandID.setText("ID");
+
+        lblBrandName.setText("Name");
+
+        lblDescriptionBrand.setText("Description");
+
+        lblOriginBrand.setText("OriginBrand");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtBrandID, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBrandName, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblBrandID)
+                    .addComponent(lblBrandName))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblDescriptionBrand)
+                    .addComponent(lblOriginBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtOriginBrand)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE))
+                .addGap(45, 45, 45))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblBrandID)
+                    .addComponent(lblOriginBrand))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtBrandID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtOriginBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblBrandName)
+                    .addComponent(lblDescriptionBrand))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtBrandName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(13, Short.MAX_VALUE))
+        );
+
+        tabBrand.add(jPanel7);
+        jPanel7.setBounds(10, 20, 500, 180);
+
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel8.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel8.setLayout(null);
+
+        btnSeacherBrand.setBackground(new java.awt.Color(204, 204, 204));
+        btnSeacherBrand.setText("tìm");
+        btnSeacherBrand.setBorderPainted(false);
+        btnSeacherBrand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeacherBrandActionPerformed(evt);
+            }
+        });
+        jPanel8.add(btnSeacherBrand);
+        btnSeacherBrand.setBounds(255, 8, 80, 33);
+
+        txtSeacherBrand.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(0, 51, 51), null));
+        txtSeacherBrand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSeacherBrandActionPerformed(evt);
+            }
+        });
+        jPanel8.add(txtSeacherBrand);
+        txtSeacherBrand.setBounds(94, 8, 149, 33);
+
+        btnfirstBrand.setBackground(new java.awt.Color(204, 204, 204));
+        btnfirstBrand.setText("|<");
+        btnfirstBrand.setBorderPainted(false);
+        btnfirstBrand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnfirstBrandActionPerformed(evt);
+            }
+        });
+        jPanel8.add(btnfirstBrand);
+        btnfirstBrand.setBounds(10, 130, 100, 30);
+
+        btnPrevBrand.setBackground(new java.awt.Color(204, 204, 204));
+        btnPrevBrand.setText("<<");
+        btnPrevBrand.setBorderPainted(false);
+        btnPrevBrand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrevBrandActionPerformed(evt);
+            }
+        });
+        jPanel8.add(btnPrevBrand);
+        btnPrevBrand.setBounds(120, 130, 90, 30);
+
+        btnNextBrand.setBackground(new java.awt.Color(204, 204, 204));
+        btnNextBrand.setText(">>");
+        btnNextBrand.setBorderPainted(false);
+        btnNextBrand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNextBrandActionPerformed(evt);
+            }
+        });
+        jPanel8.add(btnNextBrand);
+        btnNextBrand.setBounds(220, 130, 90, 30);
+
+        btnAddBrand.setBackground(new java.awt.Color(204, 204, 204));
+        btnAddBrand.setText("Thêm");
+        btnAddBrand.setBorderPainted(false);
+        btnAddBrand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddBrandActionPerformed(evt);
+            }
+        });
+        jPanel8.add(btnAddBrand);
+        btnAddBrand.setBounds(10, 80, 100, 30);
+
+        btnUpdateBrand.setBackground(new java.awt.Color(204, 204, 204));
+        btnUpdateBrand.setText("Sửa");
+        btnUpdateBrand.setBorderPainted(false);
+        btnUpdateBrand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateBrandActionPerformed(evt);
+            }
+        });
+        jPanel8.add(btnUpdateBrand);
+        btnUpdateBrand.setBounds(120, 80, 90, 30);
+
+        btnDeleteBrand.setBackground(new java.awt.Color(204, 204, 204));
+        btnDeleteBrand.setText("Xóa");
+        btnDeleteBrand.setBorderPainted(false);
+        btnDeleteBrand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteBrandActionPerformed(evt);
+            }
+        });
+        jPanel8.add(btnDeleteBrand);
+        btnDeleteBrand.setBounds(320, 80, 90, 30);
+
+        btnLastBrand.setBackground(new java.awt.Color(204, 204, 204));
+        btnLastBrand.setText(">|");
+        btnLastBrand.setBorderPainted(false);
+        btnLastBrand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLastBrandActionPerformed(evt);
+            }
+        });
+        jPanel8.add(btnLastBrand);
+        btnLastBrand.setBounds(320, 130, 90, 30);
+
+        btnNewBrand.setBackground(new java.awt.Color(204, 204, 204));
+        btnNewBrand.setText("Làm mới");
+        btnNewBrand.setBorderPainted(false);
+        btnNewBrand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewBrandActionPerformed(evt);
+            }
+        });
+        jPanel8.add(btnNewBrand);
+        btnNewBrand.setBounds(220, 80, 90, 30);
+
+        tabBrand.add(jPanel8);
+        jPanel8.setBounds(520, 20, 490, 180);
+
+        tableBrand.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tableBrand.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableBrandMouseClicked(evt);
+            }
+        });
+        tableCategory1.setViewportView(tableBrand);
+
+        tabBrand.add(tableCategory1);
+        tableCategory1.setBounds(10, 210, 1000, 410);
+
+        JTablePane.addTab("Brand", tabBrand);
+
+        tabMaterial.setLayout(null);
+
+        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel9.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        txtMaterialID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMaterialIDActionPerformed(evt);
+            }
+        });
+
+        txtMaterialName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMaterialNameActionPerformed(evt);
+            }
+        });
+
+        txtMaterialDescription.setColumns(20);
+        txtMaterialDescription.setRows(5);
+        jScrollPane3.setViewportView(txtMaterialDescription);
+
+        lblBrandID1.setText("ID");
+
+        lblBrandName1.setText("Name");
+
+        lblDescriptionBrand1.setText("Description");
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtMaterialID, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtMaterialName, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblBrandID1)
+                    .addComponent(lblBrandName1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblDescriptionBrand1)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(45, 45, 45))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblBrandID1)
+                    .addComponent(lblDescriptionBrand1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(txtMaterialID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(lblBrandName1)
+                        .addGap(15, 15, 15)
+                        .addComponent(txtMaterialName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane3))
+                .addContainerGap(55, Short.MAX_VALUE))
+        );
+
+        tabMaterial.add(jPanel9);
+        jPanel9.setBounds(10, 20, 500, 180);
+
+        jPanel10.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel10.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel10.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel10.setLayout(null);
+
+        btnSeacherMaterial.setBackground(new java.awt.Color(204, 204, 204));
+        btnSeacherMaterial.setText("tìm");
+        btnSeacherMaterial.setBorderPainted(false);
+        btnSeacherMaterial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeacherMaterialActionPerformed(evt);
+            }
+        });
+        jPanel10.add(btnSeacherMaterial);
+        btnSeacherMaterial.setBounds(255, 8, 80, 33);
+
+        txtSeacherMaterial.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(0, 51, 51), null));
+        txtSeacherMaterial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSeacherMaterialActionPerformed(evt);
+            }
+        });
+        jPanel10.add(txtSeacherMaterial);
+        txtSeacherMaterial.setBounds(94, 8, 149, 33);
+
+        btnfirstMaterial.setBackground(new java.awt.Color(204, 204, 204));
+        btnfirstMaterial.setText("|<");
+        btnfirstMaterial.setBorderPainted(false);
+        btnfirstMaterial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnfirstMaterialActionPerformed(evt);
+            }
+        });
+        jPanel10.add(btnfirstMaterial);
+        btnfirstMaterial.setBounds(10, 130, 100, 30);
+
+        btnPrevMaterial.setBackground(new java.awt.Color(204, 204, 204));
+        btnPrevMaterial.setText("<<");
+        btnPrevMaterial.setBorderPainted(false);
+        btnPrevMaterial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrevMaterialActionPerformed(evt);
+            }
+        });
+        jPanel10.add(btnPrevMaterial);
+        btnPrevMaterial.setBounds(120, 130, 90, 30);
+
+        btnNextMaterial.setBackground(new java.awt.Color(204, 204, 204));
+        btnNextMaterial.setText(">>");
+        btnNextMaterial.setBorderPainted(false);
+        btnNextMaterial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNextMaterialActionPerformed(evt);
+            }
+        });
+        jPanel10.add(btnNextMaterial);
+        btnNextMaterial.setBounds(220, 130, 90, 30);
+
+        btnAddMaterial.setBackground(new java.awt.Color(204, 204, 204));
+        btnAddMaterial.setText("Thêm");
+        btnAddMaterial.setBorderPainted(false);
+        btnAddMaterial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddMaterialActionPerformed(evt);
+            }
+        });
+        jPanel10.add(btnAddMaterial);
+        btnAddMaterial.setBounds(10, 80, 100, 30);
+
+        btnUpdateMaterial.setBackground(new java.awt.Color(204, 204, 204));
+        btnUpdateMaterial.setText("Sửa");
+        btnUpdateMaterial.setBorderPainted(false);
+        btnUpdateMaterial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateMaterialActionPerformed(evt);
+            }
+        });
+        jPanel10.add(btnUpdateMaterial);
+        btnUpdateMaterial.setBounds(120, 80, 90, 30);
+
+        btnDeleteMaterial.setBackground(new java.awt.Color(204, 204, 204));
+        btnDeleteMaterial.setText("Xóa");
+        btnDeleteMaterial.setBorderPainted(false);
+        btnDeleteMaterial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteMaterialActionPerformed(evt);
+            }
+        });
+        jPanel10.add(btnDeleteMaterial);
+        btnDeleteMaterial.setBounds(320, 80, 90, 30);
+
+        btnLastMaterial.setBackground(new java.awt.Color(204, 204, 204));
+        btnLastMaterial.setText(">|");
+        btnLastMaterial.setBorderPainted(false);
+        btnLastMaterial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLastMaterialActionPerformed(evt);
+            }
+        });
+        jPanel10.add(btnLastMaterial);
+        btnLastMaterial.setBounds(320, 130, 90, 30);
+
+        btnNewMaterial.setBackground(new java.awt.Color(204, 204, 204));
+        btnNewMaterial.setText("Làm mới");
+        btnNewMaterial.setBorderPainted(false);
+        btnNewMaterial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewMaterialActionPerformed(evt);
+            }
+        });
+        jPanel10.add(btnNewMaterial);
+        btnNewMaterial.setBounds(220, 80, 90, 30);
+
+        tabMaterial.add(jPanel10);
+        jPanel10.setBounds(520, 20, 490, 180);
+
+        tableMaterial.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tableMaterial.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMaterialMouseClicked(evt);
+            }
+        });
+        JScrollPane.setViewportView(tableMaterial);
+
+        tabMaterial.add(JScrollPane);
+        JScrollPane.setBounds(10, 210, 1000, 410);
+
+        JTablePane.addTab("Material", tabMaterial);
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
@@ -552,7 +1029,7 @@ public class productAttributesView extends javax.swing.JPanel {
             .addGap(0, 685, Short.MAX_VALUE)
         );
 
-        btCategory.addTab("tab2", panelBorder1);
+        JTablePane.addTab("tab2", panelBorder1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -560,12 +1037,12 @@ public class productAttributesView extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 1036, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(JTablePane, javax.swing.GroupLayout.PREFERRED_SIZE, 1036, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btCategory)
+            .addComponent(JTablePane)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -589,10 +1066,6 @@ public class productAttributesView extends javax.swing.JPanel {
     private void txtCategoryIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCategoryIDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCategoryIDActionPerformed
-
-    private void txtCategoryDescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCategoryDescriptionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCategoryDescriptionActionPerformed
 
     private void txtCategoryName1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCategoryName1ActionPerformed
         // TODO add your handling code here:
@@ -667,38 +1140,501 @@ public class productAttributesView extends javax.swing.JPanel {
         seacher();
     }//GEN-LAST:event_btnThem1ActionPerformed
 
+    private void txtBrandIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBrandIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBrandIDActionPerformed
+
+    private void txtOriginBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOriginBrandActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtOriginBrandActionPerformed
+
+    private void txtBrandNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBrandNameActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_txtBrandNameActionPerformed
+
+    private void btnSeacherBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeacherBrandActionPerformed
+        // TODO add your handling code here:
+        seacherBrand();
+    }//GEN-LAST:event_btnSeacherBrandActionPerformed
+
+    private void txtSeacherBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSeacherBrandActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_txtSeacherBrandActionPerformed
+
+    private void btnfirstBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfirstBrandActionPerformed
+        // TODO add your handling code here:
+        firstBrand();
+    }//GEN-LAST:event_btnfirstBrandActionPerformed
+
+    private void btnPrevBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevBrandActionPerformed
+        // TODO add your handling code here:
+        prevBrand();
+    }//GEN-LAST:event_btnPrevBrandActionPerformed
+
+    private void btnNextBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextBrandActionPerformed
+        // TODO add your handling code here:
+        nextBrand();
+    }//GEN-LAST:event_btnNextBrandActionPerformed
+
+    private void btnAddBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddBrandActionPerformed
+        // TODO add your handling code here:
+        insertBrand();
+    }//GEN-LAST:event_btnAddBrandActionPerformed
+
+    private void btnUpdateBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateBrandActionPerformed
+        // TODO add your handling code here:
+        updateBrand();
+    }//GEN-LAST:event_btnUpdateBrandActionPerformed
+
+    private void btnDeleteBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteBrandActionPerformed
+        // TODO add your handling code here:
+        deleteBrand();
+
+    }//GEN-LAST:event_btnDeleteBrandActionPerformed
+
+    private void btnLastBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastBrandActionPerformed
+        // TODO add your handling code here:
+        lastBrand();
+    }//GEN-LAST:event_btnLastBrandActionPerformed
+
+    private void btnNewBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewBrandActionPerformed
+        // TODO add your handling code here:
+        clearFormBrand();
+    }//GEN-LAST:event_btnNewBrandActionPerformed
+
+    private void tableBrandMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBrandMouseClicked
+        // TODO add your handling code here:
+        row = tableBrand.getSelectedRow();
+        this.editBrand(row);
+//        tabs.setSelectedIndex(0);
+        System.out.println("lỏ" + row);
+    }//GEN-LAST:event_tableBrandMouseClicked
+
+    private void txtMaterialIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaterialIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMaterialIDActionPerformed
+
+    private void txtMaterialNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaterialNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMaterialNameActionPerformed
+
+    private void btnSeacherMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeacherMaterialActionPerformed
+        // TODO add your handling code here:
+        seacherMaterial();
+    }//GEN-LAST:event_btnSeacherMaterialActionPerformed
+
+    private void txtSeacherMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSeacherMaterialActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSeacherMaterialActionPerformed
+
+    private void btnfirstMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfirstMaterialActionPerformed
+        // TODO add your handling code here:
+        firstMateril();
+    }//GEN-LAST:event_btnfirstMaterialActionPerformed
+
+    private void btnPrevMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevMaterialActionPerformed
+        // TODO add your handling code here:
+        firstMateril();
+    }//GEN-LAST:event_btnPrevMaterialActionPerformed
+
+    private void btnNextMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextMaterialActionPerformed
+        // TODO add your handling code here:
+        nextMaterial();
+    }//GEN-LAST:event_btnNextMaterialActionPerformed
+
+    private void btnAddMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddMaterialActionPerformed
+        // TODO add your handling code here:
+        insertMaterial();
+    }//GEN-LAST:event_btnAddMaterialActionPerformed
+
+    private void btnUpdateMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateMaterialActionPerformed
+        // TODO add your handling code here:
+        updateMaterial();
+    }//GEN-LAST:event_btnUpdateMaterialActionPerformed
+
+    private void btnDeleteMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteMaterialActionPerformed
+        // TODO add your handling code here:
+        deleteMaterial();
+    }//GEN-LAST:event_btnDeleteMaterialActionPerformed
+
+    private void btnLastMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastMaterialActionPerformed
+        // TODO add your handling code here:
+        lastMaterial();
+    }//GEN-LAST:event_btnLastMaterialActionPerformed
+
+    private void btnNewMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewMaterialActionPerformed
+        // TODO add your handling code here:
+        clearFormMaterial();
+    }//GEN-LAST:event_btnNewMaterialActionPerformed
+
+    private void tableMaterialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMaterialMouseClicked
+        // TODO add your handling code here:
+        row = tableMaterial.getSelectedRow();
+        this.editMaterial(row);
+//        tabs.setSelectedIndex(0);
+        System.out.println("lỏ" + row);
+    }//GEN-LAST:event_tableMaterialMouseClicked
+
+    private void JTablePaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTablePaneMouseClicked
+        // TODO add your handling code here:
+        row = 0;  // rest 
+    }//GEN-LAST:event_JTablePaneMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CboSuperCategory;
-    private javax.swing.JTabbedPane btCategory;
+    private javax.swing.JScrollPane JScrollPane;
+    private javax.swing.JTabbedPane JTablePane;
+    private javax.swing.JButton btnAddBrand;
+    private javax.swing.JButton btnAddMaterial;
+    private javax.swing.JButton btnDeleteBrand;
+    private javax.swing.JButton btnDeleteMaterial;
     private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnLast;
+    private javax.swing.JButton btnLastBrand;
+    private javax.swing.JButton btnLastMaterial;
+    private javax.swing.JButton btnNewBrand;
+    private javax.swing.JButton btnNewMaterial;
     private javax.swing.JButton btnNext;
+    private javax.swing.JButton btnNextBrand;
+    private javax.swing.JButton btnNextMaterial;
     private javax.swing.JButton btnPrev;
+    private javax.swing.JButton btnPrevBrand;
+    private javax.swing.JButton btnPrevMaterial;
+    private javax.swing.JButton btnSeacherBrand;
+    private javax.swing.JButton btnSeacherMaterial;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnThem1;
+    private javax.swing.JButton btnUpdateBrand;
+    private javax.swing.JButton btnUpdateMaterial;
     private javax.swing.JButton btnXoa;
     private javax.swing.JButton btnfirst;
+    private javax.swing.JButton btnfirstBrand;
+    private javax.swing.JButton btnfirstMaterial;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextAreaDescription;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private java.awt.Label label2;
+    private javax.swing.JLabel lblBrandID;
+    private javax.swing.JLabel lblBrandID1;
+    private javax.swing.JLabel lblBrandName;
+    private javax.swing.JLabel lblBrandName1;
+    private javax.swing.JLabel lblDescriptionBrand;
+    private javax.swing.JLabel lblDescriptionBrand1;
+    private javax.swing.JLabel lblOriginBrand;
     private com.toystore.swing.PanelBorder panelBorder1;
     private javax.swing.JPanel pnButton;
     private com.toystore.swing.SearchText searchText1;
+    private javax.swing.JPanel tabBrand;
     private javax.swing.JPanel tabCategory;
+    private javax.swing.JPanel tabMaterial;
     private com.toystore.swing.Table table;
+    private com.toystore.swing.Table tableBrand;
     private javax.swing.JScrollPane tableCategory;
-    private javax.swing.JTextField txtCategoryDescription;
+    private javax.swing.JScrollPane tableCategory1;
+    private com.toystore.swing.Table tableMaterial;
+    private javax.swing.JTextField txtBrandID;
+    private javax.swing.JTextField txtBrandName;
+    private javax.swing.JTextArea txtCategoryDescription;
     private javax.swing.JTextField txtCategoryID;
     private javax.swing.JTextField txtCategoryName1;
+    private javax.swing.JTextArea txtDescriptionBrand;
+    private javax.swing.JTextArea txtMaterialDescription;
+    private javax.swing.JTextField txtMaterialID;
+    private javax.swing.JTextField txtMaterialName;
+    private javax.swing.JTextField txtOriginBrand;
+    private com.toystore.swing.SearchText txtSeacherBrand;
+    private com.toystore.swing.SearchText txtSeacherMaterial;
     // End of variables declaration//GEN-END:variables
+   void fillTableBrand(List<Brand> brandList) {
+        DefaultTableModel model = new DefaultTableModel(row, 0);
+        model.setRowCount(0);
+        model.setColumnIdentifiers(new Object[]{"ID", "Name Brand", "Origin Brand", "Descriptions"});
+        tableBrand.setModel(model);
+        for (Brand brand : brandList) {
+            model.addRow(new Object[]{brand.getBrandId(),
+                brand.getName(),
+                brand.getOriginBrand(),
+                brand.getDescription(), //                StatusType.PENDING
+        });
+        }
+        tableBrand.setModel(model);
+    }
+
+    void setFormBrand(Brand brand) {
+        txtBrandID.setText(String.valueOf(brand.getBrandId()));
+        txtBrandName.setText(brand.getName());
+        txtOriginBrand.setText(brand.getOriginBrand());
+        txtDescriptionBrand.setText(brand.getDescription());
+
+    }
+
+    Brand getFormBrand() {
+        Brand brand = new Brand();
+        brand.setBrandId(Integer.parseInt(txtBrandID.getText()));
+        brand.setName(txtBrandName.getText());
+        brand.setOriginBrand(txtOriginBrand.getText());
+        brand.setDescription(txtDescriptionBrand.getText());
+        return brand;
+    }
+
+    void insertBrand() {
+        try {
+            Brand brand = getFormBrand();
+            System.out.println("name category: " + brand.getName());
+            System.out.println("name category descriptions: " + brand.getDescription());
+            System.out.println("name category descriptions: " + brand.getOriginBrand());
+            brandDAO.insertBrand(brand);
+            MsgBox.alert(null, "Thêm sản phẩm  Thành Công !");
+            brandList = brandDAO.findAll();
+            fillTableBrand(brandList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            MsgBox.alert(null, "Thêm sản phẩm Thất Bại !");
+        }
+    }
+
+    void updateBrand() {
+        try {
+            brandDAO.updateBrand(getFormBrand());
+            MsgBox.alert(null, "Cập nhật sản phẩm Thành Công !");
+            brandList = brandDAO.findAll();
+            fillTableBrand(brandList);
+        } catch (Exception e) {
+            MsgBox.alert(null, "Cập nhật sản phẩm Thất Bại !");
+        }
+    }
+
+    void deleteBrand() {
+        try {
+            int brandID = Integer.parseInt(txtBrandID.getText());
+            brandDAO.deleteBrand(brandID);
+            clearFormBrand();
+            MsgBox.alert(null, "Xóa sản phẩm Thành Công !");
+            brandList = brandDAO.findAll();
+            fillTableBrand(brandList);
+        } catch (Exception e) {
+            MsgBox.alert(null, "Xóa sản phẩm Thất Bại !");
+        }
+    }
+
+    void seacherBrand() {
+        String input = txtSeacherBrand.getText().trim(); // Lấy giá trị nhập vào và loại bỏ khoảng trắng
+        if (input.isEmpty()) {
+            MsgBox.alert(null, "Vui lòng nhập mã brand!");
+            return;
+        }
+        if (!input.matches("\\d+")) { // Kiểm tra xem input có phải là số không
+            MsgBox.alert(null, "Mã brand phải là số!");
+            return;
+        }
+        try {
+            int MSP = Integer.parseInt(input); // Chuyển chuỗi thành số nguyên
+            Brand brand = brandDAO.findById(MSP);
+            if (brand != null) {
+                setFormBrand(brand);
+            } else {
+                MsgBox.alert(null, "Không tìm thấy brand với mã: " + MSP);
+            }
+        } catch (NumberFormatException e) {
+            MsgBox.alert(null, "Lỗi chuyển đổi số! Vui lòng nhập mã hợp lệ.");
+        }
+    }
+
+    void clearFormBrand() {
+        Brand brand = new Brand();
+        this.setFormBrand(brand);
+//        fillCombobox();
+        this.row = -1;
+        txtBrandID.setBackground(null);
+        txtBrandName.setBackground(null);
+        txtOriginBrand.setBackground(null);
+        txtDescriptionBrand.setBackground(null);
+
+    }
+
+    void firstBrand() {
+        this.row = 0;
+        this.editBrand(row);
+    }
+
+    void nextBrand() {
+        if (this.row > table.getRowCount() - 2) {
+            return;
+        } else {
+            this.row++;
+            this.editBrand(row);
+        }
+    }
+
+    void prevBrand() {
+        if (this.row < 1) {
+            return;
+        } else {
+            this.row--;
+            this.editBrand(row);
+        }
+    }
+
+    void editBrand(int index) {
+        Brand kh = brandList.get(index);
+        setFormBrand(kh);
+    }
+
+    void lastBrand() {
+        this.row = table.getRowCount() - 1;
+        this.editBrand(row);
+    }
+
+    List<Material> materialList = new ArrayList<>();
+    MaterialDAO materialDAO = new MaterialDAO();
+
+    void fillTableMaterial(List<Material> material) {
+        DefaultTableModel model = new DefaultTableModel(row, 0);
+        model.setRowCount(0);
+        model.setColumnIdentifiers(new Object[]{"ID", "Name Material", "Descriptions"});
+        tableMaterial.setModel(model);
+        for (Material material1 : material) {
+            model.addRow(new Object[]{material1.getMaterialId(),
+                material1.getName(),
+                material1.getDescription(), //                StatusType.PENDING
+        });
+        }
+        tableMaterial.setModel(model);
+    }
+
+    void setFormMaterial(Material material) {
+        txtMaterialID.setText(String.valueOf(material.getMaterialId()));
+        txtMaterialName.setText(material.getName());
+        txtMaterialDescription.setText(material.getDescription());
+
+    }
+
+    Material getFormMaterial() {
+        Material material = new Material();
+        material.setMaterialId(Integer.parseInt(txtMaterialID.getText()));
+        material.setName(txtMaterialName.getText());
+        material.setDescription(txtMaterialDescription.getText());
+        return material;
+    }
+
+    void insertMaterial() {
+        try {
+            Material material = getFormMaterial();
+            System.out.println("name category: " + material.getName());
+            System.out.println("name category descriptions: " + material.getDescription());
+            materialDAO.insertMaterial(material);
+            MsgBox.alert(null, "Thêm sản phẩm  Thành Công !");
+            materialList = materialDAO.findAll();
+            fillTableMaterial(materialList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            MsgBox.alert(null, "Thêm sản phẩm Thất Bại !");
+        }
+    }
+
+    void updateMaterial() {
+        try {
+            materialDAO.updateMaterial(getFormMaterial());
+            MsgBox.alert(null, "Cập nhật sản phẩm Thành Công !");
+            materialList = materialDAO.findAll();
+            fillTableMaterial(materialList);
+        } catch (Exception e) {
+            MsgBox.alert(null, "Cập nhật sản phẩm Thất Bại !");
+        }
+    }
+
+    void deleteMaterial() {
+        try {
+            int MaterialID = Integer.parseInt(txtMaterialID.getText());
+            materialDAO.deleteMaterial(MaterialID);
+            clearFormBrand();
+            MsgBox.alert(null, "Xóa sản phẩm Thành Công !");
+            materialList = materialDAO.findAll();
+            fillTableMaterial(materialList);
+        } catch (Exception e) {
+            MsgBox.alert(null, "Xóa sản phẩm Thất Bại !");
+        }
+    }
+
+    void seacherMaterial() {
+        String input = txtSeacherMaterial.getText().trim(); // Lấy giá trị nhập vào và loại bỏ khoảng trắng
+        if (input.isEmpty()) {
+            MsgBox.alert(null, "Vui lòng nhập mã Material!");
+            return;
+        }
+        if (!input.matches("\\d+")) { // Kiểm tra xem input có phải là số không
+            MsgBox.alert(null, "Mã material phải là số!");
+            return;
+        }
+        try {
+            int materialID = Integer.parseInt(input); // Chuyển chuỗi thành số nguyên
+            Material material = materialDAO.findById(materialID);
+            if (material != null) {
+                setFormMaterial(material);
+            } else {
+                MsgBox.alert(null, "Không tìm thấy brand với mã: " + materialID);
+            }
+        } catch (NumberFormatException e) {
+            MsgBox.alert(null, "Lỗi chuyển đổi số! Vui lòng nhập mã hợp lệ.");
+        }
+    }
+
+    void clearFormMaterial() {
+        Material material = new Material();
+        this.setFormMaterial(material);
+        this.row = -1;
+        txtMaterialID.setBackground(null);
+        txtMaterialName.setBackground(null);
+        txtMaterialDescription.setBackground(null);
+
+    }
+
+    void firstMateril() {
+        this.row = 0;
+        this.editMaterial(row);
+    }
+
+    void nextMaterial() {
+        if (this.row > tableMaterial.getRowCount() - 2) {
+            return;
+        } else {
+            this.row++;
+            this.editMaterial(row);
+        }
+    }
+
+    void prevMaterial() {
+        if (this.row < 1) {
+            return;
+        } else {
+            this.row--;
+            this.editMaterial(row);
+        }
+    }
+
+    void editMaterial(int index) {
+        Material material = materialList.get(index);
+        setFormMaterial(material);
+    }
+
+    void lastMaterial() {
+        this.row = tableMaterial.getRowCount() - 1;
+        this.editMaterial(row);
+    }
 }

@@ -1,5 +1,6 @@
 package com.toystore.model;
 
+import java.io.File;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
@@ -43,7 +44,9 @@ public class Model_Menu {
     private MenuType type;
 
     public Icon toIcon() {
+
         return new ImageIcon(getClass().getResource("/com/toystore/icon/" + icon + ".png"));
+
     }
 
     public static enum MenuType {

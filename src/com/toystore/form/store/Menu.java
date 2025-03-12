@@ -472,7 +472,6 @@ public class Menu extends javax.swing.JPanel {
         jPanel7.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 590, 96, 40));
 
         btnInHoaDon.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnInHoaDon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/toystore/icon/icons8-print-25.png"))); // NOI18N
         btnInHoaDon.setText("In hóa đơn");
         btnInHoaDon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
