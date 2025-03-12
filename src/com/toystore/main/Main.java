@@ -92,7 +92,11 @@ public class Main extends javax.swing.JFrame {
                 } else if (index == 2) {
                     setForm(form2);
                 } else if (index == 3) {
-                    setForm(pView); // view product
+                    if (Auth.isLogin()) {// if (Auth.isManager()) {
+                        setForm(pView); // view product
+                    } else {
+                        MsgBox.alert(null, "bạn không có quyền thao tác !");
+                    }
                 } else if (index == 4) {
                     setForm(form4);
                 } else if (index == 5) {

@@ -152,9 +152,10 @@ public class Menu extends javax.swing.JPanel {
         ((Item) item).setSelected(true);
     }
 
-    public void fillpanelItem() {
+    public void fillpanelItem(List<product> list) {
         productDao = new productDAO();
         listSP = productDao.getAllProducts();
+        Collections.reverse(listSP);  // Đảo ngược danh sách sản phẩm
         for (product p : listSP) {
             addItem(p);
             System.out.println("fillpanelItem :" + p.getName());
@@ -346,6 +347,8 @@ public class Menu extends javax.swing.JPanel {
 
         jPanel7.setBackground(new java.awt.Color(153, 204, 255));
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jScrollPane4.setBackground(new java.awt.Color(255, 255, 255));
 
         tblHoaDon.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         tblHoaDon.setModel(new javax.swing.table.DefaultTableModel(
@@ -843,7 +846,7 @@ public class Menu extends javax.swing.JPanel {
     public void init() {
 //        fillComBoBoxLoaiSP();
 //        fillToTableHoaDon();
-        fillpanelItem();
+        fillpanelItem(listSP);
         rdoTienMat.setSelected(true);
         txtTienSP.setEditable(false);
         txtTienThua.setEditable(false);
