@@ -6,8 +6,10 @@ package com.toystore.form;
 
 //import jdk.jshell.tool.JavaShellToolBuilder
 import com.toystore.dao.NhanVienDao;
+import com.toystore.dao.store.AccountDAO;
 import com.toystore.main.Main;
 import com.toystore.model.NhanVien;
+import com.toystore.model.store.Account;
 import com.toystore.utils.Auth;
 import com.toystore.utils.MsgBox;
 import com.toystore.utils.XImage;
@@ -24,6 +26,7 @@ public class Login extends javax.swing.JFrame {
 
     NhanVienDao nvdao = new NhanVienDao() {
     };
+    AccountDAO accountDAO = new AccountDAO();
 //     NhanVien nv = new NhanVien();
 
     /**
@@ -32,7 +35,35 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         setLocationRelativeTo(this);
-            setIconImage(XImage.getAppicon());
+        setIconImage(XImage.getAppicon());
+    }
+
+    public void DangNhap1() {
+        if (checkFrom()) {
+            String manv = txtUserName.getText();
+//            String matKhau = new String(txtPassword.getPassword());
+            String matKhau = new String(Auth.hashPassword(txtPassword.getText()));
+            Account nhanVien = accountDAO.findById(Integer.parseInt(manv));
+            if (nhanVien == null) {
+                txtUserName.requestFocus();
+                txtUserName.setBackground(Color.red);
+                MsgBox.alert(this, "Sai tên đăng nhập !");
+            } else if (!matKhau.equals(nhanVien.getPassword())) {
+                txtPassword.requestFocus();
+                txtPassword.setBackground(null);
+                txtPassword.setBackground(Color.red);
+                MsgBox.alert(this, "Sai mật khẩu !");
+            } else {
+                MsgBox.alert(this, "Đăng nhập thành công !");
+
+                Auth.account = nhanVien;
+//           new QuanLy.QuanLyNhanVien().setVisible(true);
+//                new quanlydaotao.mainEduSys().setVisible(true);
+                new Main().setVisible(true);
+//                this.dispose();
+                this.dispose();
+            }
+        }
     }
 
     public void DangNhap() {
@@ -338,7 +369,8 @@ public class Login extends javax.swing.JFrame {
 //            MsgBox.alert(this, "Không được để trống tên đăng nhập.");
 //        }
 
-        DangNhap();
+//        DangNhap();
+        DangNhap1();
 
 //        Main MainFrame = new Main();
 //                MainFrame.setVisible(true);

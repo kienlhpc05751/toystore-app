@@ -23,8 +23,10 @@ import com.toystore.component.Item;
 import com.toystore.dao.store.productDAO;
 import com.toystore.event.EventItem;
 import com.toystore.model.store.product;
+import com.toystore.utils.MsgBox;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
@@ -115,6 +117,7 @@ public class Menu extends javax.swing.JPanel {
         initComponents();
 //        scroll1.setVerticalScrollBar(new ScrollBar());
         init();
+        fillToTable();
 
 //        loadData();
     }
@@ -129,17 +132,72 @@ public class Menu extends javax.swing.JPanel {
     public void addItem(product data) {
         Item item = new Item();
         item.setData(data);
+
+        // Thêm sự kiện click chuột vào item
         item.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent me) {
                 if (SwingUtilities.isLeftMouseButton(me)) {
-                    event.itemClick(item, data);
+                    if (event != null) {
+                        event.itemClick(item, data);  // Gọi sự kiện itemClick
+                    } else {
+                        System.out.println("EventItem chưa được thiết lập!");
+                    }
                 }
             }
         });
+
         panelItem1.add(item);
         panelItem1.repaint();
         panelItem1.revalidate();
+    }
+
+//        item.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mousePressed(MouseEvent me) {
+//                if (SwingUtilities.isLeftMouseButton(me)) {
+//                    event.itemClick(item, data);
+//                }
+//            }
+//        });
+    public void fillpanelItem(List<product> list) {
+        productDao = new productDAO();
+        listSP = productDao.getAllProducts();
+        Collections.reverse(listSP);  // Đảo ngược danh sách sản phẩm
+        setEvent(new EventItem() {
+            @Override
+            public void itemClick(Component com, product item) {
+                itemSelected = item;
+                System.out.println("Name" + item.getName()); // 
+                MsgBox.alert(null, "CC" + item.getName());
+//                fillToTable(item);
+            }
+        });
+        for (product p : listSP) {
+            addItem(p);
+            System.out.println("fillpanelItem :" + p.getName());
+        }
+    }
+    Object[] hoadon = {};
+
+    public void fillToTable() {
+        String row[] = {"Tên sản phẩm", "Giá", "số lượng", "Tổng Tiền"};
+        DefaultTableModel modelTbl = new DefaultTableModel();
+        modelTbl.setRowCount(0);
+        int quantity = 2;
+        listSP = productDao.findAll();
+        for (product li : listSP) {
+            System.out.println("ma:" + li.getName());
+            modelTbl.addRow(new Object[]{
+                li.getName(),
+                li.getPrice(),
+                quantity,
+                li.getPrice() * quantity
+            });
+
+        }
+        tblHoaDon.setModel(modelTbl);
+
     }
 
     public void setSelected(Component item) {
@@ -150,16 +208,6 @@ public class Menu extends javax.swing.JPanel {
             }
         }
         ((Item) item).setSelected(true);
-    }
-
-    public void fillpanelItem(List<product> list) {
-        productDao = new productDAO();
-        listSP = productDao.getAllProducts();
-        Collections.reverse(listSP);  // Đảo ngược danh sách sản phẩm
-        for (product p : listSP) {
-            addItem(p);
-            System.out.println("fillpanelItem :" + p.getName());
-        }
     }
 
 //    public void showItem(ModelItem data) {
@@ -173,6 +221,41 @@ public class Menu extends javax.swing.JPanel {
         Point p = scroll1.getLocation();
         return new Point(p.x, p.y - scroll1.getViewport().getViewPosition().y);
     }
+    productDAO productDao;
+    List<product> listSP = new ArrayList<>();
+
+    public void fillPanelSP() throws SQLException {
+        listSP = productDao.getAllProducts();
+        panelItem1.removeAll();
+//        testData();
+    }
+
+    public void init() {
+//        fillComBoBoxLoaiSP();
+//        fillToTableHoaDon();
+        fillpanelItem(listSP);
+        rdoTienMat.setSelected(true);
+        txtTienSP.setEditable(false);
+        txtTienThua.setEditable(false);
+        txtChiPhiKhac.setText("0");
+        txtTienNhan.setText("0");
+        txtTienSP.setText("0");
+        lblTongTien.setText("0 ");
+        txtTienThua.setText("0");
+        lblThongBaoTienNhan.setVisible(false);
+        lblThongBaoPhi.setVisible(false);
+        lblvoucher.setVisible(false);
+        lblGiaTriVC.setVisible(false);
+    }
+
+//    public void loadData() {
+//        listSP = SPDao.selectAll();
+//        mnuPopXoa.setText("Xóa sản phẩm");
+//        mnuPopRemoveAll.setText("Xóa tất cả");
+//
+//        // Tạo một DefaultCellEditor để chứa JSpinner
+//    }
+    private product itemSelected;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -843,93 +926,63 @@ public class Menu extends javax.swing.JPanel {
     private javax.swing.JTextField txtTienThua;
     // End of variables declaration//GEN-END:variables
 
-    public void init() {
-//        fillComBoBoxLoaiSP();
-//        fillToTableHoaDon();
-        fillpanelItem(listSP);
-        rdoTienMat.setSelected(true);
-        txtTienSP.setEditable(false);
-        txtTienThua.setEditable(false);
-        txtChiPhiKhac.setText("0");
-        txtTienNhan.setText("0");
-        txtTienSP.setText("0");
-        lblTongTien.setText("0 ");
-        txtTienThua.setText("0");
-        lblThongBaoTienNhan.setVisible(false);
-        lblThongBaoPhi.setVisible(false);
-        lblvoucher.setVisible(false);
-        lblGiaTriVC.setVisible(false);
-    }
-
-//    public void loadData() {
-//        listSP = SPDao.selectAll();
-//        mnuPopXoa.setText("Xóa sản phẩm");
-//        mnuPopRemoveAll.setText("Xóa tất cả");
+//    public void testData() {
 //
-//        // Tạo một DefaultCellEditor để chứa JSpinner
-//    }
-    private product itemSelected;
-
-    public void testData() {
-
-        setEvent(new EventItem() {
-            @Override
-            public void itemClick(Component com, product item) {
+//        setEvent(new EventItem() {
+//            @Override
+//            public void itemClick(Component com, product item) {
+//
+//                System.out.println("This is event item click!");
 //                if (itemSelected != null) {
 //                    //        mainPanel.setImageOld(itemSelected.getImage());
 //                }
 //                if (itemSelected != item) {
-                //         if (!animator.isRunning()) {
-                itemSelected = item;
-                //         animatePoint = getLocationOf(com);
+    //         if (!animator.isRunning()) {
+//                itemSelected = item;
+    //         animatePoint = getLocationOf(com);
 //                    mainPanel.setImage(item.getImage());
 //                    //        mainPanel.setImageLocation(animatePoint);
 //                    mainPanel.setImageSize(new Dimension(180, 120));
 //                    mainPanel.repaint();
-                setSelected(com);
+//                setSelected(com);
 //                    JOptionPane.showMessageDialog(null, "" + item.getMaSP() + " " + item.getTenSP());
-                if (!checkselected) {
+//                if (!checkselected) {
 //                    cleadTable();
 //                    moForm();
-                    checkselected = true;
-                }
+//                    checkselected = true;
+//                }
 //                if (checkSP(item)) {
 //                    fillToTable(item);
 //                }
-
-                //home.showItem(item);
-                //     animator.start();
-                //    }
-                //}
-            }
-        });
-        for (product p : listSP) {
-            if (p.isStatus()) {
-                addItem(new product(
-                        p.getProductId(),
-                        p.getCategoryId(),
-                        p.getBrandId(),
-                        p.getAgeId(),
-                        p.getMaterialId(),
-                        p.getName(),
-                        p.getPrice(),
-                        p.getOriginalPrice(),
-                        p.getCreatedAt(),
-                        p.isStatus(),
-                        p.getDescription(),
-                        p.isSex(),
-                        p.getImage(),
-                        p.getQuantity(),
-                        p.getBarcode(),
-                        p.getUrlBarcode()
-                ));
-            }
-        }
-    }
-
-    public void fillToTable(product sanPham) {
-    }
-
+    //home.showItem(item);
+    //     animator.start();
+    //    }
+    //}
+//            }
+//        });
+//        for (product p : listSP) {
+//            if (p.isStatus()) {
+//                addItem(new product(
+//                        p.getProductId(),
+//                        p.getCategoryId(),
+//                        p.getBrandId(),
+//                        p.getAgeId(),
+//                        p.getMaterialId(),
+//                        p.getName(),
+//                        p.getPrice(),
+//                        p.getOriginalPrice(),
+//                        p.getCreatedAt(),
+//                        p.isStatus(),
+//                        p.getDescription(),
+//                        p.isSex(),
+//                        p.getImage(),
+//                        p.getQuantity(),
+//                        p.getBarcode(),
+//                        p.getUrlBarcode()
+//                ));
+//            }
+//        }
+//    }
 //    public void fillToTable(SanPham sanPham) {
 //        String giaFD = "";
 //        model = (DefaultTableModel) tblHoaDon.getModel();
@@ -1213,14 +1266,6 @@ public class Menu extends javax.swing.JPanel {
 //        }
 //    }
 //
-    productDAO productDao;
-    List<product> listSP = new ArrayList<>();
-
-    public void fillPanelSP() throws SQLException {
-        listSP = productDao.getAllProducts();
-        panelItem1.removeAll();
-        testData();
-    }
 //
 //    public void SearchProduct() {
 //        listSP = SPDao.selectByKeywordProduct(txtSearch.getText());

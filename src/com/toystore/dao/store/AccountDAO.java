@@ -14,6 +14,7 @@ import java.util.List;
  * @author Asus
  */
 public class AccountDAO extends BaseDAO<Account, Integer> {
+
     @Override
     public String getTableName() {
         return "account";
@@ -27,23 +28,53 @@ public class AccountDAO extends BaseDAO<Account, Integer> {
     @Override
     public Account mapResultSetToObject(ResultSet rs) throws SQLException {
         return new Account(
-            rs.getInt("accountId"),
-            rs.getString("username"),
-            rs.getString("password"),
-            rs.getString("email"),
-            rs.getInt("roleId"),
-            rs.getBoolean("status")
+                rs.getInt("accountId"),
+                rs.getInt("RoleID"),
+                rs.getString("username"),
+                rs.getString("fullname"),
+                rs.getString("PhoneNumber"),
+                rs.getString("image"),
+                rs.getString("email"),
+                rs.getString("password"),
+                rs.getString("address"),
+                rs.getBoolean("IsDelete"),
+                rs.getDate("birthday")
         );
     }
 
     public boolean insertAccount(Account account) {
-        String query = "INSERT INTO account (username, password, email, roleId, status) VALUES (?, ?, ?, ?, ?)";
-        return insert(query, account.getUsername(), account.getPassword(), account.getEmail(), account.getRoleId(), account.isIsDeleted());
+        String query = "INSERT INTO account (username, password, email, roleId, IsDelete, fullname, phoneNumber, image, address, birthday) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        return insert(query,
+                account.getUsername(),
+                account.getPassword(),
+                account.getEmail(),
+                account.getRoleId(),
+                account.isIsDeleted(),
+                account.getFullname(),
+                account.getPhoneNumber(),
+                account.getImage(),
+                account.getAddress(),
+                account.getBirthday()
+        );
     }
 
     public boolean updateAccount(Account account) {
-        String query = "UPDATE account SET username=?, password=?, email=?, roleId=?, status=? WHERE accountId=?";
-        return update(query, account.getUsername(), account.getPassword(), account.getEmail(), account.getRoleId(), account.isIsDeleted(), account.getAccountId());
+        String query = "UPDATE account SET username=?, password=?, email=?, roleId=?, IsDelete=?, fullname=?, phoneNumber=?, image=?, address=?, birthday=? "
+                + "WHERE accountId=?";
+        return update(query,
+                account.getUsername(),
+                account.getPassword(),
+                account.getEmail(),
+                account.getRoleId(),
+                account.isIsDeleted(),
+                account.getFullname(),
+                account.getPhoneNumber(),
+                account.getImage(),
+                account.getAddress(),
+                account.getBirthday(),
+                account.getAccountId()
+        );
     }
 
     public boolean deleteAccount(int accountId) {
@@ -58,5 +89,3 @@ public class AccountDAO extends BaseDAO<Account, Integer> {
         return findAll();
     }
 }
-
-

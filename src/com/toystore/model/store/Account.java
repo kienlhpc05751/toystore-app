@@ -4,6 +4,8 @@
  */
 package com.toystore.model.store;
 
+import java.util.Date;
+
 /**
  *
  * @author Asus
@@ -13,26 +15,47 @@ public class Account {
     public int accountId;
     public int roleId;
     public String username;
+    public String fullname;
     public String phoneNumber;
     public String image;
     public String email;
     public String password;
     public String address;
     public boolean isDeleted;
+    public Date birthday;
 
-    public Account() {
-    }
-
-    public Account(int accountId, String username, String phoneNumber, String image, int roleId, boolean isDeleted) {
+    public Account(int accountId, int roleId, String username, String fullname, String phoneNumber, String image, String email, String password, String address, boolean isDeleted, Date birthday) {
         this.accountId = accountId;
         this.roleId = roleId;
         this.username = username;
+        this.fullname = fullname;
         this.phoneNumber = phoneNumber;
         this.image = image;
         this.email = email;
         this.password = password;
         this.address = address;
         this.isDeleted = isDeleted;
+        this.birthday = birthday;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    
+    public Account() {
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
     public int getAccountId() {

@@ -20,6 +20,7 @@ import com.toystore.form.store.Menu;
 import com.toystore.form.store.categoryView;
 import com.toystore.form.store.productAttributesView;
 import com.toystore.form.store.productView;
+import com.toystore.form.store.staffView;
 import com.toystore.utils.Auth;
 import com.toystore.utils.XImage;
 import com.toystore.utils.MsgBox;
@@ -45,6 +46,7 @@ public class Main extends javax.swing.JFrame {
     private productView pView;
     private categoryView cView;
     private productAttributesView prAView;
+    private staffView stView;
 //    private POSPanel oSPanel;
 //    private 
 //    private pOSPanel;
@@ -79,7 +81,7 @@ public class Main extends javax.swing.JFrame {
         pView = new productView();
         cView = new categoryView();
         prAView = new productAttributesView();
-
+        stView = new staffView();
 //       fa = new NewJFrame();
         menu.initMoving(Main.this);
         menu.addEventMenuSelected(new EventMenuSelected() {
@@ -98,7 +100,7 @@ public class Main extends javax.swing.JFrame {
                         MsgBox.alert(null, "bạn không có quyền thao tác !");
                     }
                 } else if (index == 4) {
-                    setForm(form4);
+                    setForm(stView);// form 4 this is from staff
                 } else if (index == 5) {
                     setForm(posMenu);  // pos menu view
                 } else if (index == 6) {

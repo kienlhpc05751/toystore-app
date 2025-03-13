@@ -10,8 +10,11 @@ public class Header1 extends javax.swing.JPanel {
     public Header1() {
         initComponents();
         setOpaque(false);
-        String tenNV = Auth.user.getTenNV(); 
-        lblnhanvien.setText("("+Auth.user.getMaNV()+")"+ tenNV);
+//        String tenNV = Auth.user.getTenNV(); 
+//        lblnhanvien.setText("("+Auth.user.getMaNV()+")"+ tenNV);
+
+        String tenNV = Auth.account.getUsername();
+        lblnhanvien.setText("(" + Auth.account.getRoleId()+ ")" + tenNV);
 
     }
 
