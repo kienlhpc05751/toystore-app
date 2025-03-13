@@ -58,4 +58,9 @@ public class CategoryDAO extends BaseDAO<Category, Integer> {
         return findAll();
     }
 
+    @Override
+    public List<String> validColumns() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

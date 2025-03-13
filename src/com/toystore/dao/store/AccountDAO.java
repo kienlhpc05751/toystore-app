@@ -88,4 +88,9 @@ public class AccountDAO extends BaseDAO<Account, Integer> {
     public List<Account> getAllAccounts() {
         return findAll();
     }
+
+    @Override
+    public List<String> validColumns() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

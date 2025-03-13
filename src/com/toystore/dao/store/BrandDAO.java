@@ -55,5 +55,10 @@ public class BrandDAO extends BaseDAO<Brand, Integer> {
     public List<Brand> getAllBrands() {
         return findAll();
     }
+
+    @Override
+    public List<String> validColumns() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
 

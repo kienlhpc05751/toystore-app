@@ -51,5 +51,10 @@ public class AgeDAO extends BaseDAO<Age,Integer>{
     public List<Age> getAllAges() {
         return findAll();
     }
+
+    @Override
+    public List<String> validColumns() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }

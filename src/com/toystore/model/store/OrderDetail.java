@@ -9,6 +9,7 @@ package com.toystore.model.store;
  * @author Asus
  */
 public class OrderDetail {
+
     public int orderDetailId;
     public int orderId;
     public int productId;
@@ -17,6 +18,13 @@ public class OrderDetail {
     public double discount;
 
     public OrderDetail() {
+    }
+
+    public OrderDetail(int productId) {
+        this.productId = productId;
+        this.quantity = 1;
+        this.unitPrice = 0;
+        this.discount = 0;
     }
 
     public OrderDetail(int orderDetailId, int orderId, int productId, int quantity, double unitPrice, double discount) {
@@ -75,6 +83,5 @@ public class OrderDetail {
     public void setDiscount(double discount) {
         this.discount = discount;
     }
-   
-    
+
 }

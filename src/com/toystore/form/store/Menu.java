@@ -22,6 +22,8 @@ package com.toystore.form.store;
 import com.toystore.component.Item;
 import com.toystore.dao.store.productDAO;
 import com.toystore.event.EventItem;
+import com.toystore.model.store.Order;
+import com.toystore.model.store.OrderDetail;
 import com.toystore.model.store.product;
 import com.toystore.utils.MsgBox;
 import java.awt.Color;
@@ -117,9 +119,9 @@ public class Menu extends javax.swing.JPanel {
         initComponents();
 //        scroll1.setVerticalScrollBar(new ScrollBar());
         init();
-        fillToTable();
-
-//        loadData();
+//        fillToTableHoaDon(listSP);s
+        fillpanelItem(listSP);
+        fillToTableHoaDon(orderDetails);
     }
 
     public void setEvent(EventItem event) {
@@ -131,75 +133,123 @@ public class Menu extends javax.swing.JPanel {
 
     public void addItem(product data) {
         Item item = new Item();
-        item.setData(data);
-
-        // Thêm sự kiện click chuột vào item
-        item.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent me) {
-                if (SwingUtilities.isLeftMouseButton(me)) {
-                    if (event != null) {
-                        event.itemClick(item, data);  // Gọi sự kiện itemClick
-                    } else {
-                        System.out.println("EventItem chưa được thiết lập!");
+        if (data != null) {
+            item.setData(data);
+            // Thêm sự kiện click chuột vào item
+            item.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent me) {
+                    if (SwingUtilities.isLeftMouseButton(me)) {
+                        if (event != null) {
+                            event.itemClick(item, data);  // Gọi sự kiện itemClick
+                        } else {
+                            System.out.println("EventItem chưa được thiết lập!");
+                        }
                     }
                 }
-            }
-        });
+            });
+            panelItem1.add(item);
+            panelItem1.repaint();
+            panelItem1.revalidate();
+        } else {
+//            MsgBox.alert(null, "");
+            System.out.println(" list product null");
+        }
 
-        panelItem1.add(item);
-        panelItem1.repaint();
-        panelItem1.revalidate();
     }
+    List<OrderDetail> orderDetails = new ArrayList<>();
+    List<Order> orderList = new ArrayList<>();
 
-//        item.addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mousePressed(MouseEvent me) {
-//                if (SwingUtilities.isLeftMouseButton(me)) {
-//                    event.itemClick(item, data);
-//                }
-//            }
-//        });
     public void fillpanelItem(List<product> list) {
+        panelItem1.removeAll();  // Xóa tất cả các item cũ trong panel
+        panelItem1.revalidate(); // Cập nhật lại giao diện
+        panelItem1.repaint();
         productDao = new productDAO();
-        listSP = productDao.getAllProducts();
-        Collections.reverse(listSP);  // Đảo ngược danh sách sản phẩm
+//        listSP = productDao.getAllProducts();
+        Collections.reverse(list);  // Đảo ngược danh sách sản phẩm
         setEvent(new EventItem() {
             @Override
             public void itemClick(Component com, product item) {
                 itemSelected = item;
-                System.out.println("Name" + item.getName()); // 
-                MsgBox.alert(null, "CC" + item.getName());
-//                fillToTable(item);
+                System.out.println("Tên sản phẩm: " + item.getName());
+                boolean found = false;
+                for (OrderDetail orderDetail : orderDetails) {
+                    if (orderDetail.getProductId() == item.getProductId()) {
+                        if (item.getQuantity() >= orderDetail.quantity) {
+                            orderDetail.setQuantity(orderDetail.getQuantity() + 1);
+                            found = true;
+                            break;
+                        } else {
+                            MsgBox.alert(null, "Sản Phẩm" + item.getName() + " đã tới số lượng giới hạng!");
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+                if (!found) {
+                    OrderDetail detail = new OrderDetail();
+                    detail.productId = item.getProductId();
+                    detail.quantity = 1;  // Mặc định số lượng là 1
+                    detail.unitPrice = item.getPrice();
+                    orderDetails.add(detail);
+                }
+                fillToTableHoaDon(orderDetails);
             }
         });
-        for (product p : listSP) {
+
+        for (product p : list) {
             addItem(p);
-            System.out.println("fillpanelItem :" + p.getName());
+//            System.out.println("Sản phẩm được thêm vào panel: " + p.getName());
         }
+
     }
+
     Object[] hoadon = {};
 
-    public void fillToTable() {
-        String row[] = {"Tên sản phẩm", "Giá", "số lượng", "Tổng Tiền"};
-        DefaultTableModel modelTbl = new DefaultTableModel();
+    public void fillToTableHoaDon(List<OrderDetail> details) {
+        String row[] = {"Tên sản phẩm", "Giá", "Số lượng", "Tổng Tiền"};
+        DefaultTableModel modelTbl = new DefaultTableModel(row, 0);
         modelTbl.setRowCount(0);
-        int quantity = 2;
-        listSP = productDao.findAll();
-        for (product li : listSP) {
-            System.out.println("ma:" + li.getName());
+
+        for (OrderDetail detail : details) {
+            product sp = productDao.findById(detail.productId);  // Lấy thông tin sản phẩm
+            double totalPrice = detail.quantity * detail.unitPrice;
             modelTbl.addRow(new Object[]{
-                li.getName(),
-                li.getPrice(),
-                quantity,
-                li.getPrice() * quantity
+                sp.getName(),
+                detail.unitPrice,
+                detail.quantity,
+                totalPrice
             });
-
         }
+        tblHoaDon.getColumnModel().getColumn(2).setCellEditor((TableCellEditor) new SpinnerEditor());
+        tblHoaDon.getColumnModel().getColumn(2).setCellRenderer(new SpinnerRenderer());
+        tblHoaDon.setRowHeight(25);
         tblHoaDon.setModel(modelTbl);
-
     }
 
+//    public void fillToTableHoaDon(List<OrderDetail> details) {
+//          
+//    }
+//    public void fillToTable(List<product> pList) {
+//        String row[] = {"Tên sản phẩm", "Giá", "số lượng", "Tổng Tiền"};
+//        DefaultTableModel modelTbl = new DefaultTableModel(row, 0);
+//        modelTbl.setRowCount(0);
+//        int quantity = 2;
+////        listSP = productDao.findAll();
+//        for (product li : pList) {
+//            double price = quantity * li.getPrice();
+//            System.out.println("ma:" + li.getName());
+//            modelTbl.addRow(new Object[]{
+//                li.getName(),
+//                li.getPrice(),
+//                quantity,
+//                price
+//            });
+//
+//        }
+//        tblHoaDon.setModel(modelTbl);
+//
+//    }
     public void setSelected(Component item) {
         for (Component com : panelItem1.getComponents()) {
             Item i = (Item) com;
@@ -233,7 +283,7 @@ public class Menu extends javax.swing.JPanel {
     public void init() {
 //        fillComBoBoxLoaiSP();
 //        fillToTableHoaDon();
-        fillpanelItem(listSP);
+//        fillpanelItem(listSP);
         rdoTienMat.setSelected(true);
         txtTienSP.setEditable(false);
         txtTienThua.setEditable(false);
@@ -246,6 +296,27 @@ public class Menu extends javax.swing.JPanel {
         lblThongBaoPhi.setVisible(false);
         lblvoucher.setVisible(false);
         lblGiaTriVC.setVisible(false);
+    }
+    List<product> listPSseacher = new ArrayList<>();
+
+    public void SearchProduct() {
+        // Lấy dữ liệu tìm kiếm từ ô nhập
+        String keyword = txtSearch.getText().trim();
+        listPSseacher = productDao.getProductbyName(keyword);
+        if (listPSseacher.size() < 0) {
+            System.out.println(" lỏ");
+        } else {
+            System.out.println("searcher :" + listPSseacher.get(0).getName());
+            fillpanelItem(listPSseacher);
+
+        }
+        // Kiểm tra nếu danh sách rỗng
+//        if (listPSseacher.) {
+//            MsgBox.alert(null, "Không tìm thấy sản phẩm nào với từ khóa: " + keyword);
+//        } else {
+//            System.out.println("Số sản phẩm tìm thấy: " + listPSseacher.size());
+//        }
+//        // Cập nhật lại giao diện với danh sách tìm thấy (hoặc giữ nguyên danh sách cũ)
     }
 
 //    public void loadData() {
@@ -350,6 +421,11 @@ public class Menu extends javax.swing.JPanel {
         jPanel5.add(scroll1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 590, 480));
 
         jPanel6.setBackground(new java.awt.Color(153, 204, 255));
+        jPanel6.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jPanel6PropertyChange(evt);
+            }
+        });
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel13.setText("Tên sản phẩm");
@@ -391,9 +467,9 @@ public class Menu extends javax.swing.JPanel {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13))
-                .addGap(37, 37, 37)
+                    .addComponent(jLabel13)
+                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(112, 112, 112)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(cboLoaiSP, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -401,7 +477,7 @@ public class Menu extends javax.swing.JPanel {
                         .addComponent(lblvoucher)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblGiaTriVC)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                         .addComponent(btnVC))
                     .addComponent(jLabel14))
                 .addContainerGap())
@@ -748,7 +824,7 @@ public class Menu extends javax.swing.JPanel {
     }//GEN-LAST:event_tblHoaDonMouseClicked
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
-//        SearchProduct();
+        SearchProduct();
     }//GEN-LAST:event_txtSearchKeyReleased
 
     private void tblHoaDonKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblHoaDonKeyReleased
@@ -874,6 +950,11 @@ public class Menu extends javax.swing.JPanel {
     private void scroll1ComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_scroll1ComponentAdded
         // TODO add your handling code here:
     }//GEN-LAST:event_scroll1ComponentAdded
+
+    private void jPanel6PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jPanel6PropertyChange
+        // TODO add your handling code here:
+        SearchProduct();
+    }//GEN-LAST:event_jPanel6PropertyChange
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

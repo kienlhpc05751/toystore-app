@@ -21,9 +21,11 @@ import java.util.List;
  */
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 public class productDAO extends BaseDAO<product, Integer> {
+
     @Override
     public String getTableName() {
         return "product";
@@ -37,22 +39,22 @@ public class productDAO extends BaseDAO<product, Integer> {
     @Override
     public product mapResultSetToObject(ResultSet rs) throws SQLException {
         return new product(
-            rs.getInt("productId"),
-            rs.getInt("categoryId"),
-            rs.getInt("brandId"),
-            rs.getInt("ageId"),
-            rs.getInt("materialId"),
-            rs.getString("name"),
-            rs.getDouble("price"),
-            rs.getDouble("originalPrice"),
-            rs.getString("createdAt"),
-            rs.getBoolean("status"),
-            rs.getString("description"),
-            rs.getBoolean("SexID"),
-            rs.getString("image"),
-            rs.getInt("quantity"),
-            rs.getString("barcode"),
-            rs.getString("urlBarcode")
+                rs.getInt("productId"),
+                rs.getInt("categoryId"),
+                rs.getInt("brandId"),
+                rs.getInt("ageId"),
+                rs.getInt("materialId"),
+                rs.getString("name"),
+                rs.getDouble("price"),
+                rs.getDouble("originalPrice"),
+                rs.getString("createdAt"),
+                rs.getBoolean("status"),
+                rs.getString("description"),
+                rs.getBoolean("SexID"),
+                rs.getString("image"),
+                rs.getInt("quantity"),
+                rs.getString("barcode"),
+                rs.getString("urlBarcode")
         );
     }
 
@@ -76,5 +78,15 @@ public class productDAO extends BaseDAO<product, Integer> {
 
     public List<product> getAllProducts() {
         return findAll();
+    }
+
+    public List<product> getProductbyName(String keywrod) {
+        return findByName(keywrod);
+    }
+
+    @Override
+    public List<String> validColumns() {
+        List<String> validColumns = Arrays.asList("column1", "column2", "column3"); // <-- Thay bằng các cột hợp lệ của bạn
+        return validColumns;
     }
 }

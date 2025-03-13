@@ -4,7 +4,6 @@ package com.toystore.dao.store;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 /**
  *
  * @author Asus
@@ -20,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public abstract class BaseDAO<T, K> {
+
     protected Connection connection;
     private static final Logger LOGGER = Logger.getLogger(BaseDAO.class.getName());
 
@@ -36,6 +36,8 @@ public abstract class BaseDAO<T, K> {
     public abstract String getTableName();
 
     public abstract String getPrimaryKeyColumn();
+
+    public abstract List<String> validColumns();
 
     public boolean insert(String query, Object... params) {
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -82,11 +84,27 @@ public abstract class BaseDAO<T, K> {
         return null;
     }
 
+    public List<T> findByColumn(String key, String column) {
+        String query = "SELECT * FROM " + getTableName() + " WHERE " + column + " LIKE ?";
+        List<T> list = new ArrayList<>();
+//        String query = "SELECT * FROM " + getTableName();
+        String KEY = " ";
+        KEY = key;
+        try (PreparedStatement stmt = connection.prepareStatement(query); ResultSet rs = stmt.executeQuery()) {
+            stmt.setObject(1, "%" + KEY + "%");
+            while (rs.next()) {
+                list.add(mapResultSetToObject(rs));
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "FindAll error: {0}", e.getMessage());
+        }
+        return list;
+    }
+
     public List<T> findAll() {
         List<T> list = new ArrayList<>();
         String query = "SELECT * FROM " + getTableName();
-        try (PreparedStatement stmt = connection.prepareStatement(query);
-             ResultSet rs = stmt.executeQuery()) {
+        try (PreparedStatement stmt = connection.prepareStatement(query); ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 list.add(mapResultSetToObject(rs));
             }
@@ -101,4 +119,25 @@ public abstract class BaseDAO<T, K> {
             stmt.setObject(i + 1, params[i]);
         }
     }
+
+    public List<T> findByName(String keyword) {
+        String query = "SELECT * FROM product WHERE name LIKE ?";
+        List<T> productList = new ArrayList<>();
+        if (keyword == null) {
+            keyword = " ";
+        }
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, "%" + keyword + "%");  // ✅ Gán giá trị cho tham số `?`
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    productList.add(mapResultSetToObject(rs));
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Lỗi khi tìm kiếm sản phẩm: {0}", e.getMessage());
+        }
+        return productList;
+    }
+
 }

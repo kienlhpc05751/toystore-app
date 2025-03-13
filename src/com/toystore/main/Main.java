@@ -17,6 +17,7 @@ import com.toystore.form.PosForm;
 import com.toystore.form.SanPhamView1;
 import com.toystore.form.loadJDialog;
 import com.toystore.form.store.Menu;
+import com.toystore.form.store.Menu1;
 import com.toystore.form.store.categoryView;
 import com.toystore.form.store.productAttributesView;
 import com.toystore.form.store.productView;
@@ -34,7 +35,6 @@ public class Main extends javax.swing.JFrame {
      * Creates new form Main
      */
     private Form_Home home;
-//    private Form_1 form1;
     private HoaDonView form2;
     private Form_3 form3;
     private KhachHangView khachhang;
@@ -42,19 +42,14 @@ public class Main extends javax.swing.JFrame {
     private SanPhamView1 form5;
     private Login form1;
     private PosForm PosForm;
+//    private Menu1 posMenu;
     private Menu posMenu;
     private productView pView;
     private categoryView cView;
     private productAttributesView prAView;
     private staffView stView;
-//    private POSPanel oSPanel;
-//    private 
-//    private pOSPanel;
-//    private NewJFrame fa;
 
     public Main() {
-//          this.openWellcom();
-//        this.openlogin();
         initComponents();
         this.setSize(1200, 800);
         this.setLocationRelativeTo(null);
@@ -82,7 +77,6 @@ public class Main extends javax.swing.JFrame {
         cView = new categoryView();
         prAView = new productAttributesView();
         stView = new staffView();
-//       fa = new NewJFrame();
         menu.initMoving(Main.this);
         menu.addEventMenuSelected(new EventMenuSelected() {
             @Override
@@ -134,14 +128,11 @@ public class Main extends javax.swing.JFrame {
     }
 
     void openlogin() {
-//        new LoginJDialog(this, true).setVisible(true);
         new Login().setVisible(true);
     }
 
     void openWellcom() {
         new loadJDialog(this, true).setVisible(true);
-//          new Load().setVisible(true);
-
     }
 
     @SuppressWarnings("unchecked")
