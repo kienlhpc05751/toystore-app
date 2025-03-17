@@ -12,6 +12,7 @@ public class Order {
 
     public int orderId;
     public int accountId;
+    public int clientId;
     public String orderDate;
     public double totalAmount;
     public int paymentMethodId;
@@ -21,6 +22,19 @@ public class Order {
     public int voucherId;
 
     public Order() {
+    }
+
+    public Order(int orderId, int accountId, int clientID, String orderDate, double totalAmount, int paymentMethodId, int shippingMethodId, boolean status, double discount, int voucherId) {
+        this.orderId = orderId;
+        this.accountId = accountId;
+        this.clientId = clientID;
+        this.orderDate = orderDate;
+        this.totalAmount = totalAmount;
+        this.paymentMethodId = paymentMethodId;
+        this.shippingMethodId = shippingMethodId;
+        this.status = status;
+        this.discount = discount;
+        this.voucherId = voucherId;
     }
 
     public Order(int orderId, int accountId, String orderDate, double totalAmount, int paymentMethodId, int shippingMethodId, boolean status, double discount, int voucherId) {
@@ -105,6 +119,14 @@ public class Order {
 
     public void setVoucherId(int voucherId) {
         this.voucherId = voucherId;
+    }
+
+    public int getClientID() {
+        return clientId;
+    }
+
+    public void setClientID(int clientID) {
+        this.clientId = clientID;
     }
 
 }

@@ -83,7 +83,7 @@ public class FormTimKhach extends JDialog {
 
         for (Account acc : list) {
             if (acc.getPhoneNumber().contains(sdt)) {  // Kiểm tra nếu số điện thoại chứa chuỗi nhập vào
-                model.addRow(new Object[]{acc.getUsername(), acc.getPhoneNumber()});
+                model.addRow(new Object[]{acc.getFullname(), acc.getPhoneNumber()});
                 found = true;
             }
         }

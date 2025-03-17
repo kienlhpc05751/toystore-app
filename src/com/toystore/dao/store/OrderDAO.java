@@ -31,6 +31,7 @@ public class OrderDAO extends BaseDAO<Order, Integer> {
         return new Order(
                 rs.getInt("orderId"),
                 rs.getInt("accountId"),
+                rs.getInt("clientID"),
                 rs.getString("orderDate"),
                 rs.getDouble("totalAmount"),
                 rs.getInt("paymentMethodId"),
@@ -42,13 +43,13 @@ public class OrderDAO extends BaseDAO<Order, Integer> {
     }
 
     public Order insertOrder(Order order) {
-        String query = "INSERT INTO toyStoreDB.order (accountId, orderDate, totalAmount, paymentMethodId, shippingMethodId, status, discount, vourcherID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        return insertAndReturn(query, order.getAccountId(), order.getOrderDate(), order.getTotalAmount(), order.getPaymentMethodId(), order.getShippingMethodId(), order.isStatus(), order.getDiscount(), order.getVoucherId());
+        String query = "INSERT INTO toyStoreDB.order (accountId,clientID, orderDate, totalAmount, paymentMethodId, shippingMethodId, status, discount, vourcherID) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?)";
+        return insertAndReturn(query, order.getAccountId(), order.getClientID(), order.getOrderDate(), order.getTotalAmount(), order.getPaymentMethodId(), order.getShippingMethodId(), order.isStatus(), order.getDiscount(), order.getVoucherId());
     }
 
     public boolean updateOrder(Order order) {
-        String query = "UPDATE toyStoreDB.order SET accountId=?, orderDate=?, totalAmount=?, paymentMethodId=?, shippingMethodId=?, status=?, discount=?, vourcherID=? WHERE orderId=?";
-        return update(query, order.getAccountId(), order.getOrderDate(), order.getTotalAmount(), order.getPaymentMethodId(), order.getShippingMethodId(), order.isStatus(), order.getDiscount(), order.getVoucherId(), order.getOrderId());
+        String query = "UPDATE toyStoreDB.order SET accountId=?,clientID=?, orderDate=?, totalAmount=?, paymentMethodId=?, shippingMethodId=?, status=?, discount=?, vourcherID=? WHERE orderId=?";
+        return update(query, order.getAccountId(), order.getClientID(), order.getOrderDate(), order.getTotalAmount(), order.getPaymentMethodId(), order.getShippingMethodId(), order.isStatus(), order.getDiscount(), order.getVoucherId(), order.getOrderId());
     }
 
     public boolean deleteOrder(int orderId) {

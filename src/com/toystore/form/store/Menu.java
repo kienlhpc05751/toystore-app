@@ -20,10 +20,12 @@ package com.toystore.form.store;
 //import com.swing.ScrollBar;
 //import com.untils.XAuth;
 import com.toystore.component.Item;
+import com.toystore.dao.store.AccountDAO;
 import com.toystore.dao.store.OrderDAO;
 import com.toystore.dao.store.OrderDetailDAO;
 import com.toystore.dao.store.productDAO;
 import com.toystore.event.EventItem;
+import com.toystore.model.store.Account;
 import com.toystore.model.store.Order;
 import com.toystore.model.store.OrderDetail;
 import com.toystore.model.store.product;
@@ -216,7 +218,6 @@ public class Menu extends javax.swing.JPanel {
                 fillToTableHoaDon(orderDetails);
             }
         });
-
         for (product p : list) {
             addItem(p);
 //            System.out.println("Sản phẩm được thêm vào panel: " + p.getName());
@@ -511,6 +512,7 @@ public class Menu extends javax.swing.JPanel {
         o.setShippingMethodId(1);
         o.setOrderDate(sdf.format(new Date()));
         o.setStatus(false);
+
 //        o.setDiscount(new Double(ma));
 //        o.setVoucherId(maVoucher);
         return o;
@@ -519,8 +521,8 @@ public class Menu extends javax.swing.JPanel {
 
     public Order getFormOrder() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
         return new Order(OrderJustNow.orderId,
+                OrderJustNow.getClientID(),
                 Auth.account.getAccountId(),
                 sdf.format(new Date()),
                 totalAmountSP,
@@ -530,10 +532,18 @@ public class Menu extends javax.swing.JPanel {
                 dicount,
                 0);
     }
+
 //            p.setBarcode(BarcodeUtil.generateBarcode());
 //            String code = p.getBarcode();
 //            p.setUrlBarcode(BarcodeUtil.generateBarcodeImage(p.getBarcode()));
+    Account clien = new Account();
 
+    AccountDAO accountDAO = new AccountDAO();
+
+//    public Account FindbyAccout(){
+////        int accountID = OrderJustNow.getAccountId();
+//      Account account = accountDAO.findById(WIDTH)
+//    }
     public void insertHD() {
         try {
 
@@ -946,6 +956,11 @@ public class Menu extends javax.swing.JPanel {
 
         btnInHoaDon.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnInHoaDon.setText("In hóa đơn");
+        btnInHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnInHoaDonMouseClicked(evt);
+            }
+        });
         btnInHoaDon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInHoaDonActionPerformed(evt);
@@ -1002,7 +1017,7 @@ public class Menu extends javax.swing.JPanel {
         jPanel7.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, -1, -1));
 
         txtkhachID1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txtkhachID1.setText("0902432342");
+        txtkhachID1.setText("null");
         jPanel7.add(txtkhachID1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 360, -1, -1));
 
         txtkhachID2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -1105,12 +1120,12 @@ public class Menu extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1040, Short.MAX_VALUE)
+            .addGap(0, 1051, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 5, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 1040, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 6, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1132,7 +1147,7 @@ public class Menu extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Hãy chọn một hóa đơn chờ hoặc thanh toán hóa đơn hiện tại để in!");
             return;
         }
-//        prinBill();
+        prinBill();
     }//GEN-LAST:event_btnInHoaDonActionPerformed
 
     private void tblHoaDonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseReleased
@@ -1233,6 +1248,13 @@ public class Menu extends javax.swing.JPanel {
         indexHD = tblHoaDonCho.getSelectedRow();
         System.out.println("indexHD " + indexHD);
         selectFillHDC(indexHD);
+        clien = accountDAO.findById(OrderJustNow.getClientID());
+
+        if (clien == null) {
+            txtkhachID1.setText(null);
+            return;
+        }
+        txtkhachID1.setText(clien.getPhoneNumber());
     }//GEN-LAST:event_tblHoaDonChoMouseClicked
 
     private void tblHoaDonChoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonChoMousePressed
@@ -1335,6 +1357,10 @@ public class Menu extends javax.swing.JPanel {
             txtkhachID1.setText(khachDuocChon); // Điền vào JTextField trên form chính
         }
     }//GEN-LAST:event_btnThemKhachMouseClicked
+
+    private void btnInHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInHoaDonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnInHoaDonMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1704,103 +1730,96 @@ public class Menu extends javax.swing.JPanel {
 //
 //    }
 //
-//    public void prinBill() {
-//        listHD = hddao.selectAll();
-//        Date taoLuc = null;
-//        Date thanhToanLuc = null;
-//        String nameNV = "";
+    public void prinBill() {
+//        orderList = hddao.selectAll();
+        Date taoLuc = null;
+        Date thanhToanLuc = null;
+        String nameNV = "";
+
+        if (!OrderJustNow.isStatus()) {
+            MsgBox.alert(null, "đơn hàng chưa thanh toán!");
+            return;
+        }
 //        if (!checkselected) {
 //            maHDInsert = ma;
 //            taoLuc = bd;
 //            thanhToanLuc = kt;
 //            nameNV = tNV;
 //        } else {
-//            if (listHD.size() == 0) {
-//                maHDInsert = "HD1";
-//            } else {
-//                taoLuc = ngayTao2;
-//                thanhToanLuc = ngayTao;
-//                nameNV = XAuth.user.getTenNV();
-//                String mahd = listHD.get(listHD.size() - 1).getMaHD();
-//                mahd = mahd.substring(2);
-//                int mahdint = Integer.parseInt(mahd);
-//                mahdint += 1;
-//                mahd = String.valueOf("HD" + mahdint);
-//                maHDInsert = mahd;
-//            }
+//
 //        }
-//
-//        Date dateBill = new Date();
-//        String DateBill = sdf.format(dateBill);
-//        String TT = lblTongTien.getText().replaceAll("VNĐ", "");
-//        String phiKhac = "0";
-//        if (txtChiPhiKhac.getText().equals("0")) {
-//            phiKhac = "0";
-//        } else {
-//            phiKhac = df.format(Double.parseDouble(txtChiPhiKhac.getText()));
-//        }
-//        try {
-//            bill = new JTextPane();
-//
-//            bill.setContentType("text/html");
-//
-//            // Nội dung hóa đơn của bạn
-//            StringBuilder billContent = new StringBuilder("<html><head>\n"
-//                    + "<style>\n"
-//                    + "body {\n"
-//                    + "    width: 100%;\n"
-//                    + "height: auto;"
-//                    + "}\n"
-//                    + "</style>\n"
-//                    + "</head><body>");
-//            billContent.append("<p align='center'; ><b>PEACH COFFEE<br>ĐC: 789/JQK Đường s ố 1, Cái Răng, CT<br>STĐ: 098712345</b>"
-//                    + "<br>--------------------"
-//                    + "<br><b>HÓA ĐƠN THANH TOÁN<br>Mã Hóa Đơn: ").append(maHDInsert).append("<br>Ngày: ").append(DateBill).append("</b></p>");
-//            billContent.append("<p><b>Tạo lúc: </b>").append(taoLuc).append("<br><b>Thanh toán lúc: </b>").append(thanhToanLuc).append("<br><b>Thu ngân: </b>").append(nameNV).append("</p>");
-//            billContent.append("<hr>");
-//            billContent.append("<table width='100%'>");
-//
-//// Thêm hàng tiêu đề với canh lề cụ thể cho từng cột
-//            billContent.append("<tr><th style='width:65%; text-align:left;'>Tên sản phẩm</th><th style='width:10%; text-align:center;'>SL</th><th style='width:25%; text-align:right;'>TT</th></tr>");
-//
-//            if (tblHoaDon.getRowCount() != 0) {
-//                for (int i = 0; i < tblHoaDon.getRowCount(); i++) {
-//                    String tenSp = tblHoaDon.getValueAt(i, 0).toString();
-//                    String soluong = tblHoaDon.getValueAt(i, 2).toString();
-//                    String tongTien = tblHoaDon.getValueAt(i, 3).toString();
-//
-//                    // Áp dụng canh lề trực tiếp cho dữ liệu cột
-//                    billContent.append("<tr><td style='text-align:left;'>").append(tenSp)
-//                            .append("</td><td style='text-align:center;'>").append(soluong)
-//                            .append("</td><td style='text-align:right;'>").append(tongTien.toString()).append("</td></tr>");
-//                }
-//
-//            }
-//
-//            billContent.append("</table>");
-//            billContent.append("<hr>");
-//            billContent.append("<table width='100%'>");
-//            billContent.append("<tr><td style='text-align:left;'><b>").append("Tiền sản phẩm: ").append("</b></td><td style='text-align:right;'><b>").append(df.format(Double.parseDouble(txtTienSP.getText()))).append("</b></td></tr>");
-//            billContent.append("<tr><td style='text-align:left;'><b>").append("Chi phí khác: ").append("</b></td><td style='text-align:right;'><b>").append(phiKhac).append("</b></td></tr>");
-//            billContent.append("<tr><td style='text-align:left;'><b>").append("Tổng tiền: ").append("</b></td><td style='text-align:right;'><b>").append(TT).append("</b></td></tr>");
-//            billContent.append("<tr><td style='text-align:left;'><b>").append("Tiền nhận: ").append("</b></td><td style='text-align:right;'><b>").append(df.format(Double.parseDouble(txtTienNhan.getText()))).append("</b></td></tr>");
-//            billContent.append("<tr><td style='text-align:left;'><b>").append("Tiền thừa: ").append("</b></td><td style='text-align:right;'><b>").append(df.format(Double.parseDouble(txtTienThua.getText()))).append("</b></td></tr>");
-//            billContent.append("</table>");
-//            billContent.append("<p align='center'>--------------------"
-//                    + "<br><b>Pass wifi: thanbai888</b>"
-//                    + "<br<b>Xin cảm ơn, hẹn gặp lại quý khách!</b></p>");
-//            billContent.append("</body></html>");
-//            Font font = new Font("Arial", Font.PLAIN, 8);
-//
-//            bill.setText(billContent.toString());
-//            bill.setFont(font);
-//            JOptionPane.showMessageDialog(null, bill);
-//            bill.print();
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+
+        Date dateBill = new Date();
+        String DateBill = sdf.format(dateBill);
+        String TT = lblTongTien.getText().replaceAll("VNĐ", "");
+        String phiKhac = "0";
+        if (txtChiPhiKhac.getText().equals("0")) {
+            phiKhac = "0";
+        } else {
+//            double a = parseCurrency(txtChiPhiKhac.getText());
+            phiKhac = df.format(parseCurrency(txtChiPhiKhac.getText()));
+        }
+        try {
+            bill = new JTextPane();
+
+            bill.setContentType("text/html");
+
+            // Nội dung hóa đơn của bạn
+            StringBuilder billContent = new StringBuilder("<html><head>\n"
+                    + "<style>\n"
+                    + "body {\n"
+                    + "    width: 100%;\n"
+                    + "height: auto;"
+                    + "}\n"
+                    + "</style>\n"
+                    + "</head><body>");
+            billContent.append("<p align='center'; ><b>PEACH COFFEE<br>ĐC: 789/JQK Đường s ố 1, Cái Răng, CT<br>STĐ: 098712345</b>"
+                    + "<br>--------------------"
+                    + "<br><b>HÓA ĐƠN THANH TOÁN<br>Mã Hóa Đơn: ").append(maHDInsert).append("<br>Ngày: ").append(DateBill).append("</b></p>");
+            billContent.append("<p><b>Tạo lúc: </b>").append(taoLuc).append("<br><b>Thanh toán lúc: </b>").append(thanhToanLuc).append("<br><b>Thu ngân: </b>").append(nameNV).append("</p>");
+            billContent.append("<hr>");
+            billContent.append("<table width='100%'>");
+
+// Thêm hàng tiêu đề với canh lề cụ thể cho từng cột
+            billContent.append("<tr><th style='width:65%; text-align:left;'>Tên sản phẩm</th><th style='width:10%; text-align:center;'>SL</th><th style='width:25%; text-align:right;'>TT</th></tr>");
+
+            if (tblHoaDon.getRowCount() != 0) {
+                for (int i = 0; i < tblHoaDon.getRowCount(); i++) {
+                    String tenSp = tblHoaDon.getValueAt(i, 0).toString();
+                    String soluong = tblHoaDon.getValueAt(i, 2).toString();
+                    String tongTien = tblHoaDon.getValueAt(i, 3).toString();
+
+                    // Áp dụng canh lề trực tiếp cho dữ liệu cột
+                    billContent.append("<tr><td style='text-align:left;'>").append(tenSp)
+                            .append("</td><td style='text-align:center;'>").append(soluong)
+                            .append("</td><td style='text-align:right;'>").append(tongTien.toString()).append("</td></tr>");
+                }
+
+            }
+            billContent.append("</table>");
+            billContent.append("<hr>");
+            billContent.append("<table width='100%'>");
+            billContent.append("<tr><td style='text-align:left;'><b>").append("Tiền sản phẩm: ").append("</b></td><td style='text-align:right;'><b>").append(sdf.format(parseCurrency(txtTienSP.getText()))).append("</b></td></tr>");
+            billContent.append("<tr><td style='text-align:left;'><b>").append("Chi phí khác: ").append("</b></td><td style='text-align:right;'><b>").append(phiKhac).append("</b></td></tr>");
+            billContent.append("<tr><td style='text-align:left;'><b>").append("Tổng tiền: ").append("</b></td><td style='text-align:right;'><b>").append(TT).append("</b></td></tr>");
+            billContent.append("<tr><td style='text-align:left;'><b>").append("Tiền nhận: ").append("</b></td><td style='text-align:right;'><b>").append(df.format(parseCurrency(txtTienNhan.getText()))).append("</b></td></tr>");
+            billContent.append("<tr><td style='text-align:left;'><b>").append("Tiền thừa: ").append("</b></td><td style='text-align:right;'><b>").append(df.format(parseCurrency(txtTienThua.getText()))).append("</b></td></tr>");
+            billContent.append("</table>");
+            billContent.append("<p align='center'>--------------------"
+                    + "<br><b>Pass wifi: thanbai888</b>"
+                    + "<br<b>Xin cảm ơn, hẹn gặp lại quý khách!</b></p>");
+            billContent.append("</body></html>");
+            Font font = new Font("Arial", Font.PLAIN, 8);
+
+            bill.setText(billContent.toString());
+            bill.setFont(font);
+            JOptionPane.showMessageDialog(null, bill);
+            bill.print();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 //
 //    public void fillTableHoaDonCT() {
 //        DefaultTableModel dtm = (DefaultTableModel) tblHoaDon.getModel();
