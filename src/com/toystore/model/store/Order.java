@@ -9,27 +9,30 @@ package com.toystore.model.store;
  * @author Asus
  */
 public class Order {
-      public int orderId;
+
+    public int orderId;
     public int accountId;
-    public int paymentMethodId;
-    public int shippingMethodId;
     public String orderDate;
     public double totalAmount;
-    public String createdAt;
-    public String updatedAt;
+    public int paymentMethodId;
+    public int shippingMethodId;
+    public boolean status;
+    public double discount;
+    public int voucherId;
 
     public Order() {
     }
 
-    public Order(int orderId, int accountId, int paymentMethodId, int shippingMethodId, String orderDate, double totalAmount, String createdAt, String updatedAt) {
+    public Order(int orderId, int accountId, String orderDate, double totalAmount, int paymentMethodId, int shippingMethodId, boolean status, double discount, int voucherId) {
         this.orderId = orderId;
         this.accountId = accountId;
-        this.paymentMethodId = paymentMethodId;
-        this.shippingMethodId = shippingMethodId;
         this.orderDate = orderDate;
         this.totalAmount = totalAmount;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+        this.paymentMethodId = paymentMethodId;
+        this.shippingMethodId = shippingMethodId;
+        this.status = status;
+        this.discount = discount;
+        this.voucherId = voucherId;
     }
 
     public int getOrderId() {
@@ -48,22 +51,6 @@ public class Order {
         this.accountId = accountId;
     }
 
-    public int getPaymentMethodId() {
-        return paymentMethodId;
-    }
-
-    public void setPaymentMethodId(int paymentMethodId) {
-        this.paymentMethodId = paymentMethodId;
-    }
-
-    public int getShippingMethodId() {
-        return shippingMethodId;
-    }
-
-    public void setShippingMethodId(int shippingMethodId) {
-        this.shippingMethodId = shippingMethodId;
-    }
-
     public String getOrderDate() {
         return orderDate;
     }
@@ -80,21 +67,44 @@ public class Order {
         this.totalAmount = totalAmount;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
+    public int getPaymentMethodId() {
+        return paymentMethodId;
     }
 
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
+    public void setPaymentMethodId(int paymentMethodId) {
+        this.paymentMethodId = paymentMethodId;
     }
 
-    public String getUpdatedAt() {
-        return updatedAt;
+    public int getShippingMethodId() {
+        return shippingMethodId;
     }
 
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setShippingMethodId(int shippingMethodId) {
+        this.shippingMethodId = shippingMethodId;
     }
-    
-    
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
+    }
+
+    public int getVoucherId() {
+        return voucherId;
+    }
+
+    public void setVoucherId(int voucherId) {
+        this.voucherId = voucherId;
+    }
+
 }

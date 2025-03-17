@@ -212,6 +212,7 @@ public class productView extends javax.swing.JPanel {
         }
         return null; // Trả về null nếu có lỗi
     }
+    // lê hoàng kiên 
 
     product getForm() {
         product product = new product();

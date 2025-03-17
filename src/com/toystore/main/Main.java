@@ -18,6 +18,7 @@ import com.toystore.form.SanPhamView1;
 import com.toystore.form.loadJDialog;
 import com.toystore.form.store.Menu;
 import com.toystore.form.store.Menu1;
+import com.toystore.form.store.OrderView;
 import com.toystore.form.store.categoryView;
 import com.toystore.form.store.productAttributesView;
 import com.toystore.form.store.productView;
@@ -42,12 +43,14 @@ public class Main extends javax.swing.JFrame {
     private SanPhamView1 form5;
     private Login form1;
     private PosForm PosForm;
+
 //    private Menu1 posMenu;
     private Menu posMenu;
     private productView pView;
     private categoryView cView;
     private productAttributesView prAView;
     private staffView stView;
+    private OrderView orderView;
 
     public Main() {
         initComponents();
@@ -77,6 +80,7 @@ public class Main extends javax.swing.JFrame {
         cView = new categoryView();
         prAView = new productAttributesView();
         stView = new staffView();
+        orderView = new OrderView();
         menu.initMoving(Main.this);
         menu.addEventMenuSelected(new EventMenuSelected() {
             @Override
@@ -86,7 +90,7 @@ public class Main extends javax.swing.JFrame {
                 } else if (index == 1) {
                     setForm(khachhang);
                 } else if (index == 2) {
-                    setForm(form2);
+                    setForm(orderView);
                 } else if (index == 3) {
                     if (Auth.isLogin()) {// if (Auth.isManager()) {
                         setForm(pView); // view product

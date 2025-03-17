@@ -9,9 +9,11 @@ package com.toystore.dao.store;
  * @author Asus
  */
 import com.toystore.db.DatabaseConnection;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -138,6 +140,44 @@ public abstract class BaseDAO<T, K> {
             LOGGER.log(Level.SEVERE, "Lỗi khi tìm kiếm sản phẩm: {0}", e.getMessage());
         }
         return productList;
+    }
+
+    public List<T> findByOrderID(String keyword) {
+        String query = "SELECT * FROM orderdetail WHERE OrderID LIKE ?";
+        List<T> productList = new ArrayList<>();
+        if (keyword == null) {
+            keyword = " ";
+        }
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, "%" + keyword + "%");  // ✅ Gán giá trị cho tham số `?`
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    productList.add(mapResultSetToObject(rs));
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Lỗi khi tìm kiếm sản phẩm: {0}", e.getMessage());
+        }
+        return productList;
+    }
+
+    public T insertAndReturn(String query, Object... params) {
+        try (PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            setParameters(stmt, params);
+            int affectedRows = stmt.executeUpdate();
+
+            if (affectedRows > 0) {
+                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        return findById((K) generatedKeys.getObject(1));
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Insert error: {0}", e.getMessage());
+        }
+        return null;
     }
 
 }

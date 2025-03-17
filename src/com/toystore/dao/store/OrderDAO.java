@@ -18,7 +18,7 @@ public class OrderDAO extends BaseDAO<Order, Integer> {
 
     @Override
     public String getTableName() {
-        return "orders";
+        return "toyStoreDB.order";
     }
 
     @Override
@@ -26,25 +26,29 @@ public class OrderDAO extends BaseDAO<Order, Integer> {
         return "orderId";
     }
 
-//    @Override
-//    public Order mapResultSetToObject(Resultset rs){
-////        return new Order(
-////            rs.getInt("orderId"),
-////            rs.getInt("userId"),
-////            rs.getDouble("totalPrice"),
-////            rs.getString("createdAt"),
-////            rs.getString("status")
-////        );
-//        return new Order();
-//    }
-    public boolean insertOrder(Order order) {
-        String query = "INSERT INTO orders (userId, totalPrice, createdAt, status) VALUES (?, ?, ?, ?)";
-        return insert(query, order.getAccountId(), order.getTotalAmount(), order.getCreatedAt());
+    @Override
+    public Order mapResultSetToObject(ResultSet rs) throws SQLException {
+        return new Order(
+                rs.getInt("orderId"),
+                rs.getInt("accountId"),
+                rs.getString("orderDate"),
+                rs.getDouble("totalAmount"),
+                rs.getInt("paymentMethodId"),
+                rs.getInt("shippingMethodId"),
+                rs.getBoolean("status"),
+                rs.getDouble("discount"),
+                rs.getInt("vourcherID")
+        );
+    }
+
+    public Order insertOrder(Order order) {
+        String query = "INSERT INTO toyStoreDB.order (accountId, orderDate, totalAmount, paymentMethodId, shippingMethodId, status, discount, vourcherID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        return insertAndReturn(query, order.getAccountId(), order.getOrderDate(), order.getTotalAmount(), order.getPaymentMethodId(), order.getShippingMethodId(), order.isStatus(), order.getDiscount(), order.getVoucherId());
     }
 
     public boolean updateOrder(Order order) {
-        String query = "UPDATE orders SET userId=?, totalPrice=?, createdAt=?, status=? WHERE orderId=?";
-        return update(query, order.getAccountId(), order.getTotalAmount(), order.getCreatedAt());
+        String query = "UPDATE toyStoreDB.order SET accountId=?, orderDate=?, totalAmount=?, paymentMethodId=?, shippingMethodId=?, status=?, discount=?, vourcherID=? WHERE orderId=?";
+        return update(query, order.getAccountId(), order.getOrderDate(), order.getTotalAmount(), order.getPaymentMethodId(), order.getShippingMethodId(), order.isStatus(), order.getDiscount(), order.getVoucherId(), order.getOrderId());
     }
 
     public boolean deleteOrder(int orderId) {
@@ -57,11 +61,6 @@ public class OrderDAO extends BaseDAO<Order, Integer> {
 
     public List<Order> getAllOrders() {
         return findAll();
-    }
-
-    @Override
-    public Order mapResultSetToObject(ResultSet rs) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override

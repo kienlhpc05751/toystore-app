@@ -93,8 +93,8 @@ public class Item extends javax.swing.JPanel {
         lbItemName.setText(name);
 //        lbDescription.setText(data.getDescription());
 //        lbBrand.setText(data.getBrandName());
-        DecimalFormat df = new DecimalFormat("#,###0.000");
-        lbPrice.setText(df.format(data.getPrice()));
+        DecimalFormat df = new DecimalFormat("#,###,###,###");
+        lbPrice.setText(df.format(data.getPrice()) + "VND");
         lbPrice1.setText("");
 //        if (data.getKhuyenMai() != null) {
 //            for (KhuyenMai km : listKM) {
@@ -163,6 +163,8 @@ public class Item extends javax.swing.JPanel {
         lbPrice = new javax.swing.JLabel();
         lbPrice1 = new javax.swing.JLabel();
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -214,8 +216,8 @@ public class Item extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(178, 178, 178)
-                .addComponent(lbItemName)
+                .addGap(164, 164, 164)
+                .addComponent(lbItemName, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbPrice)
