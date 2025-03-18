@@ -60,11 +60,11 @@ public class AccountDAO extends BaseDAO<Account, Integer> {
     }
 
     public boolean updateAccount(Account account) {
-        String query = "UPDATE account SET username=?, password=?, email=?, roleId=?, IsDelete=?, fullname=?, phoneNumber=?, image=?, address=?, birthday=? "
+        String query = "UPDATE account SET username=?,email=?, roleId=?, IsDelete=?, fullname=?, phoneNumber=?, image=?, address=?, birthday=? "
                 + "WHERE accountId=?";
         return update(query,
                 account.getUsername(),
-                account.getPassword(),
+                //                account.getPassword(),
                 account.getEmail(),
                 account.getRoleId(),
                 account.isIsDeleted(),
@@ -93,4 +93,16 @@ public class AccountDAO extends BaseDAO<Account, Integer> {
     public List<String> validColumns() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    public Account validColumnUSERNAME(String key) {
+        String column = "Username";
+        return findByColumnT(key, column);
+    }
+
+    public boolean login(String username, String Column) {
+        String key, column;
+
+        return true;
+    }
+
 }

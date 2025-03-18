@@ -40,19 +40,19 @@ public class Login extends javax.swing.JFrame {
 
     public void DangNhap1() {
         if (checkFrom()) {
-            String manv = txtUserName.getText();
+            String Username = txtUserName.getText();
 //            String matKhau = new String(txtPassword.getPassword());
             String matKhau = new String(Auth.hashPassword(txtPassword.getText()));
-            Account nhanVien = accountDAO.findById(Integer.parseInt(manv));
+            Account nhanVien = accountDAO.validColumnUSERNAME(Username);
             if (nhanVien == null) {
                 txtUserName.requestFocus();
                 txtUserName.setBackground(Color.red);
-                MsgBox.alert(this, "Sai tên đăng nhập !");
+                MsgBox.alert(this, "Đăng nhập thất bại! !");
             } else if (!matKhau.equals(nhanVien.getPassword())) {
                 txtPassword.requestFocus();
                 txtPassword.setBackground(null);
                 txtPassword.setBackground(Color.red);
-                MsgBox.alert(this, "Sai mật khẩu !");
+                MsgBox.alert(this, "Đăng nhập thất bại! !");
             } else {
                 MsgBox.alert(this, "Đăng nhập thành công !");
 
@@ -205,7 +205,7 @@ public class Login extends javax.swing.JFrame {
 
         btnLogin.setBackground(new java.awt.Color(153, 204, 255));
         btnLogin.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnLogin.setForeground(new java.awt.Color(255, 255, 255));
+        btnLogin.setForeground(new java.awt.Color(0, 0, 0));
         btnLogin.setText("Login");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,7 +218,7 @@ public class Login extends javax.swing.JFrame {
 
         txtUserName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtUserName.setForeground(new java.awt.Color(102, 102, 102));
-        txtUserName.setText("NV003");
+        txtUserName.setText("admin");
         txtUserName.setBorder(null);
         txtUserName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

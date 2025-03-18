@@ -77,7 +77,7 @@ import javax.swing.table.TableCellRenderer;
  * @author HP
  */
 public class Menu extends javax.swing.JPanel {
-    
+
     DefaultTableModel model, modelHD;
 //    HoaDonDAO_1 hddao = new HoaDonDAO_1();
 //    HoaDonChiTietDAO hdctdao = new HoaDonChiTietDAO();
@@ -122,13 +122,13 @@ public class Menu extends javax.swing.JPanel {
     int giatrivoucher = 0;
     int maVoucher = 0;
     public double totalAmountSP;
-    
+
     Order OrderJustNow = new Order();
     List<OrderDetail> orderDetails = new ArrayList<>();
     List<Order> orderList = new ArrayList<>();
     List<product> listSP = new ArrayList<>();
     List<product> listPSseacher = new ArrayList<>();
-    
+
     public int indexHD = 0;
     OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
     OrderDAO orderDAO = new OrderDAO();
@@ -148,13 +148,13 @@ public class Menu extends javax.swing.JPanel {
         filltableHDC(orderList);
 //        filltableHD;
     }
-    
+
     public void setEvent(EventItem event) {
         this.event = event;
     }
-    
+
     private EventItem event;
-    
+
     public void addItem(product data) {
         Item item = new Item();
         if (data != null) {
@@ -179,9 +179,9 @@ public class Menu extends javax.swing.JPanel {
 //            MsgBox.alert(null, "");
             System.out.println(" list product null");
         }
-        
+
     }
-    
+
     public void fillpanelItem(List<product> list) {
         panelItem1.removeAll();  // Xóa tất cả các item cũ trong panel
         panelItem1.revalidate(); // Cập nhật lại giao diện
@@ -223,7 +223,7 @@ public class Menu extends javax.swing.JPanel {
 //            System.out.println("Sản phẩm được thêm vào panel: " + p.getName());
         }
     }
-    
+
     public void fillToTableHoaDon(List<OrderDetail> details) {
         String row[] = {"Tên sản phẩm", "Giá", "Số lượng", "Tổng Tiền"};
         DefaultTableModel modelTbl = new DefaultTableModel(row, 0);
@@ -242,6 +242,16 @@ public class Menu extends javax.swing.JPanel {
         }
         txtTienSP.setText(df.format(totalAmountSP));
         tblHoaDon.setModel(modelTbl);
+        if (OrderJustNow.isStatus()) {
+            lblTrangThai.setText("ĐÃ THANH TOÁN!");
+        } else {
+            lblTrangThai.setText("CHƯA THANH TOÁN!");
+        }
+        if (OrderJustNow.paymentMethodId == 1) {
+            rdoTienMat.setSelected(true);
+        } else {
+            rdoChuyenKhoang.setSelected(true);
+        }
         if (tblHoaDon.getColumnModel().getColumnCount() > 2) {
             tblHoaDon.getColumnModel().getColumn(2).setCellEditor(new SpinnerEditor());
             tblHoaDon.getColumnModel().getColumn(2).setCellRenderer(new SpinnerRenderer());
@@ -249,22 +259,25 @@ public class Menu extends javax.swing.JPanel {
 //            tblHoaDon.setRow
         }
     }
-    
+
     public void filltableHDC(List<Order> orders) {
-        String row[] = {"Mã nhân viên", "Mã hóa hơn", "Tổng tiền", "Trạng thái"};
+        String row[] = {"Mã nhân viên", "Mã hóa hơn", "Tổng tiền", "Trạng thái Đơn"};
         DefaultTableModel modelOr = new DefaultTableModel(row, 0);
         modelOr.setRowCount(0);
         Collections.reverse(orders);
+        String orderStatus = "ĐÃ TT";
 //        List<Order> orders1 = orderDAO.findAll();
         for (Order o : orders) {
+            if (!o.isStatus()) {
+                orderStatus = "CHƯA TT";
+            }
             System.out.println("SHOW ORDER :" + o.getOrderId());
             modelOr.addRow(new Object[]{
-                o.getAccountId(), o.getOrderId(), o.getTotalAmount(), o.isStatus()
-            });
+                o.getAccountId(), o.getOrderId(), df.format(o.getTotalAmount()), orderStatus});
         }
         tblHoaDonCho.setModel(modelOr);
     }
-    
+
     public void cleadTable() {
         model = (DefaultTableModel) tblHoaDon.getModel();
         while (model.getRowCount() > 0) {
@@ -275,20 +288,18 @@ public class Menu extends javax.swing.JPanel {
         }
         orderDetails = new ArrayList<>();
         OrderJustNow = new Order();
-        
         maHDInsert = "";
         ngayTaoHD = "";
         txtkhachID1.setText("null");
         txtTienNhan.setText("0");
         txtTienThua.setText("0");
-//        jLabel16.setText("0");
-        txtTienSP.setText("0");
         lblTongTien.setText("0");
+        lblTrangThai.setText("ĐANG XỬ LÝ!");
         maVoucher = 0;
         lblvoucher.setVisible(false);
         lblGiaTriVC.setVisible(false);
     }
-    
+
     public void setSelected(Component item) {
         for (Component com : panelItem1.getComponents()) {
             Item i = (Item) com;
@@ -298,18 +309,18 @@ public class Menu extends javax.swing.JPanel {
         }
         ((Item) item).setSelected(true);
     }
-    
+
     public Point getPanelItemLocation() {
         Point p = scroll1.getLocation();
         return new Point(p.x, p.y - scroll1.getViewport().getViewPosition().y);
     }
-    
+
     public void fillPanelSP() throws SQLException {
         listSP = productDao.getAllProducts();
         panelItem1.removeAll();
 //        testData();
     }
-    
+
     public void init() {
 //        fillComBoBoxLoaiSP();
 //        fillToTableHoaDon();
@@ -327,7 +338,7 @@ public class Menu extends javax.swing.JPanel {
         lblvoucher.setVisible(false);
         lblGiaTriVC.setVisible(false);
     }
-    
+
     public void SearchProduct() {
         // Lấy dữ liệu tìm kiếm từ ô nhập
         String keyword = txtSearch.getText().trim();
@@ -337,7 +348,7 @@ public class Menu extends javax.swing.JPanel {
         } else {
             System.out.println("searcher :" + listPSseacher.get(0).getName());
             fillpanelItem(listPSseacher);
-            
+
         }
         // Kiểm tra nếu danh sách rỗng
 //        if (listPSseacher.) {
@@ -347,13 +358,13 @@ public class Menu extends javax.swing.JPanel {
 //        }
 //        // Cập nhật lại giao diện với danh sách tìm thấy (hoặc giữ nguyên danh sách cũ)
     }
-    
+
     public void selectFillHDC(int indexHD1) {
         OrderJustNow = orderList.get(indexHD);
         orderDetails = orderDetailDAO.findByOrderID(String.valueOf(OrderJustNow.getOrderId()));
         fillToTableHoaDon(orderDetails);
     }
-    
+
     public boolean checkTienNhan() {
         try {
             double tienNhan = Double.parseDouble(txtTienNhan.getText());
@@ -371,7 +382,7 @@ public class Menu extends javax.swing.JPanel {
         }
         return true;
     }
-    
+
     public boolean checkPhiKhac() {
         try {
             double phiKhac = Double.parseDouble(txtChiPhiKhac.getText());
@@ -395,7 +406,7 @@ public class Menu extends javax.swing.JPanel {
         }
         return true;
     }
-    
+
     private void formatTextField(JTextField textField) {
         try {
             String input = textField.getText().replaceAll("[^0-9]", ""); // Xóa ký tự không phải số
@@ -406,7 +417,7 @@ public class Menu extends javax.swing.JPanel {
             textField.setText(""); // Nếu có lỗi, đặt về rỗng
         }
     }
-    
+
     public double parseCurrency(String amount) {
         try {
             if (amount == null || amount.trim().isEmpty()) {
@@ -418,7 +429,7 @@ public class Menu extends javax.swing.JPanel {
             return 0; // Nếu có lỗi, trả về 0 thay vì gây crash
         }
     }
-    
+
     public boolean tinhToanTien() {
 //        txtTienNhan.addKeyListener(new KeyAdapter() {
 //            @Override
@@ -439,11 +450,11 @@ public class Menu extends javax.swing.JPanel {
             lblThongBaoTienNhan.setVisible(false);
             return false;
         }
-        
+
         if (!checkTienNhan() || !checkPhiKhac()) {
             return false;  // Dừng lại nếu có lỗi định dạng
         }
-        
+
         try {
             double tienSP = parseCurrency(txtTienSP.getText());
             double tienNhan = parseCurrency(txtTienNhan.getText());
@@ -503,7 +514,7 @@ public class Menu extends javax.swing.JPanel {
         }
         return true;
     }
-    
+
     public Order setFormOrder() { // tào lao rồi
         Order o = new Order();
         o.setAccountId(Auth.account.getAccountId());
@@ -518,7 +529,7 @@ public class Menu extends javax.swing.JPanel {
         return o;
     }
     double dicount = 0.0;
-    
+
     public Order getFormOrder() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return new Order(OrderJustNow.orderId,
@@ -537,7 +548,7 @@ public class Menu extends javax.swing.JPanel {
 //            String code = p.getBarcode();
 //            p.setUrlBarcode(BarcodeUtil.generateBarcodeImage(p.getBarcode()));
     Account clien = new Account();
-    
+
     AccountDAO accountDAO = new AccountDAO();
 
 //    public Account FindbyAccout(){
@@ -545,27 +556,36 @@ public class Menu extends javax.swing.JPanel {
 //      Account account = accountDAO.findById(WIDTH)
 //    }
     public void insertHD() {
+//         rdoTienMat.isSelected() ? "Tiền Mặt" : "Chuyển Khoảng");
         try {
-            
+            Order order = getFormOrder();
+            if (!rdoTienMat.isSelected()) {// thanh toán chuyern khoản
+                MsgBox.alert(null, "Thanh toán chuyển khoảng !");
+                return;
+            }
             if (OrderJustNow != null) {
                 if (OrderJustNow.isStatus()) {
-                    MsgBox.alert(null, "Hóa đơn :" + OrderJustNow.getOrderId() + "Đã thành toán vui long tạo mới!");
+                    MsgBox.alert(null, "Hóa đơn :" + OrderJustNow.getOrderId() + " Đã thành toán vui long tạo mới!");
                     cleadTable();
+                    return;
+                } else {
+                    order.setStatus(true);
+                    orderDAO.updateOrder(order);
+                    orderList = orderDAO.findAll();
+                    filltableHDC(orderList);
                     return;
                 }
             }
-            
+
             if (!tinhToanTien()) {
                 return;
             };
-            
-            Order order = getFormOrder();
-            OrderJustNow = orderDAO.insertOrder(order);
-            if (OrderJustNow == null) {
-                MsgBox.alert(null, "Thêm hóa đơn thất bại");
-                return;
-            }
-            
+
+//            OrderJustNow = orderDAO.insertOrder(order);
+//            if (OrderJustNow == null) {
+//                MsgBox.alert(null, "Thêm hóa đơn thất bại");
+//                return;
+//            }
             for (OrderDetail orderDetail : orderDetails) {
                 orderDetail.setOrderId(OrderJustNow.orderId);
                 orderDetailDAO.insertOrderDetail(orderDetail);
@@ -573,15 +593,15 @@ public class Menu extends javax.swing.JPanel {
             MsgBox.alert(null, "Thêm sản phẩm  Thành Công !");
             orderList = orderDAO.findAll();
             filltableHDC(orderList);
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             MsgBox.alert(null, "Thêm sản phẩm Thất Bại !");
         }
     }
-    
+
     class SpinnerEditor extends AbstractCellEditor implements TableCellEditor {
-        
+
         public SpinnerEditor() {
             spinner = new JSpinner();
             spinner.setModel(new SpinnerNumberModel(1, 1, 100, 1));
@@ -614,25 +634,25 @@ public class Menu extends javax.swing.JPanel {
                 }
             });
         }
-        
+
         @Override
         public Object getCellEditorValue() {
             return spinner.getValue();
         }
-        
+
         @Override
         public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
             spinner.setValue(value);
             return spinner;
         }
     }
-    
+
     class SpinnerRenderer extends JSpinner implements TableCellRenderer {
-        
+
         public SpinnerRenderer() {
             setModel(new SpinnerNumberModel(1, 1, 100, 1));
         }
-        
+
         @Override // nè he
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             setValue(value);
@@ -910,7 +930,7 @@ public class Menu extends javax.swing.JPanel {
             }
         });
         jPanel7.add(txtTienNhan, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 318, 193, 36));
-        jPanel7.add(txtTienThua, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 310, 197, 36));
+        jPanel7.add(txtTienThua, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, 197, 36));
 
         jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel20.setText("Phương thức thanh toán:");
@@ -928,12 +948,12 @@ public class Menu extends javax.swing.JPanel {
 
         jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel21.setText("Trạng thái");
-        jPanel7.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 370, -1, -1));
+        jPanel7.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 360, -1, -1));
 
         lblTrangThai.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblTrangThai.setForeground(new java.awt.Color(0, 153, 153));
         lblTrangThai.setText("Đang xử lý");
-        jPanel7.add(lblTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 390, -1, -1));
+        jPanel7.add(lblTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 380, -1, -1));
 
         jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel23.setText("Ghi chú:");
@@ -970,12 +990,12 @@ public class Menu extends javax.swing.JPanel {
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel15.setText("Tổng tiền:");
-        jPanel7.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 420, -1, -1));
+        jPanel7.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 410, -1, -1));
 
         lblTongTien.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         lblTongTien.setForeground(new java.awt.Color(198, 47, 52));
         lblTongTien.setText("100.000 VND");
-        jPanel7.add(lblTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 450, 210, -1));
+        jPanel7.add(lblTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 440, 180, -1));
 
         lblThongBaoPhi.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         lblThongBaoPhi.setForeground(new java.awt.Color(204, 0, 0));
@@ -1120,12 +1140,12 @@ public class Menu extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1051, Short.MAX_VALUE)
+            .addGap(0, 1040, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 5, Short.MAX_VALUE)
+                    .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 1040, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 6, Short.MAX_VALUE)))
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1138,31 +1158,13 @@ public class Menu extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnInHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInHoaDonActionPerformed
-        if (tblHoaDon.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(null, "Hãy chọn một hóa đơn chờ hoặc thanh toán hóa đơn mới để in!");
-            return;
-        }
-        if (checkselected) {
-            JOptionPane.showMessageDialog(null, "Hãy chọn một hóa đơn chờ hoặc thanh toán hóa đơn hiện tại để in!");
-            return;
-        }
-        prinBill();
-    }//GEN-LAST:event_btnInHoaDonActionPerformed
-
-    private void tblHoaDonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseReleased
-        if (evt.isPopupTrigger()) {
-            jPopupMenu1.show(evt.getComponent(), evt.getX(), evt.getY());
-        }
-    }//GEN-LAST:event_tblHoaDonMouseReleased
-
     private void mnuPopXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPopXoaActionPerformed
         for (int rowsp : tblHoaDon.getSelectedRows()) {
             listrow.add(rowsp);
         }
         Collections.sort(listrow);
         int number = -1;
-        
+
         while (true) {
             if (listrow.size() == 0) {
                 break;
@@ -1183,73 +1185,22 @@ public class Menu extends javax.swing.JPanel {
 
     }//GEN-LAST:event_mnuPopRemoveAllActionPerformed
 
-    private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
-        
-
-    }//GEN-LAST:event_tblHoaDonMouseClicked
-
-    private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
-        SearchProduct();
-    }//GEN-LAST:event_txtSearchKeyReleased
-
-    private void tblHoaDonKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblHoaDonKeyReleased
-
-    }//GEN-LAST:event_tblHoaDonKeyReleased
-
-    private void txtChiPhiKhacCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtChiPhiKhacCaretUpdate
-//        tinhPhiKhac();
-        tinhToanTien();
-    }//GEN-LAST:event_txtChiPhiKhacCaretUpdate
-
-    private void txtTienNhanCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtTienNhanCaretUpdate
-//        tinhTienNhan();
-        tinhToanTien();
-    }//GEN-LAST:event_txtTienNhanCaretUpdate
-
-    private void btnVCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVCActionPerformed
-//        QRScanne rScanne = new QRScanne(null, true);
-//        rScanne.addWindowListener(new java.awt.event.WindowAdapter() {
-//            @Override
-//            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-//                outPutVC = scanResult;
-//                if (!outPutVC.isEmpty()) {
-//                    checkVC();
-//                }
-//            }
-//        });
-//        rScanne.setVisible(true);
-
-    }//GEN-LAST:event_btnVCActionPerformed
-
-    private void cboLoaiSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboLoaiSPActionPerformed
-//        if (cboLoaiSP.getSelectedIndex() != 0) {
-//            try {
-//                listSP = SPDao.selectByLoaiSP(cboLoaiSP.getSelectedItem().toString());
-//                if (listSP.size() == 0) {
-//                    panelItem1.removeAll();
-//                    panelItem1.repaint();
-//                }
-//                panelItem1.removeAll();
-//                testData();
-//            } catch (Exception e) {
-//            }
-//        } else {
-//            fillPanelSP();
-//        }
-
-
-    }//GEN-LAST:event_cboLoaiSPActionPerformed
+    private void tblHoaDonChoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonChoMousePressed
+        //        if (evt.getClickCount() == 2) {
+        //            fillTableHoaDonCT();
+        //        }
+    }//GEN-LAST:event_tblHoaDonChoMousePressed
 
     private void tblHoaDonChoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonChoMouseClicked
-//        checkselected = false;
-//        if (!checkselected) {
-////            fillTableHoaDonCT();
-//        }
+        //        checkselected = false;
+        //        if (!checkselected) {
+        ////            fillTableHoaDonCT();
+        //        }
         indexHD = tblHoaDonCho.getSelectedRow();
         System.out.println("indexHD " + indexHD);
         selectFillHDC(indexHD);
         clien = accountDAO.findById(OrderJustNow.getClientID());
-        
+
         if (clien == null) {
             txtkhachID1.setText(null);
             return;
@@ -1257,11 +1208,102 @@ public class Menu extends javax.swing.JPanel {
         txtkhachID1.setText(clien.getPhoneNumber());
     }//GEN-LAST:event_tblHoaDonChoMouseClicked
 
-    private void tblHoaDonChoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonChoMousePressed
-//        if (evt.getClickCount() == 2) {
-//            fillTableHoaDonCT();
-//        }
-    }//GEN-LAST:event_tblHoaDonChoMousePressed
+    private void jPanel6PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jPanel6PropertyChange
+        // TODO add your handling code here:
+        SearchProduct();
+    }//GEN-LAST:event_jPanel6PropertyChange
+
+    private void btnVCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVCActionPerformed
+        //        QRScanne rScanne = new QRScanne(null, true);
+        //        rScanne.addWindowListener(new java.awt.event.WindowAdapter() {
+        //            @Override
+        //            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+        //                outPutVC = scanResult;
+        //                if (!outPutVC.isEmpty()) {
+        //                    checkVC();
+        //                }
+        //            }
+        //        });
+        //        rScanne.setVisible(true);
+    }//GEN-LAST:event_btnVCActionPerformed
+
+    private void cboLoaiSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboLoaiSPActionPerformed
+        //        if (cboLoaiSP.getSelectedIndex() != 0) {
+        //            try {
+        //                listSP = SPDao.selectByLoaiSP(cboLoaiSP.getSelectedItem().toString());
+        //                if (listSP.size() == 0) {
+        //                    panelItem1.removeAll();
+        //                    panelItem1.repaint();
+        //                }
+        //                panelItem1.removeAll();
+        //                testData();
+        //            } catch (Exception e) {
+        //            }
+        //        } else {
+        //            fillPanelSP();
+        //        }
+
+    }//GEN-LAST:event_cboLoaiSPActionPerformed
+
+    private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
+        SearchProduct();
+    }//GEN-LAST:event_txtSearchKeyReleased
+
+    private void scroll1ComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_scroll1ComponentAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_scroll1ComponentAdded
+
+    private void btnThemKhachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemKhachActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnThemKhachActionPerformed
+
+    private void btnThemKhachMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemKhachMouseClicked
+        FormTimKhach formTim = new FormTimKhach(null);
+        formTim.setVisible(true);
+
+        // Lấy khách hàng được chọn
+        String khachDuocChon = formTim.getSelectedCustomer();
+        if (khachDuocChon != null) {
+            txtkhachID1.setText(khachDuocChon); // Điền vào JTextField trên form chính
+        }
+    }//GEN-LAST:event_btnThemKhachMouseClicked
+
+    private void txtTienSP1CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtTienSP1CaretUpdate
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTienSP1CaretUpdate
+
+    private void btnThanhToan1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToan1ActionPerformed
+        if (checkThanhToan()) {
+            insertHD();
+            //            fillToTableHoaDon();
+        }
+    }//GEN-LAST:event_btnThanhToan1ActionPerformed
+
+    private void btnThanhToan1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThanhToan1MouseClicked
+        // TODO add your handling code here:
+        //        insertHD();
+    }//GEN-LAST:event_btnThanhToan1MouseClicked
+
+    private void btnInHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInHoaDonActionPerformed
+        if (tblHoaDon.getRowCount() == 0) {
+            MsgBox.alert(null, "Hãy chọn một hóa đơn chờ hoặc thanh toán hóa đơn mới để in!");
+            return;
+        }
+        if (checkselected) {
+            MsgBox.alert(null, "Hãy chọn một hóa đơn chờ hoặc thanh toán hóa đơn hiện tại để in!");
+            return;
+        }
+        prinBill();
+    }//GEN-LAST:event_btnInHoaDonActionPerformed
+
+    private void btnInHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInHoaDonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnInHoaDonMouseClicked
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        cleadTable();
+        //        moForm();
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     private void txtTienNhanKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienNhanKeyTyped
 
@@ -1271,37 +1313,15 @@ public class Menu extends javax.swing.JPanel {
 
     }//GEN-LAST:event_txtTienNhanKeyPressed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        cleadTable();
-//        moForm();
-    }//GEN-LAST:event_jButton6ActionPerformed
+    private void txtTienNhanCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtTienNhanCaretUpdate
+        //        tinhTienNhan();
+        tinhToanTien();
+    }//GEN-LAST:event_txtTienNhanCaretUpdate
 
-    private void btnThanhToan1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToan1ActionPerformed
-        if (checkThanhToan()) {
-            insertHD();
-//            fillToTableHoaDon();
-        }
-
-    }//GEN-LAST:event_btnThanhToan1ActionPerformed
-
-    private void scroll1ComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_scroll1ComponentAdded
-        // TODO add your handling code here:
-    }//GEN-LAST:event_scroll1ComponentAdded
-
-    private void jPanel6PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jPanel6PropertyChange
-        // TODO add your handling code here:
-        SearchProduct();
-    }//GEN-LAST:event_jPanel6PropertyChange
-
-    private void btnThanhToan1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThanhToan1MouseClicked
-        // TODO add your handling code here:
-//        insertHD();
-
-    }//GEN-LAST:event_btnThanhToan1MouseClicked
-
-    private void txtTienSP1CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtTienSP1CaretUpdate
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTienSP1CaretUpdate
+    private void txtChiPhiKhacCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtChiPhiKhacCaretUpdate
+        //        tinhPhiKhac();
+        tinhToanTien();
+    }//GEN-LAST:event_txtChiPhiKhacCaretUpdate
 
     private void txtTienSPCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtTienSPCaretUpdate
         tinhToanTien();
@@ -1343,24 +1363,19 @@ public class Menu extends javax.swing.JPanel {
         //        }
     }//GEN-LAST:event_txtTienSPCaretUpdate
 
-    private void btnThemKhachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemKhachActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnThemKhachActionPerformed
+    private void tblHoaDonKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblHoaDonKeyReleased
 
-    private void btnThemKhachMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemKhachMouseClicked
-        FormTimKhach formTim = new FormTimKhach(null);
-        formTim.setVisible(true);
+    }//GEN-LAST:event_tblHoaDonKeyReleased
 
-        // Lấy khách hàng được chọn
-        String khachDuocChon = formTim.getSelectedCustomer();
-        if (khachDuocChon != null) {
-            txtkhachID1.setText(khachDuocChon); // Điền vào JTextField trên form chính
+    private void tblHoaDonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseReleased
+        if (evt.isPopupTrigger()) {
+            jPopupMenu1.show(evt.getComponent(), evt.getX(), evt.getY());
         }
-    }//GEN-LAST:event_btnThemKhachMouseClicked
+    }//GEN-LAST:event_tblHoaDonMouseReleased
 
-    private void btnInHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInHoaDonMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnInHoaDonMouseClicked
+    private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
+
+    }//GEN-LAST:event_tblHoaDonMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1735,7 +1750,7 @@ public class Menu extends javax.swing.JPanel {
         Date taoLuc = null;
         Date thanhToanLuc = null;
         String nameNV = "";
-        
+
         if (!OrderJustNow.isStatus()) {
             MsgBox.alert(null, "đơn hàng chưa thanh toán!");
             return;
@@ -1761,7 +1776,7 @@ public class Menu extends javax.swing.JPanel {
         }
         try {
             bill = new JTextPane();
-            
+
             bill.setContentType("text/html");
 
             // Nội dung hóa đơn của bạn
@@ -1776,13 +1791,13 @@ public class Menu extends javax.swing.JPanel {
             billContent.append("<p align='center'; ><b>PEACH COFFEE<br>ĐC: 789/JQK Đường s ố 1, Cái Răng, CT<br>STĐ: 098712345</b>"
                     + "<br>--------------------"
                     + "<br><b>HÓA ĐƠN THANH TOÁN<br>Mã Hóa Đơn: ").append(maHDInsert).append("<br>Ngày: ").append(DateBill).append("</b></p>");
-            billContent.append("<p><b>Tạo lúc: </b>").append(taoLuc).append("<br><b>Thanh toán lúc: </b>").append(thanhToanLuc).append("<br><b>Thu ngân: </b>").append(nameNV).append("</p>");
+            billContent.append("<p><b>Tạo lúc: </b>").append(taoLuc).append("<br><b>Thanh toán lúc: </b>").append(thanhToanLuc).append("<br><b>Thu ngân: </b>").append(Auth.account.getFullname()).append("</p>");
             billContent.append("<hr>");
             billContent.append("<table width='100%'>");
 
 // Thêm hàng tiêu đề với canh lề cụ thể cho từng cột
             billContent.append("<tr><th style='width:65%; text-align:left;'>Tên sản phẩm</th><th style='width:10%; text-align:center;'>SL</th><th style='width:25%; text-align:right;'>TT</th></tr>");
-            
+
             if (tblHoaDon.getRowCount() != 0) {
                 for (int i = 0; i < tblHoaDon.getRowCount(); i++) {
                     String tenSp = tblHoaDon.getValueAt(i, 0).toString();
@@ -1794,7 +1809,7 @@ public class Menu extends javax.swing.JPanel {
                             .append("</td><td style='text-align:center;'>").append(soluong)
                             .append("</td><td style='text-align:right;'>").append(tongTien.toString()).append("</td></tr>");
                 }
-                
+
             }
             billContent.append("</table>");
             billContent.append("<hr>");
@@ -1806,16 +1821,16 @@ public class Menu extends javax.swing.JPanel {
             billContent.append("<tr><td style='text-align:left;'><b>").append("Tiền thừa: ").append("</b></td><td style='text-align:right;'><b>").append(df.format(parseCurrency(txtTienThua.getText()))).append("</b></td></tr>");
             billContent.append("</table>");
             billContent.append("<p align='center'>--------------------"
-                    + "<br><b>Pass wifi: thanbai888</b>"
+                    + "<br><b>P</b>"
                     + "<br<b>Xin cảm ơn, hẹn gặp lại quý khách!</b></p>");
             billContent.append("</body></html>");
             Font font = new Font("Arial", Font.PLAIN, 8);
-            
+
             bill.setText(billContent.toString());
             bill.setFont(font);
             JOptionPane.showMessageDialog(null, bill);
             bill.print();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -103,6 +103,21 @@ public abstract class BaseDAO<T, K> {
         return list;
     }
 
+    public T findByColumnT(String key, String column) {
+        String query = "SELECT * FROM " + getTableName() + " WHERE " + column + "  =?";
+//        String query = "SELECT * FROM " + getTableName();
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setObject(1, key);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return mapResultSetToObject(rs);
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "FindById error: {0}", e.getMessage());
+        }
+        return null;
+    }
+
     public List<T> findAll() {
         List<T> list = new ArrayList<>();
         String query = "SELECT * FROM " + getTableName();
