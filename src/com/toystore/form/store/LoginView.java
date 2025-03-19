@@ -6,7 +6,6 @@ package com.toystore.form.store;
 
 //import jdk.jshell.tool.JavaShellToolBuilder
 import com.toystore.form.*;
-import com.toystore.dao.NhanVienDao;
 import com.toystore.dao.store.AccountDAO;
 import com.toystore.main.Main;
 import com.toystore.model.NhanVien;
@@ -25,8 +24,6 @@ import java.util.List;
  */
 public class LoginView extends javax.swing.JFrame {
 
-    NhanVienDao nvdao = new NhanVienDao() {
-    };
     AccountDAO accountDAO = new AccountDAO();
 
 //     NhanVien nv = new NhanVien();

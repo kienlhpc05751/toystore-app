@@ -7,7 +7,6 @@ package com.toystore.form.store;
 
 //import com.raven.dao.NhanVienDao;
 import com.toystore.form.*;
-import com.toystore.dao.NhanVienDao;
 import com.toystore.dao.store.AccountDAO;
 import com.toystore.utils.XDialogHelper;
 import com.toystore.utils.XShareHelper;
@@ -59,8 +58,7 @@ public class staffView extends javax.swing.JPanel {
 //        NhanVienDao nvDao = new NhanVienDao();
     int index = -1; // vị trí của nhân viên đang hiển thị trên form
     public int row = 0;
-    NhanVienDao nvDao = new NhanVienDao() {
-    };
+
     List<NhanVien> nhanVienList = new ArrayList<>();
 
     List<Account> accountList = new ArrayList<>();
@@ -800,7 +798,7 @@ public class staffView extends javax.swing.JPanel {
         model.setAccountId(Integer.parseInt(txtMaNV.getText()));
         model.setUsername(txtTenNV.getText());
 //        model.setMatKhau(new String(txtMatKhau.getPassword()));
-        model.setPassword(nvDao.hashPassword(txtMatKhau.getText()));
+        model.setPassword(Auth.hashPassword(txtMatKhau.getText()));
         model.setBirthday(jDateChooser1.getDate());
         model.setEmail(txtEmail.getText());
         model.setPhoneNumber(txtSDT.getText());
@@ -889,28 +887,26 @@ public class staffView extends javax.swing.JPanel {
         this.row = -1;
     }
 
-    public boolean CheckMa() {
-        List<String> list = new ArrayList<>();
-        List<NhanVien> listNV = nvDao.selectAll();
-        for (NhanVien nv : listNV) {
-            if (txtMaNV.getText() == nv.getMaNV()) {
-                list.add("Mã Sp đã có");
-                txtMaNV.setBackground(Color.blue);
-            } else {
-                txtMaNV.setBackground(null);
-            }
-        }
-        if (!list.isEmpty()) {
-            StringBuilder errorMessage = new StringBuilder("Lỗi:\n");
-            for (String error : list) {
-                errorMessage.append("- ").append(error).append("\n");
-            }
-            MsgBox.alert(this, errorMessage.toString());
-            return false;
-        }
-        return true;
-    }
-
+//    public boolean CheckMa() {
+//        List<String> list = new ArrayList<>();
+//        for (NhanVien nv : listNV) {
+//            if (txtMaNV.getText() == nv.getMaNV()) {
+//                list.add("Mã Sp đã có");
+//                txtMaNV.setBackground(Color.blue);
+//            } else {
+//                txtMaNV.setBackground(null);
+//            }
+//        }
+//        if (!list.isEmpty()) {
+//            StringBuilder errorMessage = new StringBuilder("Lỗi:\n");
+//            for (String error : list) {
+//                errorMessage.append("- ").append(error).append("\n");
+//            }
+//            MsgBox.alert(this, errorMessage.toString());
+//            return false;
+//        }
+//        return true;
+//    }
     public boolean checkFrom() {
 //          String ma = txtMaNV
         // List to store error messages

@@ -4,7 +4,7 @@
  */
 package com.toystore.form;
 
-import com.toystore.dao.NhanVienDao;
+//import com.toystore.dao.NhanVienDao;
 import com.toystore.model.NhanVien;
 import com.toystore.utils.Auth;
 import com.toystore.utils.MsgBox;
@@ -17,8 +17,8 @@ import java.util.List;
  */
 public class DoiMatKhauJDialog extends javax.swing.JDialog {
 
-    NhanVienDao nvdao = new NhanVienDao() {
-    };
+//    NhanVienDao nvdao = new NhanVienDao() {
+//    };
     List<NhanVien> list = new ArrayList<>();
 //    public static String ma = "";
     String ma = "";
@@ -233,7 +233,7 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
 
     NhanVien getModel() {
         NhanVien model = new NhanVien();
-        model.setMatKhau(nvdao.hashPassword(txtMatKhauMoi.getText()));
+//        model.setMatKhau(nvdao.hashPassword(txtMatKhauMoi.getText()));
         model.setMaNV(ma);
         return model;
     }
@@ -241,7 +241,7 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
     void update() {
         NhanVien nv = getModel();
         try {
-            nvdao.updatedp(nv);
+//            nvdao.updatedp(nv);
         } catch (Exception e) {
             e.printStackTrace();
             MsgBox.alert(this, "Đổi mật khẩu thất bại!");

@@ -6,18 +6,21 @@
 package com.toystore.form;
 
 //import com.raven.dao.NhanVienDao;
-import com.toystore.dao.KhachHangDao;
-import com.toystore.dao.NhanVienDao;
+//import com.toystore.dao.KhachHangDao;
+//import com.raven.dao.NhanVienDao;
+import com.toystore.dao.store.AccountDAO;
 import com.toystore.utils.XDialogHelper;
 import com.toystore.utils.XShareHelper;
 import com.toystore.utils.Validator;
 import com.toystore.main.Main;
 import com.toystore.model.KhachHang;
+import com.toystore.model.store.Account;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import com.toystore.utils.MsgBox;
 import com.toystore.utils.XDate;
 import com.toystore.utils.XImage;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -34,9 +37,7 @@ public class KhachHangView extends javax.swing.JPanel {
         load();
     }
 
-    
 //    
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -483,7 +484,7 @@ public class KhachHangView extends javax.swing.JPanel {
             if (this.index >= 0) {
                 this.edit();
                 tabs.setSelectedIndex(0);
-                
+
             }
         }
 
@@ -528,20 +529,23 @@ public class KhachHangView extends javax.swing.JPanel {
     private javax.swing.JTextField txtTenKH;
     // End of variables declaration//GEN-END:variables
     int index = -1; // vị trí của khách hàng đang hiển thị trên form
-    KhachHangDao khDao = new KhachHangDao();
+//    KhachHangDao khDao = new KhachHangDao();
+    Account account = new Account();
+    AccountDAO accountDAO = new AccountDAO();
+    List<Account> accountList = new ArrayList<>();
 
     void load() {
         DefaultTableModel model = (DefaultTableModel) tblKhachHang.getModel();
         model.setRowCount(0);
         try {
-            List<KhachHang> list = khDao.selectAll();
-            for (KhachHang kh : list) {
+            accountList = accountDAO.getALLCustom();
+            for (Account kh : accountList) {
                 Object[] row = {
-                    kh.getMaKH(),
-                    kh.getTenKH(),
+                    kh.getAccountId(),
+                    kh.getFullname(),
                     kh.getEmail(),
-                    kh.getSDT(),
-                    kh.getDiaChi()
+                    kh.getPhoneNumber(),
+                    kh.getAddress()
                 };
                 model.addRow(row);
             }
@@ -554,9 +558,9 @@ public class KhachHangView extends javax.swing.JPanel {
     void edit() {
         try {
             Integer makh = (Integer) tblKhachHang.getValueAt(this.index, 0);
-            KhachHang model = khDao.findByID(makh);
-            if (model != null) {
-                this.setModel(model);
+            account = accountDAO.findById(makh);
+            if (account != null) {
+                this.setModel(account);
 //                tabs.setSelectedIndex(0);
                 this.setStatus(false);
             }
@@ -566,22 +570,22 @@ public class KhachHangView extends javax.swing.JPanel {
         }
     }
 
-    void setModel(KhachHang model) {
-        txtMaKH.setText(String.valueOf(model.getMaKH()));
-        txtTenKH.setText(model.getTenKH());
+    void setModel(Account model) {
+        txtMaKH.setText(String.valueOf(model.getAccountId()));
+        txtTenKH.setText(model.getFullname());
         txtEmail.setText(model.getEmail());
-        txtSDT.setText(model.getSDT());
-        txtDiaChi.setText(model.getDiaChi());
+        txtSDT.setText(model.getPhoneNumber());
+        txtDiaChi.setText(model.getAddress());
     }
-    
-    KhachHang getModel() {
-        KhachHang model = new KhachHang();
-        model.setMaKH(Integer.valueOf(txtMaKH.getText()));
-        model.setTenKH(txtTenKH.getText());
-        model.setEmail(txtEmail.getText());
-        model.setSDT(txtSDT.getText());
-        model.setDiaChi(txtDiaChi.getText());
-        return model;
+
+    Account getModel() {
+        account = new Account();
+        account.setAccountId(Integer.valueOf(txtMaKH.getText()));
+        account.setFullname(txtTenKH.getText());
+        account.setEmail(txtEmail.getText());
+        account.setPhoneNumber(txtSDT.getText());
+        account.setAddress(txtDiaChi.getText());
+        return account;
     }
 
     void setStatus(boolean insertable) {
@@ -599,18 +603,18 @@ public class KhachHangView extends javax.swing.JPanel {
     }
 
     void insert() {
-       if (!validator()) {
+        if (!validator()) {
             return;
         }
 
-        KhachHang nv = getModel();
+        account = getModel();
 
-        if (nv == null) {
+        if (account == null) {
             return;
         }
 
-        KhachHangDao.getInstant().insert(nv);
-        MsgBox.alert(this, "Thêm thành công " + " " + nv.getTenKH());
+        accountDAO.insertAccount(account);
+        MsgBox.alert(this, "Thêm thành công " + " " + account.getFullname());
         clear();
         load();
 
@@ -621,14 +625,14 @@ public class KhachHangView extends javax.swing.JPanel {
             return;
         }
 
-        KhachHang kh = getModel();
+        account = getModel();
 
-        if (kh == null) {
+        if (account == null) {
             return;
         }
 
-        KhachHangDao.getInstant().update(kh);
-        MsgBox.alert(this, "Sửa thành công nhân viên " + " " + kh.getTenKH());
+        accountDAO.updateAccount(account);
+        MsgBox.alert(this, "Sửa thành công nhân viên " + " " + account.getFullname());
         clear();
 
 //        this.dispose();
@@ -638,9 +642,9 @@ public class KhachHangView extends javax.swing.JPanel {
 
     void delete() {
         if (MsgBox.confirm(this, "bạn thật sự muốn xóa nhân viên này ?")) {
-           Integer maKh = Integer.valueOf(txtMaKH.getText());
+            Integer maKh = Integer.valueOf(txtMaKH.getText());
             try {
-                khDao.delete(maKh);
+                accountDAO.deleteAccount(maKh);
                 this.load();
                 this.clear();
                 MsgBox.alert(this, "Xóa thành công!");
@@ -676,7 +680,7 @@ public class KhachHangView extends javax.swing.JPanel {
     }
 
     void clear() {
-        this.setModel(new KhachHang());
+        this.setModel(new Account());
         this.setStatus(true);
         this.index = -1;
     }

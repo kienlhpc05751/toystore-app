@@ -9,12 +9,9 @@ import com.toystore.event.EventMenuSelected;
 import com.toystore.form.Form_1;
 import com.toystore.form.Form_3;
 import com.toystore.form.Form_Home;
-import com.toystore.form.HoaDonView;
-import com.toystore.form.NhanVienView;
 import com.toystore.form.KhachHangView;
 import com.toystore.form.Login;
 import com.toystore.form.PosForm;
-import com.toystore.form.SanPhamView1;
 import com.toystore.form.loadJDialog;
 import com.toystore.form.store.Menu;
 import com.toystore.form.store.Menu1;
@@ -36,11 +33,9 @@ public class Main extends javax.swing.JFrame {
      * Creates new form Main
      */
     private Form_Home home;
-    private HoaDonView form2;
+
     private Form_3 form3;
-    private KhachHangView khachhang;
-    private NhanVienView form4;
-    private SanPhamView1 form5;
+
     private Login form1;
     private PosForm PosForm;
 
@@ -51,6 +46,7 @@ public class Main extends javax.swing.JFrame {
     private productAttributesView prAView;
     private staffView stView;
     private OrderView orderView;
+    private KhachHangView khachhang;
 
     public Main() {
         initComponents();
@@ -68,12 +64,13 @@ public class Main extends javax.swing.JFrame {
         setBackground(new Color(0, 0, 0, 0));
         home = new Form_Home();
         form1 = new Login();
-        form2 = new HoaDonView();
+//        form2 = new HoaDonView();
         form3 = new Form_3();
-        form4 = new NhanVienView();
+//        form4 = new NhanVienView();
         PosForm = new PosForm();
+
         khachhang = new KhachHangView();
-        form5 = new SanPhamView1();
+//        form5 = new SanPhamView1();
 
         posMenu = new Menu();
         pView = new productView();

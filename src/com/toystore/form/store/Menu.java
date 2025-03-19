@@ -773,7 +773,7 @@ public class Menu extends javax.swing.JPanel {
         });
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel13.setText("Tên sản phẩm");
+        jLabel13.setText("Name product");
 
         txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -789,7 +789,7 @@ public class Menu extends javax.swing.JPanel {
         });
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel14.setText("Loại sản phẩm");
+        jLabel14.setText("Category");
 
         btnVC.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnVC.setText("Voucher");
@@ -902,7 +902,7 @@ public class Menu extends javax.swing.JPanel {
         jPanel7.add(txtTienSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 244, 193, 36));
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel17.setText("Chi phí khác");
+        jLabel17.setText("money transfer");
         jPanel7.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(247, 218, -1, -1));
 
         txtChiPhiKhac.addCaretListener(new javax.swing.event.CaretListener() {
@@ -913,7 +913,7 @@ public class Menu extends javax.swing.JPanel {
         jPanel7.add(txtChiPhiKhac, new org.netbeans.lib.awtextra.AbsoluteConstraints(247, 244, 197, 36));
 
         jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel18.setText("Tiền nhận*");
+        jLabel18.setText("receive money");
         jPanel7.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 292, -1, -1));
 
         txtTienNhan.addCaretListener(new javax.swing.event.CaretListener() {
@@ -933,12 +933,17 @@ public class Menu extends javax.swing.JPanel {
         jPanel7.add(txtTienThua, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, 197, 36));
 
         jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel20.setText("Phương thức thanh toán:");
+        jLabel20.setText("Payment method:");
         jPanel7.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, -1, -1));
 
         buttonGroup1.add(rdoTienMat);
         rdoTienMat.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        rdoTienMat.setText("Tiền mặt");
+        rdoTienMat.setText("cash");
+        rdoTienMat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdoTienMatActionPerformed(evt);
+            }
+        });
         jPanel7.add(rdoTienMat, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, -1, -1));
 
         buttonGroup1.add(rdoChuyenKhoang);
@@ -947,17 +952,17 @@ public class Menu extends javax.swing.JPanel {
         jPanel7.add(rdoChuyenKhoang, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 440, -1, -1));
 
         jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel21.setText("Trạng thái");
+        jLabel21.setText("Order status");
         jPanel7.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 360, -1, -1));
 
         lblTrangThai.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblTrangThai.setForeground(new java.awt.Color(0, 153, 153));
-        lblTrangThai.setText("Đang xử lý");
+        lblTrangThai.setText("processing");
         jPanel7.add(lblTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 380, -1, -1));
 
         jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel23.setText("Ghi chú:");
-        jPanel7.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 464, -1, -1));
+        jLabel23.setText("note");
+        jPanel7.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, -1, -1));
 
         txtGhiChu.setColumns(20);
         txtGhiChu.setRows(5);
@@ -966,7 +971,7 @@ public class Menu extends javax.swing.JPanel {
         jPanel7.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 490, 438, 87));
 
         jButton6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton6.setText("Mới");
+        jButton6.setText("new");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -975,7 +980,7 @@ public class Menu extends javax.swing.JPanel {
         jPanel7.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 590, 96, 40));
 
         btnInHoaDon.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnInHoaDon.setText("In hóa đơn");
+        btnInHoaDon.setText("print bill");
         btnInHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnInHoaDonMouseClicked(evt);
@@ -986,10 +991,10 @@ public class Menu extends javax.swing.JPanel {
                 btnInHoaDonActionPerformed(evt);
             }
         });
-        jPanel7.add(btnInHoaDon, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 590, -1, 40));
+        jPanel7.add(btnInHoaDon, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 590, -1, 40));
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel15.setText("Tổng tiền:");
+        jLabel15.setText("Total amount:");
         jPanel7.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 410, -1, -1));
 
         lblTongTien.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
@@ -999,16 +1004,16 @@ public class Menu extends javax.swing.JPanel {
 
         lblThongBaoPhi.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         lblThongBaoPhi.setForeground(new java.awt.Color(204, 0, 0));
-        lblThongBaoPhi.setText("Thông báo");
-        jPanel7.add(lblThongBaoPhi, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 216, 100, 30));
+        lblThongBaoPhi.setText("Notification");
+        jPanel7.add(lblThongBaoPhi, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 220, 100, 30));
 
         lblThongBaoTienNhan.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         lblThongBaoTienNhan.setForeground(new java.awt.Color(204, 0, 0));
-        lblThongBaoTienNhan.setText("Thông báo");
-        jPanel7.add(lblThongBaoTienNhan, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 300, 120, -1));
+        lblThongBaoTienNhan.setText("Notification");
+        jPanel7.add(lblThongBaoTienNhan, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 300, 120, -1));
 
         btnThanhToan1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnThanhToan1.setText("Thanh toán");
+        btnThanhToan1.setText("Pay");
         btnThanhToan1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnThanhToan1MouseClicked(evt);
@@ -1019,10 +1024,10 @@ public class Menu extends javax.swing.JPanel {
                 btnThanhToan1ActionPerformed(evt);
             }
         });
-        jPanel7.add(btnThanhToan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 590, -1, 40));
+        jPanel7.add(btnThanhToan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 590, 110, 40));
 
         jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel22.setText("Tiền thừa");
+        jLabel22.setText("Extra money");
         jPanel7.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(247, 292, -1, -1));
 
         txtTienSP1.addCaretListener(new javax.swing.event.CaretListener() {
@@ -1033,7 +1038,7 @@ public class Menu extends javax.swing.JPanel {
         jPanel7.add(txtTienSP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 244, 193, 36));
 
         jLabel27.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel27.setText("Tiền sản phẩm");
+        jLabel27.setText("Name product");
         jPanel7.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, -1, -1));
 
         txtkhachID1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -1041,7 +1046,7 @@ public class Menu extends javax.swing.JPanel {
         jPanel7.add(txtkhachID1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 360, -1, -1));
 
         txtkhachID2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txtkhachID2.setText("SĐT KHÁCH:");
+        txtkhachID2.setText("Client phone ");
         jPanel7.add(txtkhachID2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, -1, 20));
 
         btnThemKhach.setText("Thêm khách");
@@ -1100,7 +1105,7 @@ public class Menu extends javax.swing.JPanel {
         jLabel24.setBackground(new java.awt.Color(153, 204, 255));
         jLabel24.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel24.setText("Hóa Đơn Chờ");
+        jLabel24.setText("bill ");
         jLabel24.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -1376,6 +1381,10 @@ public class Menu extends javax.swing.JPanel {
     private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
 
     }//GEN-LAST:event_tblHoaDonMouseClicked
+
+    private void rdoTienMatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoTienMatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rdoTienMatActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

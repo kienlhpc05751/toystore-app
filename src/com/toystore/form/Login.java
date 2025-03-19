@@ -5,7 +5,7 @@
 package com.toystore.form;
 
 //import jdk.jshell.tool.JavaShellToolBuilder
-import com.toystore.dao.NhanVienDao;
+
 import com.toystore.dao.store.AccountDAO;
 import com.toystore.main.Main;
 import com.toystore.model.NhanVien;
@@ -24,8 +24,7 @@ import java.util.List;
  */
 public class Login extends javax.swing.JFrame {
 
-    NhanVienDao nvdao = new NhanVienDao() {
-    };
+
     AccountDAO accountDAO = new AccountDAO();
 //     NhanVien nv = new NhanVien();
 
@@ -66,33 +65,6 @@ public class Login extends javax.swing.JFrame {
         }
     }
 
-    public void DangNhap() {
-        if (checkFrom()) {
-            String manv = txtUserName.getText();
-//            String matKhau = new String(txtPassword.getPassword());
-            String matKhau = new String(nvdao.hashPassword(txtPassword.getText()));
-            NhanVien nhanVien = nvdao.selectById(manv);
-            if (nhanVien == null) {
-                txtUserName.requestFocus();
-                txtUserName.setBackground(Color.red);
-                MsgBox.alert(this, "Sai tên đăng nhập !");
-            } else if (!matKhau.equals(nhanVien.getMatKhau())) {
-                txtPassword.requestFocus();
-                txtPassword.setBackground(null);
-                txtPassword.setBackground(Color.red);
-                MsgBox.alert(this, "Sai mật khẩu !");
-            } else {
-                MsgBox.alert(this, "Đăng nhập thành công !");
-
-                Auth.user = nhanVien;
-//           new QuanLy.QuanLyNhanVien().setVisible(true);
-//                new quanlydaotao.mainEduSys().setVisible(true);
-                new Main().setVisible(true);
-//                this.dispose();
-                this.dispose();
-            }
-        }
-    }
 
     public boolean checkFrom() {
 //          String ma = txtMaNV
@@ -137,28 +109,7 @@ public class Login extends javax.swing.JFrame {
     }
 
 //    }
-    private void login() {
-        String manv = txtUserName.getText();
-        String mk = new String(txtPassword.getPassword());
-//            nv = nvdao.selectById(manv);
-        NhanVien nv = nvdao.selectById(manv);
-        System.out.println(nv.getMaNV());
-        System.out.println(nv.getMatKhau());
-        System.out.println(manv);
-        System.out.println(mk);
-
-        if (nv == null) {
-            MsgBox.alert(this, "Sai tên đăng nhập!");
-        } else if (mk.equals(nv.getMatKhau())) {
-            MsgBox.alert(this, "Sai mật khẩu!");
-        } else {
-            System.out.println("Logged in successfully...");
-            MsgBox.alert(this, "Đăng nhập thành công!");
-            Auth.user = nv;
-            System.out.println(Auth.user);
-            this.dispose();
-        }
-    }
+    
 
     private void exit() {
         if (MsgBox.confirm(this, "Bạn muốn kết thúc ứng dụng?")) {

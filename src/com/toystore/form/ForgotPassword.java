@@ -4,7 +4,7 @@
  */
 package com.toystore.form;
 
-import com.toystore.dao.FogotPasswordDAO;
+//import com.toystore.dao.FogotPasswordDAO;
 import static com.toystore.model.ForgotPassword.generateOTP;
 import static com.toystore.model.ForgotPassword.sendOTPEmail;
 import com.toystore.utils.MsgBox;

@@ -7,8 +7,6 @@ package com.toystore.form.store;
 
 import com.sun.mail.handlers.text_html;
 import com.toystore.form.*;
-import com.toystore.dao.LoaiSpDAO;
-import com.toystore.dao.SanPhamDao;
 import com.toystore.dao.store.AgeDAO;
 import com.toystore.dao.store.BrandDAO;
 import com.toystore.dao.store.CategoryDAO;
@@ -68,8 +66,6 @@ public class productView extends javax.swing.JPanel {
 //        listAge = ageDAO.selectAll();
 //        listMaterial = materialDAO.selectAll();
 //    List<Sanpham> listSP = new ArrayList<>();
-    LoaiSpDAO daosp = new LoaiSpDAO() {
-    };
     List<LoaiSanPham> listLSP = new ArrayList<>();
 
     public productView() {

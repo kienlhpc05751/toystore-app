@@ -31,6 +31,9 @@ public class Form_Home extends javax.swing.JPanel {
         Date n = XDate.now();
         String nn = XDate.toString(n, "dd-MM-yyyy");
         List<Object[]> list1 = dao.theoNgay();
+        if (list1 == null) {
+            return;
+        }
         for (Object[] db : list1) {
 
             soLuong = String.valueOf(db[1]);
@@ -39,6 +42,9 @@ public class Form_Home extends javax.swing.JPanel {
         }
 
         List<Object[]> list2 = dao.theoThang();
+        if (list2 == null) {
+            return;
+        }
         for (Object[] db : list2) {
             soLuong = String.valueOf(db[1]);
             tongtienString = String.valueOf(db[2]);
@@ -47,6 +53,9 @@ public class Form_Home extends javax.swing.JPanel {
         }
 
         List<Object[]> list3 = dao.theoNam();
+        if (list3 == null) {
+            return;
+        }
         for (Object[] db : list3) {
             soLuong = String.valueOf(db[1]);
             tongtienString = String.valueOf(db[2]);
@@ -66,7 +75,7 @@ public class Form_Home extends javax.swing.JPanel {
         }
         tblLichSu.setModel(model1);
         //
-         String[] cols = {"TenLoaiSanPham", "TongSoLuongTonKho"};
+        String[] cols = {"TenLoaiSanPham", "TongSoLuongTonKho"};
         DefaultTableModel model2 = new DefaultTableModel(cols, 0);
         model2.setRowCount(0);
         List<Object[]> listkho = dao.Tonkho();
@@ -79,7 +88,6 @@ public class Form_Home extends javax.swing.JPanel {
 //        card3.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/flag.png")), "Unique Visitors", "$300000", "Increased by 70%"));
         // table
 //        spTable.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
-
 //        table.addRow(new Object[]{"kkkkkkk", "mikebhand@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
 //        table.addRow(new Object[]{"Andrew Strauss", "andrewstrauss@gmail.com", "Editor", "25 Apr,2018", StatusType.APPROVED});
 //        table.addRow(new Object[]{"Ross Kopelman", "rosskopelman@gmail.com", "Subscriber", "25 Apr,2018", StatusType.APPROVED});
