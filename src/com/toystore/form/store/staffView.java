@@ -151,9 +151,11 @@ public class staffView extends javax.swing.JPanel {
         tblNhanVien = new javax.swing.JTable();
         pnList = new javax.swing.JPanel();
 
+        setBackground(new java.awt.Color(170, 211, 255));
         setMinimumSize(new java.awt.Dimension(1040, 720));
         setPreferredSize(new java.awt.Dimension(950, 580));
 
+        jPanel1.setBackground(new java.awt.Color(170, 211, 255));
         jPanel1.setMinimumSize(new java.awt.Dimension(1040, 714));
         jPanel1.setName(""); // NOI18N
         jPanel1.setPreferredSize(new java.awt.Dimension(960, 683));
@@ -166,9 +168,9 @@ public class staffView extends javax.swing.JPanel {
         lblTitle.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel1.add(lblTitle, java.awt.BorderLayout.PAGE_START);
 
-        pnUpdate.setBackground(new java.awt.Color(255, 255, 255));
+        pnUpdate.setBackground(new java.awt.Color(170, 211, 255));
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(170, 211, 255));
         jPanel2.setLayout(null);
 
         lblMaNV.setBackground(new java.awt.Color(102, 0, 204));
@@ -264,7 +266,7 @@ public class staffView extends javax.swing.JPanel {
             }
         });
         jPanel2.add(cboNhanVien);
-        cboNhanVien.setBounds(830, 200, 98, 21);
+        cboNhanVien.setBounds(830, 200, 98, 23);
 
         buttonGroup1.add(cboQuanLy);
         cboQuanLy.setText("Quản lý");
@@ -274,7 +276,7 @@ public class staffView extends javax.swing.JPanel {
             }
         });
         jPanel2.add(cboQuanLy);
-        cboQuanLy.setBounds(920, 200, 98, 21);
+        cboQuanLy.setBounds(920, 200, 98, 23);
 
         txtSDT.setBorder(null);
         txtSDT.addActionListener(new java.awt.event.ActionListener() {
@@ -287,7 +289,7 @@ public class staffView extends javax.swing.JPanel {
         jPanel2.add(jSeparator5);
         jSeparator5.setBounds(570, 150, 355, 10);
         jPanel2.add(jDateChooser1);
-        jDateChooser1.setBounds(580, 190, 190, 33);
+        jDateChooser1.setBounds(570, 190, 190, 33);
         jPanel2.add(jSeparator7);
         jSeparator7.setBounds(190, 80, 355, 10);
 
@@ -408,7 +410,7 @@ public class staffView extends javax.swing.JPanel {
         );
 
         jPanel2.add(pnButton);
-        pnButton.setBounds(20, 250, 904, 60);
+        pnButton.setBounds(20, 250, 741, 60);
 
         tblNhanVien.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         tblNhanVien.setFont(new java.awt.Font("UTM BryantLG", 1, 14)); // NOI18N
@@ -453,7 +455,7 @@ public class staffView extends javax.swing.JPanel {
                 .addGroup(pnUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1008, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1017, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnUpdateLayout.setVerticalGroup(
             pnUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -483,7 +485,7 @@ public class staffView extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1040, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

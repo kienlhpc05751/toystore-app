@@ -34,6 +34,7 @@ import com.toystore.utils.MsgBox;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Panel;
 import java.awt.Point;
@@ -222,12 +223,17 @@ public class Menu extends javax.swing.JPanel {
             addItem(p);
 //            System.out.println("Sản phẩm được thêm vào panel: " + p.getName());
         }
+        scroll1.getVerticalScrollBar().setPreferredSize(new Dimension(8, 0));
+        scroll1.getHorizontalScrollBar().setPreferredSize(new Dimension(8, 0));
+        scroll1.getVerticalScrollBar().setUnitIncrement(16);  // Mặc định là 1, tăng lên 16 sẽ cuộn nhanh hơn
+
     }
 
     public void fillToTableHoaDon(List<OrderDetail> details) {
         String row[] = {"Tên sản phẩm", "Giá", "Số lượng", "Tổng Tiền"};
         DefaultTableModel modelTbl = new DefaultTableModel(row, 0);
         modelTbl.setRowCount(0);
+//        tblHoaDon.getColumn
         totalAmountSP = 0;
         for (OrderDetail detail : details) {
             product sp = productDao.findById(detail.productId);  // Lấy thông tin sản phẩm
@@ -746,7 +752,7 @@ public class Menu extends javax.swing.JPanel {
         });
         jPopupMenu1.add(mnuPopRemoveAll);
 
-        setBackground(new java.awt.Color(153, 204, 255));
+        setBackground(new java.awt.Color(170, 211, 255));
         setPreferredSize(new java.awt.Dimension(950, 580));
 
         jPanel5.setBackground(new java.awt.Color(244, 154, 157));
@@ -854,7 +860,9 @@ public class Menu extends javax.swing.JPanel {
 
         jScrollPane4.setBackground(new java.awt.Color(255, 255, 255));
 
+        tblHoaDon.setBackground(new java.awt.Color(255, 255, 255));
         tblHoaDon.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        tblHoaDon.setForeground(new java.awt.Color(0, 0, 0));
         tblHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -871,7 +879,8 @@ public class Menu extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblHoaDon.setGridColor(new java.awt.Color(204, 204, 204));
+        tblHoaDon.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tblHoaDon.setGridColor(new java.awt.Color(255, 255, 255));
         tblHoaDon.setSelectionBackground(new java.awt.Color(244, 126, 130));
         tblHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -970,7 +979,9 @@ public class Menu extends javax.swing.JPanel {
 
         jPanel7.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 490, 438, 87));
 
+        jButton6.setBackground(new java.awt.Color(44, 122, 223));
         jButton6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(255, 255, 255));
         jButton6.setText("new");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -979,7 +990,9 @@ public class Menu extends javax.swing.JPanel {
         });
         jPanel7.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 590, 96, 40));
 
+        btnInHoaDon.setBackground(new java.awt.Color(255, 153, 153));
         btnInHoaDon.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnInHoaDon.setForeground(new java.awt.Color(255, 255, 255));
         btnInHoaDon.setText("print bill");
         btnInHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1012,6 +1025,7 @@ public class Menu extends javax.swing.JPanel {
         lblThongBaoTienNhan.setText("Notification");
         jPanel7.add(lblThongBaoTienNhan, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 300, 120, -1));
 
+        btnThanhToan1.setBackground(new java.awt.Color(76, 217, 100));
         btnThanhToan1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnThanhToan1.setText("Pay");
         btnThanhToan1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1145,12 +1159,12 @@ public class Menu extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1040, Short.MAX_VALUE)
+            .addGap(0, 1120, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 40, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 1040, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 40, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1844,6 +1858,8 @@ public class Menu extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
+    
+    
 //
 //    public void fillTableHoaDonCT() {
 //        DefaultTableModel dtm = (DefaultTableModel) tblHoaDon.getModel();

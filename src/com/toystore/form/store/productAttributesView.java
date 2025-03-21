@@ -389,15 +389,19 @@ public class productAttributesView extends javax.swing.JPanel {
             .addGap(0, 341, Short.MAX_VALUE)
         );
 
+        setBackground(new java.awt.Color(170, 211, 255));
+        setToolTipText("");
         setMinimumSize(new java.awt.Dimension(1040, 720));
         setPreferredSize(new java.awt.Dimension(960, 683));
 
+        JTablePane.setBackground(new java.awt.Color(2, 63, 129));
         JTablePane.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 JTablePaneMouseClicked(evt);
             }
         });
 
+        tabCategory.setBackground(new java.awt.Color(170, 211, 255));
         tabCategory.setLayout(null);
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
@@ -1270,7 +1274,7 @@ public class productAttributesView extends javax.swing.JPanel {
         );
         panelBorder1Layout.setVerticalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 685, Short.MAX_VALUE)
+            .addGap(0, 693, Short.MAX_VALUE)
         );
 
         JTablePane.addTab("tab2", panelBorder1);

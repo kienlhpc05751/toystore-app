@@ -138,6 +138,8 @@ public class OrderView extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         txtOrderID = new javax.swing.JTextField();
 
+        setBackground(new java.awt.Color(170, 211, 255));
+
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
         panelBorder1Layout.setHorizontalGroup(

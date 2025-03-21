@@ -94,6 +94,8 @@ public class categoryView extends javax.swing.JPanel {
         tableCategory = new javax.swing.JScrollPane();
         table = new com.toystore.swing.Table();
 
+        setBackground(new java.awt.Color(170, 211, 255));
+
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
         panelBorder1Layout.setHorizontalGroup(

@@ -30,7 +30,8 @@ public class Menu extends javax.swing.JPanel {
 
     private void init() {
         listMenu2.addItem(new Model_Menu("1", "Trang chủ", Model_Menu.MenuType.MENU));
-        listMenu2.addItem(new Model_Menu("2", "Khách hàng", Model_Menu.MenuType.MENU));
+//        listMenu2.addItem(new Model_Menu("2", "Khách hàng", Model_Menu.MenuType.MENU));
+        listMenu2.addItem(new Model_Menu("", "", Model_Menu.MenuType.EMPTY));
         listMenu2.addItem(new Model_Menu("3", "Đơn hàng", Model_Menu.MenuType.MENU));
         listMenu2.addItem(new Model_Menu("4", "Sản phẩm", Model_Menu.MenuType.MENU));
         listMenu2.addItem(new Model_Menu("5", "Nhân viên", Model_Menu.MenuType.MENU));
@@ -110,8 +111,10 @@ public class Menu extends javax.swing.JPanel {
     protected void paintChildren(Graphics grphcs) {
         Graphics2D g2 = (Graphics2D) grphcs;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-//        GradientPaint g = new GradientPaint(0, 0, Color.decode("#2E344E"), 0, getHeight(), Color.decode("#DE116E"));
-        GradientPaint g = new GradientPaint(0, 0, Color.decode("#63B8FF"), 0, getHeight(), Color.decode("#5CACEE"));
+//        GradientPaint g = new GradientPaint(0, 0, Color.decode("#2E344E"), 0, getHeight(), Color.decode("#DE116E")); 023F81
+//        GradientPaint g = new GradientPaint(0, 0, Color.decode("#63B8FF"), 0, getHeight(), Color.decode("#5CACEE"));
+        GradientPaint g = new GradientPaint(0, 0, Color.decode("#023F81"), 0, getHeight(), Color.decode("#023F81"));
+
         g2.setPaint(g);
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
         g2.fillRect(getWidth() - 20, 0, getWidth(), getHeight());

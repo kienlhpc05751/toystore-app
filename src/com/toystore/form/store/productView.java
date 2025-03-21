@@ -595,18 +595,20 @@ public class productView extends javax.swing.JPanel {
         btnTimkiem = new javax.swing.JButton();
         lblTitle = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(170, 211, 255));
         setPreferredSize(new java.awt.Dimension(960, 683));
 
+        jPanel1.setBackground(new java.awt.Color(170, 211, 255));
         jPanel1.setMinimumSize(new java.awt.Dimension(1040, 720));
         jPanel1.setPreferredSize(new java.awt.Dimension(950, 680));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        pnUpdate.setBackground(new java.awt.Color(204, 204, 204));
+        pnUpdate.setBackground(new java.awt.Color(170, 211, 255));
         pnUpdate.setMinimumSize(new java.awt.Dimension(1040, 720));
         pnUpdate.setPreferredSize(new java.awt.Dimension(950, 580));
         pnUpdate.setLayout(null);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(170, 211, 255));
         jPanel2.setLayout(null);
 
         lblMaSP.setBackground(new java.awt.Color(102, 0, 204));
@@ -780,7 +782,7 @@ public class productView extends javax.swing.JPanel {
         pnUpdate.add(jPanel2);
         jPanel2.setBounds(0, 30, 1111, 380);
 
-        pnButton.setBackground(new java.awt.Color(255, 255, 255));
+        pnButton.setBackground(new java.awt.Color(170, 211, 255));
         pnButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnfirst.setBackground(new java.awt.Color(204, 204, 204));
@@ -892,11 +894,11 @@ public class productView extends javax.swing.JPanel {
                 .addGroup(pnButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(btnLamMoi, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
                     .addComponent(btnLast, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
                 .addComponent(searchText1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(btnThem1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 111, Short.MAX_VALUE))
+                .addGap(0, 118, Short.MAX_VALUE))
         );
         pnButtonLayout.setVerticalGroup(
             pnButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -915,11 +917,11 @@ public class productView extends javax.swing.JPanel {
                     .addComponent(btnPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLast, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(149, Short.MAX_VALUE))
+                .addContainerGap(163, Short.MAX_VALUE))
         );
 
         pnUpdate.add(pnButton);
-        pnButton.setBounds(6, 418, 1028, 296);
+        pnButton.setBounds(-6, 404, 1040, 310);
 
         tabs.addTab("CẬP NHẬT", pnUpdate);
 
@@ -975,7 +977,7 @@ public class productView extends javax.swing.JPanel {
                         .addComponent(searchText2, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnTimkiem)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         btnListLayout.setVerticalGroup(
             btnListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
