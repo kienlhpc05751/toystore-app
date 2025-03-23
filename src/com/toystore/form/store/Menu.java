@@ -276,7 +276,7 @@ public class Menu extends javax.swing.JPanel {
             if (!o.isStatus()) {
                 orderStatus = "Not Paid";
             }
-            System.out.println("SHOW ORDER :" + o.getOrderId());
+//            System.out.println("SHOW ORDER :" + o.getOrderId());
             modelOr.addRow(new Object[]{
                 o.getAccountId(), o.getOrderId(), df.format(o.getTotalAmount()), orderStatus});
         }
@@ -502,6 +502,7 @@ public class Menu extends javax.swing.JPanel {
         }
         if (!MsgBox.confirm(null, "The total amount is " + df.format(totalAmountSP) + "(VND)"
                 + "xác nhận Đã thanh toán!")) {
+            System.out.println("chưa thành toán!");
             return false;
         }
         return true;
@@ -552,7 +553,7 @@ public class Menu extends javax.swing.JPanel {
         try {
             Order order = getFormOrder();
             if (!rdoTienMat.isSelected()) {// thanh toán chuyern khoản
-                MsgBox.alert(null, "Thanh toán chuyển khoảng !");
+                MsgBox.alert(null, "chức năng đang bảo trì!");
                 return;
             }
             if (OrderJustNow != null) {
@@ -561,6 +562,7 @@ public class Menu extends javax.swing.JPanel {
                     cleadTable();
                     return;
                 } else {
+                    MsgBox.alert(null, "Bill :" + OrderJustNow.getOrderId() + " !");
                     order.setStatus(true);
                     orderDAO.updateOrder(order);
                     orderList = orderDAO.findAll();
@@ -569,19 +571,26 @@ public class Menu extends javax.swing.JPanel {
                 }
             }
 
-            if (!tinhToanTien()) {
-                return;
-            };
-
+//            if (!tinhToanTien()) {
+//                return;
+//            };
 //            OrderJustNow = orderDAO.insertOrder(order);
 //            if (OrderJustNow == null) {
 //                MsgBox.alert(null, "Thêm hóa đơn thất bại");
 //                return;
 //            }
-            for (OrderDetail orderDetail : orderDetails) {
-                orderDetail.setOrderId(OrderJustNow.orderId);
-                orderDetailDAO.insertOrderDetail(orderDetail);
-            }
+//            for (OrderDetail orderDetail : orderDetails) {
+//                // in đơn
+//                orderDetail.setOrderId(OrderJustNow.orderId);
+//                orderDetailDAO.insertOrderDetail(orderDetail);
+////                product p = productDao.findById(orderDetail.productId);
+////                System.out.println("product ID : " + p.getProductId() + " quantity : " + p.getQuantity());
+////                // cập nhật số lượng
+////                p.setQuantity(p.getQuantity() - orderDetail.quantity);
+////                productDao.updateProductQuantity(p);
+////                p = productDao.findById(1);
+////                System.out.println("product ID : " + p.getProductId() + " quantity : " + p.getQuantity());
+//            }
             MsgBox.alert(null, "Product added successfully!");
             orderList = orderDAO.findAll();
             filltableHDC(orderList);
@@ -1145,7 +1154,7 @@ public class Menu extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1120, Short.MAX_VALUE)
+            .addGap(0, 1040, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -1278,15 +1287,18 @@ public class Menu extends javax.swing.JPanel {
     }//GEN-LAST:event_txtTienSP1CaretUpdate
 
     private void btnThanhToan1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToan1ActionPerformed
-        if (checkThanhToan()) {
-            insertHD();
-            //            fillToTableHoaDon();
-        }
+//        if (checkThanhToan()) {
+
+        //            fillToTableHoaDon();
+//        } else{
+//            System.out.println("Gián đoạn thanh toán!");
+//        }
     }//GEN-LAST:event_btnThanhToan1ActionPerformed
 
     private void btnThanhToan1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThanhToan1MouseClicked
         // TODO add your handling code here:
         //        insertHD();
+        insertHD();
     }//GEN-LAST:event_btnThanhToan1MouseClicked
 
     private void btnInHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInHoaDonActionPerformed
