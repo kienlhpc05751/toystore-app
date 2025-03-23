@@ -273,10 +273,10 @@ public class Menu extends javax.swing.JPanel {
         Collections.reverse(orders);
         String orderStatus = "Paid";
         for (Order o : orders) {//        List<Order> orders1 = orderDAO.findAll();
+            orderStatus = "Paid";
             if (!o.isStatus()) {
                 orderStatus = "Not Paid";
             }
-//            System.out.println("SHOW ORDER :" + o.getOrderId());
             modelOr.addRow(new Object[]{
                 o.getAccountId(), o.getOrderId(), df.format(o.getTotalAmount()), orderStatus});
         }
@@ -284,6 +284,7 @@ public class Menu extends javax.swing.JPanel {
     }
 
     public void cleadTable() {
+        OrderJustNow = new Order();
         model = (DefaultTableModel) tblHoaDon.getModel();
         while (model.getRowCount() > 0) {
             model.removeRow(0);
@@ -556,41 +557,37 @@ public class Menu extends javax.swing.JPanel {
                 MsgBox.alert(null, "chức năng đang bảo trì!");
                 return;
             }
-            if (OrderJustNow != null) {
+            if (OrderJustNow.getOrderId() != 0) {
                 if (OrderJustNow.isStatus()) {
                     MsgBox.alert(null, "Bill :" + OrderJustNow.getOrderId() + " Completed payment please create new!");
+                    orderList = orderDAO.findAll();
+                    filltableHDC(orderList);
                     cleadTable();
                     return;
                 } else {
+                    if (!tinhToanTien()) {
+                        return;
+                    };
                     MsgBox.alert(null, "Bill :" + OrderJustNow.getOrderId() + " !");
                     order.setStatus(true);
+                    UpdateQuantityProduct(orderDetails);
                     orderDAO.updateOrder(order);
                     orderList = orderDAO.findAll();
                     filltableHDC(orderList);
                     return;
                 }
             }
+            System.out.println("OrderJustNow " + OrderJustNow.isStatus() + "Ư" + OrderJustNow.getTotalAmount() + "tostring :" + OrderJustNow.toString());
 
-//            if (!tinhToanTien()) {
-//                return;
-//            };
-//            OrderJustNow = orderDAO.insertOrder(order);
+            if (!tinhToanTien()) {
+                return;
+            };
+            OrderJustNow = orderDAO.insertOrder(order);
 //            if (OrderJustNow == null) {
 //                MsgBox.alert(null, "Thêm hóa đơn thất bại");
 //                return;
 //            }
-//            for (OrderDetail orderDetail : orderDetails) {
-//                // in đơn
-//                orderDetail.setOrderId(OrderJustNow.orderId);
-//                orderDetailDAO.insertOrderDetail(orderDetail);
-////                product p = productDao.findById(orderDetail.productId);
-////                System.out.println("product ID : " + p.getProductId() + " quantity : " + p.getQuantity());
-////                // cập nhật số lượng
-////                p.setQuantity(p.getQuantity() - orderDetail.quantity);
-////                productDao.updateProductQuantity(p);
-////                p = productDao.findById(1);
-////                System.out.println("product ID : " + p.getProductId() + " quantity : " + p.getQuantity());
-//            }
+            insertOrderDetailAndUpdateQuantityProduct(orderDetails);
             MsgBox.alert(null, "Product added successfully!");
             orderList = orderDAO.findAll();
             filltableHDC(orderList);
@@ -598,6 +595,34 @@ public class Menu extends javax.swing.JPanel {
         } catch (Exception e) {
             e.printStackTrace();
             MsgBox.alert(null, "Add product failed!");
+        }
+    }
+
+    public void insertOrderDetailAndUpdateQuantityProduct(List<OrderDetail> orderDetails) {
+        for (OrderDetail orderDetail : orderDetails) {
+            // in đơn
+            orderDetail.setOrderId(OrderJustNow.orderId);
+            orderDetailDAO.insertOrderDetail(orderDetail);
+            product p = productDao.findById(orderDetail.productId);
+            System.out.println("product ID : " + p.getProductId() + " quantity : " + p.getQuantity());
+            // cập nhật số lượng
+            p.setQuantity(p.getQuantity() - orderDetail.quantity);
+            productDao.updateProductQuantity(p);
+            p = productDao.findById(1);
+            System.out.println("product ID : " + p.getProductId() + " quantity : " + p.getQuantity());
+        }
+    }
+
+    public void UpdateQuantityProduct(List<OrderDetail> orderDetails) {
+        for (OrderDetail orderDetail : orderDetails) {
+            // in đơn
+            product p = productDao.findById(orderDetail.productId);
+            System.out.println("product ID : " + p.getProductId() + " quantity : " + p.getQuantity());
+            // cập nhật số lượng
+            p.setQuantity(p.getQuantity() - orderDetail.quantity);
+            productDao.updateProductQuantity(p);
+            p = productDao.findById(1);
+            System.out.println("product ID : " + p.getProductId() + " quantity : " + p.getQuantity());
         }
     }
 
@@ -1214,7 +1239,6 @@ public class Menu extends javax.swing.JPanel {
         System.out.println("indexHD " + indexHD);
         selectFillHDC(indexHD);
         clien = accountDAO.findById(OrderJustNow.getClientID());
-
         if (clien == null) {
             txtkhachID1.setText(null);
             return;
