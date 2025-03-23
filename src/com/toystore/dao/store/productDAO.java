@@ -67,6 +67,12 @@ public class productDAO extends BaseDAO<product, Integer> {
         String query = "UPDATE product SET categoryId=?, brandId=?, ageId=?, materialId=?, name=?, price=?, originalPrice=?, createdAt=?, status=?, description=?, sexId=?, image=?, quantity=?, barcode=?, urlBarcode=? WHERE productId=?";
         return update(query, product.getCategoryId(), product.getBrandId(), product.getAgeId(), product.getMaterialId(), product.getName(), product.getPrice(), product.getOriginalPrice(), product.getCreatedAt(), product.isStatus(), product.getDescription(), product.isSex(), product.getImage(), product.getQuantity(), product.getBarcode(), product.getUrlBarcode(), product.getProductId());
     }
+    
+      public boolean updateProductQuantity(product product) {
+        String query = "UPDATE product SET quantity=? WHERE productId=?";
+        return update(query, product.getQuantity(), product.getProductId());
+    }
+
 
     public boolean deleteProduct(int productId) {
         return delete(productId);

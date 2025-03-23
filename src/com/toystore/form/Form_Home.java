@@ -39,8 +39,8 @@ public class Form_Home extends javax.swing.JPanel {
         ThongKeDao dao = new ThongKeDao();
         // đã bán
         Date ngay;
-        String soLuong = "";
-        String tongtienString = "";
+        String soLuong = "11212";
+        String tongtienString = "12323432";
 //        List<Object[]> list = dao.daban();
 //        for (Object[] db : list) {
 //            // Giả sử vị trí 0 là soLuong và vị trí 1 là tongtienString
@@ -50,6 +50,8 @@ public class Form_Home extends javax.swing.JPanel {
         Date n = XDate.now();
         String nn = XDate.toString(n, "dd-MM-yyyy");
         List<Object[]> list1 = dao.theoNgay();
+        card1.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/toystore/icon/stock.png")), "ngày " + nn, tongtienString + " VN", "Số lượng SP " + soLuong + " d/c"));
+
         if (list1 == null) {
             return;
         }
@@ -85,7 +87,7 @@ public class Form_Home extends javax.swing.JPanel {
         JPanel p = new JPanel();
         p.setBackground(Color.WHITE);
 //            bản lịch sử        
-        String row[] = {"Mã HD", " Ngay Mua", "Tên KH", "Ten SP", "Số lượng", " Thành tiền"};
+        String row[] = {"Mã HDadaf", " Ngay Mua", "Tên KH", "Ten SP", "Số lượng", " Thành tiền"};
         DefaultTableModel model1 = new DefaultTableModel(row, 0);
         model1.setRowCount(0);
         List<Object[]> listLichsu = dao.lichsu();
@@ -254,7 +256,7 @@ public class Form_Home extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(127, 127, 127));
-        jLabel1.setText("Lịch Sử mua hàng");
+        jLabel1.setText("Purchase History");
         panelBorder1.add(jLabel1);
         jLabel1.setBounds(80, 0, 180, 30);
         jLabel1.getAccessibleContext().setAccessibleName("Lịch sử mau hàng");

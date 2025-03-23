@@ -181,23 +181,23 @@ public class productAttributesView extends javax.swing.JPanel {
             System.out.println("name category descriptions: " + category.getDescription());
             System.out.println("name category descriptions: " + category.getSuperCategoryId());
             categoryDAO.insertCategory(category);
-            MsgBox.alert(null, "Thêm sản phẩm  Thành Công !");
+            MsgBox.alert(null, "Add Category successfully!");
             categoryList = categoryDAO.findAll();
             fillTable(categoryList);
         } catch (Exception e) {
             e.printStackTrace();
-            MsgBox.alert(null, "Thêm sản phẩm Thất Bại !");
+            MsgBox.alert(null, "Add category failed !");
         }
     }
     
     void update() {
         try {
             categoryDAO.updateCategory(getForm());
-            MsgBox.alert(null, "Cập nhật sản phẩm Thành Công !");
+            MsgBox.alert(null, "Category deleted successfully !");
             categoryList = categoryDAO.findAll();
             fillTable(categoryList);
         } catch (Exception e) {
-            MsgBox.alert(null, "Cập nhật sản phẩm Thất Bại !");
+            MsgBox.alert(null, "Category deleted failed!");
         }
     }
     
@@ -206,22 +206,22 @@ public class productAttributesView extends javax.swing.JPanel {
             int categoryID = Integer.parseInt(txtCategoryID.getText());
             categoryDAO.deleteCategory(categoryID);
             clearForm();
-            MsgBox.alert(null, "Xóa sản phẩm Thành Công !");
+            MsgBox.alert(null, "Category deleted successfully!");
             categoryList = categoryDAO.findAll();
             fillTable(categoryList);
         } catch (Exception e) {
-            MsgBox.alert(null, "Xóa sản phẩm Thất Bại !");
+            MsgBox.alert(null, "Category deleted failed");
         }
     }
     
     void seacher() {
         String input = searchText1.getText().trim(); // Lấy giá trị nhập vào và loại bỏ khoảng trắng
         if (input.isEmpty()) {
-            MsgBox.alert(null, "Vui lòng nhập mã sản phẩm!");
+            MsgBox.alert(null, "Please enter category code!");
             return;
         }
         if (!input.matches("\\d+")) { // Kiểm tra xem input có phải là số không
-            MsgBox.alert(null, "Mã sản phẩm phải là số!");
+            MsgBox.alert(null, "Category code must be a number!");
             return;
         }
         try {
@@ -230,10 +230,10 @@ public class productAttributesView extends javax.swing.JPanel {
             if (p != null) {
                 setForm(p);
             } else {
-                MsgBox.alert(null, "Không tìm thấy sản phẩm với mã: " + MSP);
+                MsgBox.alert(null, "Do not search with code " + MSP);
             }
         } catch (NumberFormatException e) {
-            MsgBox.alert(null, "Lỗi chuyển đổi số! Vui lòng nhập mã hợp lệ.");
+            MsgBox.alert(null, "Number conversion error! Please enter a valid code.");
         }
     }
     
@@ -354,7 +354,6 @@ public class productAttributesView extends javax.swing.JPanel {
         btnLastAge = new javax.swing.JButton();
         txtSeacherAge = new com.toystore.swing.SearchText();
         btnSeacherAge = new javax.swing.JButton();
-        panelBorder1 = new com.toystore.swing.PanelBorder();
 
         jLabel1.setText("jLabel1");
 
@@ -502,7 +501,7 @@ public class productAttributesView extends javax.swing.JPanel {
         label2.getAccessibleContext().setAccessibleDescription("");
 
         btnThem1.setBackground(new java.awt.Color(204, 204, 204));
-        btnThem1.setText("tìm");
+        btnThem1.setText("Seacher");
         btnThem1.setBorderPainted(false);
         btnThem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -555,7 +554,7 @@ public class productAttributesView extends javax.swing.JPanel {
         btnNext.setBounds(220, 130, 90, 30);
 
         btnThem.setBackground(new java.awt.Color(204, 204, 204));
-        btnThem.setText("Thêm");
+        btnThem.setText("Add");
         btnThem.setBorderPainted(false);
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -566,7 +565,7 @@ public class productAttributesView extends javax.swing.JPanel {
         btnThem.setBounds(10, 80, 100, 30);
 
         btnSua.setBackground(new java.awt.Color(204, 204, 204));
-        btnSua.setText("Sửa");
+        btnSua.setText("Update");
         btnSua.setBorderPainted(false);
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -577,7 +576,7 @@ public class productAttributesView extends javax.swing.JPanel {
         btnSua.setBounds(120, 80, 90, 30);
 
         btnXoa.setBackground(new java.awt.Color(204, 204, 204));
-        btnXoa.setText("Xóa");
+        btnXoa.setText("Delete");
         btnXoa.setBorderPainted(false);
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -599,7 +598,7 @@ public class productAttributesView extends javax.swing.JPanel {
         btnLast.setBounds(320, 130, 90, 30);
 
         btnLamMoi.setBackground(new java.awt.Color(204, 204, 204));
-        btnLamMoi.setText("Làm mới");
+        btnLamMoi.setText("Refresh");
         btnLamMoi.setBorderPainted(false);
         btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -659,13 +658,13 @@ public class productAttributesView extends javax.swing.JPanel {
         txtDescriptionBrand.setRows(5);
         jScrollPane2.setViewportView(txtDescriptionBrand);
 
-        lblBrandID.setText("ID");
+        lblBrandID.setText("Code Brand :");
 
-        lblBrandName.setText("Name");
+        lblBrandName.setText("Name Brand :");
 
-        lblDescriptionBrand.setText("Description");
+        lblDescriptionBrand.setText("Description Brand :");
 
-        lblOriginBrand.setText("OriginBrand");
+        lblOriginBrand.setText("OriginBrand :");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -722,7 +721,7 @@ public class productAttributesView extends javax.swing.JPanel {
         jPanel8.setLayout(null);
 
         btnSeacherBrand.setBackground(new java.awt.Color(204, 204, 204));
-        btnSeacherBrand.setText("tìm");
+        btnSeacherBrand.setText("Seacher");
         btnSeacherBrand.setBorderPainted(false);
         btnSeacherBrand.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -775,7 +774,7 @@ public class productAttributesView extends javax.swing.JPanel {
         btnNextBrand.setBounds(220, 130, 90, 30);
 
         btnAddBrand.setBackground(new java.awt.Color(204, 204, 204));
-        btnAddBrand.setText("Thêm");
+        btnAddBrand.setText("Add");
         btnAddBrand.setBorderPainted(false);
         btnAddBrand.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -786,7 +785,7 @@ public class productAttributesView extends javax.swing.JPanel {
         btnAddBrand.setBounds(10, 80, 100, 30);
 
         btnUpdateBrand.setBackground(new java.awt.Color(204, 204, 204));
-        btnUpdateBrand.setText("Sửa");
+        btnUpdateBrand.setText("Update");
         btnUpdateBrand.setBorderPainted(false);
         btnUpdateBrand.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -797,7 +796,7 @@ public class productAttributesView extends javax.swing.JPanel {
         btnUpdateBrand.setBounds(120, 80, 90, 30);
 
         btnDeleteBrand.setBackground(new java.awt.Color(204, 204, 204));
-        btnDeleteBrand.setText("Xóa");
+        btnDeleteBrand.setText("Delete");
         btnDeleteBrand.setBorderPainted(false);
         btnDeleteBrand.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -819,7 +818,7 @@ public class productAttributesView extends javax.swing.JPanel {
         btnLastBrand.setBounds(320, 130, 90, 30);
 
         btnNewBrand.setBackground(new java.awt.Color(204, 204, 204));
-        btnNewBrand.setText("Làm mới");
+        btnNewBrand.setText("Refresh");
         btnNewBrand.setBorderPainted(false);
         btnNewBrand.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -873,14 +872,14 @@ public class productAttributesView extends javax.swing.JPanel {
         txtMaterialDescription.setRows(5);
         jScrollPane3.setViewportView(txtMaterialDescription);
 
-        lblBrandID1.setText("ID");
+        lblBrandID1.setText("Code Material :");
 
-        lblBrandName1.setText("Name");
+        lblBrandName1.setText("Name Material :");
 
-        lblDescriptionBrand1.setText("Description");
+        lblDescriptionBrand1.setText("Description Material :");
 
         btnAddMaterial.setBackground(new java.awt.Color(204, 204, 204));
-        btnAddMaterial.setText("Thêm");
+        btnAddMaterial.setText("Add");
         btnAddMaterial.setBorderPainted(false);
         btnAddMaterial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -889,7 +888,7 @@ public class productAttributesView extends javax.swing.JPanel {
         });
 
         btnUpdateMaterial.setBackground(new java.awt.Color(204, 204, 204));
-        btnUpdateMaterial.setText("Sửa");
+        btnUpdateMaterial.setText("Update");
         btnUpdateMaterial.setBorderPainted(false);
         btnUpdateMaterial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -898,7 +897,7 @@ public class productAttributesView extends javax.swing.JPanel {
         });
 
         btnNewMaterial.setBackground(new java.awt.Color(204, 204, 204));
-        btnNewMaterial.setText("Làm mới");
+        btnNewMaterial.setText("Refresh");
         btnNewMaterial.setBorderPainted(false);
         btnNewMaterial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -907,7 +906,7 @@ public class productAttributesView extends javax.swing.JPanel {
         });
 
         btnDeleteMaterial.setBackground(new java.awt.Color(204, 204, 204));
-        btnDeleteMaterial.setText("Xóa");
+        btnDeleteMaterial.setText("Delete");
         btnDeleteMaterial.setBorderPainted(false);
         btnDeleteMaterial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1022,7 +1021,7 @@ public class productAttributesView extends javax.swing.JPanel {
                         .addComponent(txtMaterialID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20)
                         .addComponent(lblBrandName1)
-                        .addGap(15, 15, 15)
+                        .addGap(27, 27, 27)
                         .addComponent(txtMaterialName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane3))
                 .addGap(18, 18, 18)
@@ -1100,12 +1099,12 @@ public class productAttributesView extends javax.swing.JPanel {
             }
         });
 
-        lblBrandID2.setText("ID Age");
+        lblBrandID2.setText("Code Age :");
 
-        lblBrandName2.setText("Targer Age Group");
+        lblBrandName2.setText("Targer Age Group :");
 
         btnAddAge.setBackground(new java.awt.Color(204, 204, 204));
-        btnAddAge.setText("Thêm");
+        btnAddAge.setText("Add Age");
         btnAddAge.setBorderPainted(false);
         btnAddAge.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1114,7 +1113,7 @@ public class productAttributesView extends javax.swing.JPanel {
         });
 
         btnUpdateAge.setBackground(new java.awt.Color(204, 204, 204));
-        btnUpdateAge.setText("Sửa");
+        btnUpdateAge.setText("Update Age");
         btnUpdateAge.setBorderPainted(false);
         btnUpdateAge.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1123,7 +1122,7 @@ public class productAttributesView extends javax.swing.JPanel {
         });
 
         btnNewAge.setBackground(new java.awt.Color(204, 204, 204));
-        btnNewAge.setText("Làm mới");
+        btnNewAge.setText("Refresh Age");
         btnNewAge.setBorderPainted(false);
         btnNewAge.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1132,7 +1131,7 @@ public class productAttributesView extends javax.swing.JPanel {
         });
 
         btnDeleteAge.setBackground(new java.awt.Color(204, 204, 204));
-        btnDeleteAge.setText("Xóa");
+        btnDeleteAge.setText("Delete Age");
         btnDeleteAge.setBorderPainted(false);
         btnDeleteAge.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1184,7 +1183,7 @@ public class productAttributesView extends javax.swing.JPanel {
         });
 
         btnSeacherAge.setBackground(new java.awt.Color(204, 204, 204));
-        btnSeacherAge.setText("tìm");
+        btnSeacherAge.setText("Seacher");
         btnSeacherAge.setBorderPainted(false);
         btnSeacherAge.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1266,19 +1265,6 @@ public class productAttributesView extends javax.swing.JPanel {
 
         JTablePane.addTab("Material and Target Age Group ", tabMaterial);
 
-        javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
-        panelBorder1.setLayout(panelBorder1Layout);
-        panelBorder1Layout.setHorizontalGroup(
-            panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1036, Short.MAX_VALUE)
-        );
-        panelBorder1Layout.setVerticalGroup(
-            panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 693, Short.MAX_VALUE)
-        );
-
-        JTablePane.addTab("tab2", panelBorder1);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -1294,179 +1280,81 @@ public class productAttributesView extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
+    private void JTablePaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTablePaneMouseClicked
         // TODO add your handling code here:
-        row = table.getSelectedRow();
-        this.edit(row);
-//        tabs.setSelectedIndex(0);
+        row = 0;  // rest
+    }//GEN-LAST:event_JTablePaneMouseClicked
+
+    private void btnSeacherAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeacherAgeActionPerformed
+        // TODO add your handling code here:
+        seacherAge();
+    }//GEN-LAST:event_btnSeacherAgeActionPerformed
+
+    private void txtSeacherAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSeacherAgeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSeacherAgeActionPerformed
+
+    private void btnLastAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastAgeActionPerformed
+        // TODO add your handling code here:
+        lastAge();
+    }//GEN-LAST:event_btnLastAgeActionPerformed
+
+    private void btnNextAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextAgeActionPerformed
+        // TODO add your handling code here:
+        nextAge();
+    }//GEN-LAST:event_btnNextAgeActionPerformed
+
+    private void btnPrevAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevAgeActionPerformed
+        // TODO add your handling code here:
+        prevAge();
+    }//GEN-LAST:event_btnPrevAgeActionPerformed
+
+    private void btnfirstAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfirstAgeActionPerformed
+        // TODO add your handling code here:
+        firstAge();
+    }//GEN-LAST:event_btnfirstAgeActionPerformed
+
+    private void btnDeleteAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteAgeActionPerformed
+        // TODO add your handling code here:
+        deleteAge();
+    }//GEN-LAST:event_btnDeleteAgeActionPerformed
+
+    private void btnNewAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewAgeActionPerformed
+        // TODO add your handling code here:
+        clearFormAge();
+    }//GEN-LAST:event_btnNewAgeActionPerformed
+
+    private void btnUpdateAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateAgeActionPerformed
+        // TODO add your handling code here:
+        updateAge();
+    }//GEN-LAST:event_btnUpdateAgeActionPerformed
+
+    private void btnAddAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAgeActionPerformed
+        // TODO add your handling code here:
+        insertAge();
+    }//GEN-LAST:event_btnAddAgeActionPerformed
+
+    private void txtAgeNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAgeNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAgeNameActionPerformed
+
+    private void txtAgeIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAgeIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAgeIDActionPerformed
+
+    private void tableAgeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableAgeMouseClicked
+        // TODO add your handling code here:
+        row = tableAge.getSelectedRow();
+        this.editAge(row);
+    }//GEN-LAST:event_tableAgeMouseClicked
+
+    private void tableMaterialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMaterialMouseClicked
+        // TODO add your handling code here:
+        row = tableMaterial.getSelectedRow();
+        this.editMaterial(row);
+        //        tabs.setSelectedIndex(0);
         System.out.println("lỏ" + row);
-    }//GEN-LAST:event_tableMouseClicked
-
-    private void CboSuperCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CboSuperCategoryActionPerformed
-        
-        String stype = "category";
-        IndexComBox = CboSuperCategory.getSelectedIndex() - 1;
-        System.out.println("CboCategoryActionPerformed");
-        System.out.println(IndexComBox);
-        chonComboBox(IndexComBox);
-    }//GEN-LAST:event_CboSuperCategoryActionPerformed
-
-    private void txtCategoryIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCategoryIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCategoryIDActionPerformed
-
-    private void txtCategoryName1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCategoryName1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCategoryName1ActionPerformed
-
-    private void btnfirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfirstActionPerformed
-        //        this.index = 0;
-        //        this.edit();
-        first();
-    }//GEN-LAST:event_btnfirstActionPerformed
-
-    private void btnPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevActionPerformed
-        //        this.index--;
-        //        this.edit();
-        prev();
-    }//GEN-LAST:event_btnPrevActionPerformed
-
-    private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
-        //        this.index++;
-        //        this.edit();
-        next();
-    }//GEN-LAST:event_btnNextActionPerformed
-
-    private void btnLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastActionPerformed
-//        this.index = tblSanPham.getRowCount() - 1;
-//        this.edit();
-        last();
-    }//GEN-LAST:event_btnLastActionPerformed
-
-    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-//        if (Auth.isLogin()) {
-//            if (CheckMa()) {
-//                if (checkFrom()) {
-        insert();
-//                }
-//            }
-//        } else {
-//            MsgBox.alert(null, "Bạn không có quyền  thêm sp !");
-//
-//        }
-    }//GEN-LAST:event_btnThemActionPerformed
-
-    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-
-//        if (Auth.isManager()) {
-//            if (checkFrom()) {
-        update();
-//            }
-//        } else {
-//            MsgBox.alert(null, "Bạn không có quyền cập nhật !");
-//        }
-    }//GEN-LAST:event_btnSuaActionPerformed
-
-    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-//        if (checkFrom()) {
-        delete();
-//        }
-    }//GEN-LAST:event_btnXoaActionPerformed
-
-    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
-        
-        CboSuperCategory.setSelectedItem(2);
-        clearForm();
-    }//GEN-LAST:event_btnLamMoiActionPerformed
-
-    private void searchText1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchText1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchText1ActionPerformed
-
-    private void btnThem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem1ActionPerformed
-        // TODO add your handling code here:
-        seacher();
-    }//GEN-LAST:event_btnThem1ActionPerformed
-
-    private void txtBrandIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBrandIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtBrandIDActionPerformed
-
-    private void txtOriginBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOriginBrandActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtOriginBrandActionPerformed
-
-    private void txtBrandNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBrandNameActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_txtBrandNameActionPerformed
-
-    private void btnSeacherBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeacherBrandActionPerformed
-        // TODO add your handling code here:
-        seacherBrand();
-    }//GEN-LAST:event_btnSeacherBrandActionPerformed
-
-    private void txtSeacherBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSeacherBrandActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_txtSeacherBrandActionPerformed
-
-    private void btnfirstBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfirstBrandActionPerformed
-        // TODO add your handling code here:
-        firstBrand();
-    }//GEN-LAST:event_btnfirstBrandActionPerformed
-
-    private void btnPrevBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevBrandActionPerformed
-        // TODO add your handling code here:
-        prevBrand();
-    }//GEN-LAST:event_btnPrevBrandActionPerformed
-
-    private void btnNextBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextBrandActionPerformed
-        // TODO add your handling code here:
-        nextBrand();
-    }//GEN-LAST:event_btnNextBrandActionPerformed
-
-    private void btnAddBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddBrandActionPerformed
-        // TODO add your handling code here:
-        insertBrand();
-    }//GEN-LAST:event_btnAddBrandActionPerformed
-
-    private void btnUpdateBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateBrandActionPerformed
-        // TODO add your handling code here:
-        updateBrand();
-    }//GEN-LAST:event_btnUpdateBrandActionPerformed
-
-    private void btnDeleteBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteBrandActionPerformed
-        // TODO add your handling code here:
-        deleteBrand();
-
-    }//GEN-LAST:event_btnDeleteBrandActionPerformed
-
-    private void btnLastBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastBrandActionPerformed
-        // TODO add your handling code here:
-        lastBrand();
-    }//GEN-LAST:event_btnLastBrandActionPerformed
-
-    private void btnNewBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewBrandActionPerformed
-        // TODO add your handling code here:
-        clearFormBrand();
-    }//GEN-LAST:event_btnNewBrandActionPerformed
-
-    private void tableBrandMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBrandMouseClicked
-        // TODO add your handling code here:
-        row = tableBrand.getSelectedRow();
-        this.editBrand(row);
-//        tabs.setSelectedIndex(0);
-        System.out.println("lỏ" + row);
-    }//GEN-LAST:event_tableBrandMouseClicked
-
-    private void txtMaterialIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaterialIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMaterialIDActionPerformed
-
-    private void txtMaterialNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaterialNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMaterialNameActionPerformed
+    }//GEN-LAST:event_tableMaterialMouseClicked
 
     private void btnSeacherMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeacherMaterialActionPerformed
         // TODO add your handling code here:
@@ -1477,121 +1365,216 @@ public class productAttributesView extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSeacherMaterialActionPerformed
 
-    private void btnfirstMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfirstMaterialActionPerformed
+    private void btnLastMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastMaterialActionPerformed
         // TODO add your handling code here:
-        firstMateril();
-    }//GEN-LAST:event_btnfirstMaterialActionPerformed
-
-    private void btnPrevMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevMaterialActionPerformed
-        // TODO add your handling code here:
-        firstMateril();
-    }//GEN-LAST:event_btnPrevMaterialActionPerformed
+        lastMaterial();
+    }//GEN-LAST:event_btnLastMaterialActionPerformed
 
     private void btnNextMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextMaterialActionPerformed
         // TODO add your handling code here:
         nextMaterial();
     }//GEN-LAST:event_btnNextMaterialActionPerformed
 
-    private void btnAddMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddMaterialActionPerformed
+    private void btnPrevMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevMaterialActionPerformed
         // TODO add your handling code here:
-        insertMaterial();
-    }//GEN-LAST:event_btnAddMaterialActionPerformed
+        firstMateril();
+    }//GEN-LAST:event_btnPrevMaterialActionPerformed
 
-    private void btnUpdateMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateMaterialActionPerformed
+    private void btnfirstMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfirstMaterialActionPerformed
         // TODO add your handling code here:
-        updateMaterial();
-    }//GEN-LAST:event_btnUpdateMaterialActionPerformed
+        firstMateril();
+    }//GEN-LAST:event_btnfirstMaterialActionPerformed
 
     private void btnDeleteMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteMaterialActionPerformed
         // TODO add your handling code here:
         deleteMaterial();
     }//GEN-LAST:event_btnDeleteMaterialActionPerformed
 
-    private void btnLastMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastMaterialActionPerformed
-        // TODO add your handling code here:
-        lastMaterial();
-    }//GEN-LAST:event_btnLastMaterialActionPerformed
-
     private void btnNewMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewMaterialActionPerformed
         // TODO add your handling code here:
         clearFormMaterial();
     }//GEN-LAST:event_btnNewMaterialActionPerformed
 
-    private void tableMaterialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMaterialMouseClicked
+    private void btnUpdateMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateMaterialActionPerformed
         // TODO add your handling code here:
-        row = tableMaterial.getSelectedRow();
-        this.editMaterial(row);
-//        tabs.setSelectedIndex(0);
+        updateMaterial();
+    }//GEN-LAST:event_btnUpdateMaterialActionPerformed
+
+    private void btnAddMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddMaterialActionPerformed
+        // TODO add your handling code here:
+        insertMaterial();
+    }//GEN-LAST:event_btnAddMaterialActionPerformed
+
+    private void txtMaterialNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaterialNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMaterialNameActionPerformed
+
+    private void txtMaterialIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaterialIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMaterialIDActionPerformed
+
+    private void tableBrandMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBrandMouseClicked
+        // TODO add your handling code here:
+        row = tableBrand.getSelectedRow();
+        this.editBrand(row);
+        //        tabs.setSelectedIndex(0);
         System.out.println("lỏ" + row);
-    }//GEN-LAST:event_tableMaterialMouseClicked
+    }//GEN-LAST:event_tableBrandMouseClicked
 
-    private void JTablePaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTablePaneMouseClicked
+    private void btnNewBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewBrandActionPerformed
         // TODO add your handling code here:
-        row = 0;  // rest 
-    }//GEN-LAST:event_JTablePaneMouseClicked
+        clearFormBrand();
+    }//GEN-LAST:event_btnNewBrandActionPerformed
 
-    private void tableAgeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableAgeMouseClicked
+    private void btnLastBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastBrandActionPerformed
         // TODO add your handling code here:
-        row = tableAge.getSelectedRow();
-        this.editAge(row);
-    }//GEN-LAST:event_tableAgeMouseClicked
+        lastBrand();
+    }//GEN-LAST:event_btnLastBrandActionPerformed
 
-    private void txtAgeIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAgeIDActionPerformed
+    private void btnDeleteBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteBrandActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtAgeIDActionPerformed
+        deleteBrand();
+    }//GEN-LAST:event_btnDeleteBrandActionPerformed
 
-    private void txtAgeNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAgeNameActionPerformed
+    private void btnUpdateBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateBrandActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtAgeNameActionPerformed
+        updateBrand();
+    }//GEN-LAST:event_btnUpdateBrandActionPerformed
 
-    private void btnAddAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAgeActionPerformed
+    private void btnAddBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddBrandActionPerformed
         // TODO add your handling code here:
-        insertAge();
-    }//GEN-LAST:event_btnAddAgeActionPerformed
+        insertBrand();
+    }//GEN-LAST:event_btnAddBrandActionPerformed
 
-    private void btnUpdateAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateAgeActionPerformed
+    private void btnNextBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextBrandActionPerformed
         // TODO add your handling code here:
-        updateAge();
-    }//GEN-LAST:event_btnUpdateAgeActionPerformed
+        nextBrand();
+    }//GEN-LAST:event_btnNextBrandActionPerformed
 
-    private void btnNewAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewAgeActionPerformed
+    private void btnPrevBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevBrandActionPerformed
         // TODO add your handling code here:
-        clearFormAge();
-    }//GEN-LAST:event_btnNewAgeActionPerformed
+        prevBrand();
+    }//GEN-LAST:event_btnPrevBrandActionPerformed
 
-    private void btnDeleteAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteAgeActionPerformed
+    private void btnfirstBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfirstBrandActionPerformed
         // TODO add your handling code here:
-        deleteAge();
-    }//GEN-LAST:event_btnDeleteAgeActionPerformed
+        firstBrand();
+    }//GEN-LAST:event_btnfirstBrandActionPerformed
 
-    private void btnfirstAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfirstAgeActionPerformed
+    private void txtSeacherBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSeacherBrandActionPerformed
         // TODO add your handling code here:
-        firstAge();
-    }//GEN-LAST:event_btnfirstAgeActionPerformed
+    }//GEN-LAST:event_txtSeacherBrandActionPerformed
 
-    private void btnPrevAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevAgeActionPerformed
+    private void btnSeacherBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeacherBrandActionPerformed
         // TODO add your handling code here:
-        prevAge();
-    }//GEN-LAST:event_btnPrevAgeActionPerformed
+        seacherBrand();
+    }//GEN-LAST:event_btnSeacherBrandActionPerformed
 
-    private void btnNextAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextAgeActionPerformed
+    private void txtBrandNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBrandNameActionPerformed
         // TODO add your handling code here:
-        nextAge();
-    }//GEN-LAST:event_btnNextAgeActionPerformed
+    }//GEN-LAST:event_txtBrandNameActionPerformed
 
-    private void btnLastAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastAgeActionPerformed
+    private void txtOriginBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOriginBrandActionPerformed
         // TODO add your handling code here:
-        lastAge();
-    }//GEN-LAST:event_btnLastAgeActionPerformed
+    }//GEN-LAST:event_txtOriginBrandActionPerformed
 
-    private void txtSeacherAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSeacherAgeActionPerformed
+    private void txtBrandIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBrandIDActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtSeacherAgeActionPerformed
+    }//GEN-LAST:event_txtBrandIDActionPerformed
 
-    private void btnSeacherAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeacherAgeActionPerformed
+    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
         // TODO add your handling code here:
-        seacherAge();
-    }//GEN-LAST:event_btnSeacherAgeActionPerformed
+        row = table.getSelectedRow();
+        this.edit(row);
+        //        tabs.setSelectedIndex(0);
+        System.out.println("lỏ" + row);
+    }//GEN-LAST:event_tableMouseClicked
+
+    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
+
+        CboSuperCategory.setSelectedItem(2);
+        clearForm();
+    }//GEN-LAST:event_btnLamMoiActionPerformed
+
+    private void btnLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastActionPerformed
+        //        this.index = tblSanPham.getRowCount() - 1;
+        //        this.edit();
+        last();
+    }//GEN-LAST:event_btnLastActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        //        if (checkFrom()) {
+            delete();
+            //        }
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+
+        //        if (Auth.isManager()) {
+            //            if (checkFrom()) {
+                update();
+                //            }
+            //        } else {
+            //            MsgBox.alert(null, "Bạn không có quyền cập nhật !");
+            //        }
+    }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        //        if (Auth.isLogin()) {
+            //            if (CheckMa()) {
+                //                if (checkFrom()) {
+                    insert();
+                    //                }
+                //            }
+            //        } else {
+            //            MsgBox.alert(null, "Bạn không có quyền  thêm sp !");
+            //
+            //        }
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
+        //        this.index++;
+        //        this.edit();
+        next();
+    }//GEN-LAST:event_btnNextActionPerformed
+
+    private void btnPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevActionPerformed
+        //        this.index--;
+        //        this.edit();
+        prev();
+    }//GEN-LAST:event_btnPrevActionPerformed
+
+    private void btnfirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfirstActionPerformed
+        //        this.index = 0;
+        //        this.edit();
+        first();
+    }//GEN-LAST:event_btnfirstActionPerformed
+
+    private void searchText1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchText1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchText1ActionPerformed
+
+    private void btnThem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem1ActionPerformed
+        // TODO add your handling code here:
+        seacher();
+    }//GEN-LAST:event_btnThem1ActionPerformed
+
+    private void txtCategoryName1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCategoryName1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCategoryName1ActionPerformed
+
+    private void txtCategoryIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCategoryIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCategoryIDActionPerformed
+
+    private void CboSuperCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CboSuperCategoryActionPerformed
+
+        String stype = "category";
+        IndexComBox = CboSuperCategory.getSelectedIndex() - 1;
+        System.out.println("CboCategoryActionPerformed");
+        System.out.println(IndexComBox);
+        chonComboBox(IndexComBox);
+    }//GEN-LAST:event_CboSuperCategoryActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1660,7 +1643,6 @@ public class productAttributesView extends javax.swing.JPanel {
     private javax.swing.JLabel lblDescriptionBrand;
     private javax.swing.JLabel lblDescriptionBrand1;
     private javax.swing.JLabel lblOriginBrand;
-    private com.toystore.swing.PanelBorder panelBorder1;
     private javax.swing.JPanel pnButton;
     private com.toystore.swing.SearchText searchText1;
     private javax.swing.JPanel tabBrand;
@@ -1691,7 +1673,7 @@ public class productAttributesView extends javax.swing.JPanel {
    void fillTableBrand(List<Brand> brandList) {
         DefaultTableModel model = new DefaultTableModel(row, 0);
         model.setRowCount(0);
-        model.setColumnIdentifiers(new Object[]{"ID", "Name Brand", "Origin Brand", "Descriptions"});
+        model.setColumnIdentifiers(new Object[]{"Code brand", "Name Brand", "Origin Brand", "Descriptions"});
         tableBrand.setModel(model);
         for (Brand brand : brandList) {
             model.addRow(new Object[]{brand.getBrandId(),
@@ -1727,23 +1709,23 @@ public class productAttributesView extends javax.swing.JPanel {
             System.out.println("name category descriptions: " + brand.getDescription());
             System.out.println("name category descriptions: " + brand.getOriginBrand());
             brandDAO.insertBrand(brand);
-            MsgBox.alert(null, "Thêm sản phẩm  Thành Công !");
+            MsgBox.alert(null, "Added brand Success !");
             brandList = brandDAO.findAll();
             fillTableBrand(brandList);
         } catch (Exception e) {
             e.printStackTrace();
-            MsgBox.alert(null, "Thêm sản phẩm Thất Bại !");
+            MsgBox.alert(null, "Added brand Failed !");
         }
     }
     
     void updateBrand() {
         try {
             brandDAO.updateBrand(getFormBrand());
-            MsgBox.alert(null, "Cập nhật sản phẩm Thành Công !");
+            MsgBox.alert(null, "Product Update Successfully!");
             brandList = brandDAO.findAll();
             fillTableBrand(brandList);
         } catch (Exception e) {
-            MsgBox.alert(null, "Cập nhật sản phẩm Thất Bại !");
+            MsgBox.alert(null, "Product Update Failed!");
         }
     }
     
@@ -1752,22 +1734,22 @@ public class productAttributesView extends javax.swing.JPanel {
             int brandID = Integer.parseInt(txtBrandID.getText());
             brandDAO.deleteBrand(brandID);
             clearFormBrand();
-            MsgBox.alert(null, "Xóa sản phẩm Thành Công !");
+            MsgBox.alert(null, "Delete product Successfully!");
             brandList = brandDAO.findAll();
             fillTableBrand(brandList);
         } catch (Exception e) {
-            MsgBox.alert(null, "Xóa sản phẩm Thất Bại !");
+            MsgBox.alert(null, "Delete product Failed!");
         }
     }
     
     void seacherBrand() {
         String input = txtSeacherBrand.getText().trim(); // Lấy giá trị nhập vào và loại bỏ khoảng trắng
         if (input.isEmpty()) {
-            MsgBox.alert(null, "Vui lòng nhập mã brand!");
+            MsgBox.alert(null, "Please enter brand code!");
             return;
         }
         if (!input.matches("\\d+")) { // Kiểm tra xem input có phải là số không
-            MsgBox.alert(null, "Mã brand phải là số!");
+            MsgBox.alert(null, "Brand code must be a number!");
             return;
         }
         try {
@@ -1776,10 +1758,10 @@ public class productAttributesView extends javax.swing.JPanel {
             if (brand != null) {
                 setFormBrand(brand);
             } else {
-                MsgBox.alert(null, "Không tìm thấy brand với mã: " + MSP);
+                MsgBox.alert(null, "Brand not found with code: " + MSP);
             }
         } catch (NumberFormatException e) {
-            MsgBox.alert(null, "Lỗi chuyển đổi số! Vui lòng nhập mã hợp lệ.");
+            MsgBox.alert(null, "Number conversion error! Please enter a valid code.");
         }
     }
     
@@ -1834,7 +1816,7 @@ public class productAttributesView extends javax.swing.JPanel {
     void fillTableMaterial(List<Material> material) {
         DefaultTableModel model = new DefaultTableModel(row, 0);
         model.setRowCount(0);
-        model.setColumnIdentifiers(new Object[]{"ID", "Name Material", "Descriptions"});
+        model.setColumnIdentifiers(new Object[]{"Code Material", "Name Material", "Descriptions"});
         tableMaterial.setModel(model);
         for (Material material1 : material) {
             model.addRow(new Object[]{material1.getMaterialId(),
@@ -1866,23 +1848,23 @@ public class productAttributesView extends javax.swing.JPanel {
             System.out.println("name category: " + material.getName());
             System.out.println("name category descriptions: " + material.getDescription());
             materialDAO.insertMaterial(material);
-            MsgBox.alert(null, "Thêm sản phẩm  Thành Công !");
+            MsgBox.alert(null, "Added material successfully!");
             materialList = materialDAO.findAll();
             fillTableMaterial(materialList);
         } catch (Exception e) {
             e.printStackTrace();
-            MsgBox.alert(null, "Thêm sản phẩm Thất Bại !");
+            MsgBox.alert(null, "Added material failed!");
         }
     }
     
     void updateMaterial() {
         try {
             materialDAO.updateMaterial(getFormMaterial());
-            MsgBox.alert(null, "Cập nhật sản phẩm Thành Công !");
+            MsgBox.alert(null, "Update material Success!");
             materialList = materialDAO.findAll();
             fillTableMaterial(materialList);
         } catch (Exception e) {
-            MsgBox.alert(null, "Cập nhật sản phẩm Thất Bại !");
+            MsgBox.alert(null, "Update material Failed !");
         }
     }
     
@@ -1891,22 +1873,22 @@ public class productAttributesView extends javax.swing.JPanel {
             int MaterialID = Integer.parseInt(txtMaterialID.getText());
             materialDAO.deleteMaterial(MaterialID);
             clearFormBrand();
-            MsgBox.alert(null, "Xóa sản phẩm Thành Công !");
+            MsgBox.alert(null, "Delete material Success !");
             materialList = materialDAO.findAll();
             fillTableMaterial(materialList);
         } catch (Exception e) {
-            MsgBox.alert(null, "Xóa sản phẩm Thất Bại !");
+            MsgBox.alert(null, "Delete material Failed !");
         }
     }
     
     void seacherMaterial() {
         String input = txtSeacherMaterial.getText().trim(); // Lấy giá trị nhập vào và loại bỏ khoảng trắng
         if (input.isEmpty()) {
-            MsgBox.alert(null, "Vui lòng nhập mã Material!");
+            MsgBox.alert(null, "Please enter Material code!");
             return;
         }
         if (!input.matches("\\d+")) { // Kiểm tra xem input có phải là số không
-            MsgBox.alert(null, "Mã material phải là số!");
+            MsgBox.alert(null, "Material code must be numeric!");
             return;
         }
         try {
@@ -1915,10 +1897,10 @@ public class productAttributesView extends javax.swing.JPanel {
             if (material != null) {
                 setFormMaterial(material);
             } else {
-                MsgBox.alert(null, "Không tìm thấy brand với mã: " + materialID);
+                MsgBox.alert(null, "Brand not found with code: " + materialID);
             }
         } catch (NumberFormatException e) {
-            MsgBox.alert(null, "Lỗi chuyển đổi số! Vui lòng nhập mã hợp lệ.");
+            MsgBox.alert(null, "Number conversion error! Please enter a valid code.");
         }
     }
     
@@ -1950,7 +1932,7 @@ public class productAttributesView extends javax.swing.JPanel {
         if (this.row < 1) {
             return;
         } else {
-            this.row--;
+            this.row--; 
             this.editMaterial(row);
         }
     }
@@ -1971,7 +1953,7 @@ public class productAttributesView extends javax.swing.JPanel {
     void fillTableAge(List<Age> ages) {
         DefaultTableModel model = new DefaultTableModel(row, 0);
         model.setRowCount(0);
-        model.setColumnIdentifiers(new Object[]{"ID", "Targer Age Group"});
+        model.setColumnIdentifiers(new Object[]{"Code Age", "Targer Age Group"});
         tableAge.setModel(model);
         for (Age age : ageList) {
             model.addRow(new Object[]{age.getAgeId(),
@@ -1998,23 +1980,23 @@ public class productAttributesView extends javax.swing.JPanel {
             Age age = getFormAge();
             System.out.println("name category: " + age.getAgeRange());
             ageDAO.insertAge(age);
-            MsgBox.alert(null, "Thêm sản phẩm  Thành Công !");
+            MsgBox.alert(null, "Added Age successfully!");
             ageList = ageDAO.findAll();
             fillTableAge(ageList);
         } catch (Exception e) {
             e.printStackTrace();
-            MsgBox.alert(null, "Thêm sản phẩm Thất Bại !");
+            MsgBox.alert(null, "Added Age Failed !");
         }
     }
     
     void updateAge() {
         try {
             ageDAO.updateAge(getFormAge());
-            MsgBox.alert(null, "Cập nhật sản phẩm Thành Công !");
+            MsgBox.alert(null, "Update Age successfully !");
             ageList = ageDAO.findAll();
             fillTableAge(ageList);
         } catch (Exception e) {
-            MsgBox.alert(null, "Cập nhật sản phẩm Thất Bại !");
+            MsgBox.alert(null, "Update Age Failed !");
         }
     }
     
@@ -2023,22 +2005,22 @@ public class productAttributesView extends javax.swing.JPanel {
             int ageID = Integer.parseInt(txtAgeID.getText());
             ageDAO.deleteAge(ageID);
             clearFormAge();
-            MsgBox.alert(null, "Xóa sản phẩm Thành Công !");
+            MsgBox.alert(null, "Delete Age successfully !");
             ageList = ageDAO.findAll();
             fillTableAge(ageList);
         } catch (Exception e) {
-            MsgBox.alert(null, "Xóa sản phẩm Thất Bại !");
+            MsgBox.alert(null, "Delete Age Failed !");
         }
     }
     
     void seacherAge() {
         String input = txtSeacherAge.getText().trim(); // Lấy giá trị nhập vào và loại bỏ khoảng trắng
         if (input.isEmpty()) {
-            MsgBox.alert(null, "Vui lòng nhập mã age!");
+            MsgBox.alert(null, "Please code age!");
             return;
         }
         if (!input.matches("\\d+")) { // Kiểm tra xem input có phải là số không
-            MsgBox.alert(null, "Mã age phải là số!");
+            MsgBox.alert(null, "Age code must be numeric!");
             return;
         }
         try {
@@ -2047,10 +2029,10 @@ public class productAttributesView extends javax.swing.JPanel {
             if (age != null) {
                 setFormAge(age);
             } else {
-                MsgBox.alert(null, "Không tìm thấy brand với mã: " + ageID);
+                MsgBox.alert(null, "Brand with code not found: " + ageID);
             }
         } catch (NumberFormatException e) {
-            MsgBox.alert(null, "Lỗi chuyển đổi số! Vui lòng nhập mã hợp lệ.");
+            MsgBox.alert(null, "Number conversion error! Please enter a valid code.");
         }
     }
     

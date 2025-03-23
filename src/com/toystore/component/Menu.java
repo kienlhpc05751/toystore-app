@@ -2,6 +2,7 @@ package com.toystore.component;
 
 import com.toystore.event.EventMenuSelected;
 import com.toystore.model.Model_Menu;
+import com.toystore.utils.Auth;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -29,25 +30,29 @@ public class Menu extends javax.swing.JPanel {
     }
 
     private void init() {
-        listMenu2.addItem(new Model_Menu("1", "Trang chủ", Model_Menu.MenuType.MENU));
+        listMenu2.addItem(new Model_Menu("1", "Home", Model_Menu.MenuType.MENU));
 //        listMenu2.addItem(new Model_Menu("2", "Khách hàng", Model_Menu.MenuType.MENU));
         listMenu2.addItem(new Model_Menu("", "", Model_Menu.MenuType.EMPTY));
-        listMenu2.addItem(new Model_Menu("3", "Đơn hàng", Model_Menu.MenuType.MENU));
-        listMenu2.addItem(new Model_Menu("4", "Sản phẩm", Model_Menu.MenuType.MENU));
-        listMenu2.addItem(new Model_Menu("5", "Nhân viên", Model_Menu.MenuType.MENU));
+        listMenu2.addItem(new Model_Menu("3", "Order", Model_Menu.MenuType.MENU));
+        listMenu2.addItem(new Model_Menu("4", "Product", Model_Menu.MenuType.MENU));
+        if (Auth.isManagerAccount()) {
+            listMenu2.addItem(new Model_Menu("5", "Staff", Model_Menu.MenuType.MENU));
+        } else {
+            listMenu2.addItem(new Model_Menu("5", "kkkdkfakdkfskafdkf", Model_Menu.MenuType.MENU));
+        }
         listMenu2.addItem(new Model_Menu("6", "POS menu", Model_Menu.MenuType.MENU));
         listMenu2.addItem(new Model_Menu("7", "Category", Model_Menu.MenuType.MENU));
         listMenu2.addItem(new Model_Menu("5", "Attributes", Model_Menu.MenuType.MENU));
         listMenu2.addItem(new Model_Menu("", "My Data____________", Model_Menu.MenuType.TITLE));
 
-        listMenu2.addItem(new Model_Menu("7", "Đăng xuất", Model_Menu.MenuType.MENU));
+        listMenu2.addItem(new Model_Menu("7", "Sign out", Model_Menu.MenuType.MENU));
         listMenu2.addItem(new Model_Menu("", "", Model_Menu.MenuType.EMPTY));
         listMenu2.addItem(new Model_Menu("8", "Thống kê", Model_Menu.MenuType.MENU));
         listMenu2.addItem(new Model_Menu("", "", Model_Menu.MenuType.EMPTY));
         listMenu2.addItem(new Model_Menu("", "", Model_Menu.MenuType.EMPTY));
         listMenu2.addItem(new Model_Menu("", " ", Model_Menu.MenuType.EMPTY));
         listMenu2.addItem(new Model_Menu("", " ", Model_Menu.MenuType.EMPTY));
-        listMenu2.addItem(new Model_Menu("10", "Thoát", Model_Menu.MenuType.MENU));
+        listMenu2.addItem(new Model_Menu("10", "Exit", Model_Menu.MenuType.MENU));
     }
 
     @SuppressWarnings("unchecked")
@@ -66,8 +71,8 @@ public class Menu extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/toystore/icon/Logonen1.png"))); // NOI18N
-        jLabel1.setText("lightning");
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/toystore/icon/logo.png"))); // NOI18N
+        jLabel1.setText("Kid store");
         jLabel1.setAutoscrolls(true);
 
         javax.swing.GroupLayout panelMovingLayout = new javax.swing.GroupLayout(panelMoving);

@@ -12,6 +12,7 @@ import com.google.zxing.NotFoundException;
 import com.google.zxing.Result;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
+import com.toystore.dao.store.AccountDAO;
 import com.toystore.testDao.*;
 import com.toystore.dao.store.productDAO;
 //import com.toystore.dao.store.productDAO;
@@ -38,9 +39,9 @@ public class Toystore {
      *
      */
     public static void main(String[] args) {
-        maill();
-        String code = BarcodeScanner.readBarcode("1741682490350.png");
-        System.out.println("code: " + code);
+//        maill();
+//        String code = BarcodeScanner.readBarcode("1741682490350.png");
+//        System.out.println("code: " + code);
 
     }
 
@@ -105,4 +106,14 @@ public class Toystore {
         webcam.close();
     }
 
+    public static void testUpdateQuantity() {
+        productDAO productDao = new productDAO();
+        product p = productDao.findById(1);
+        System.out.println("product ID : " + p.getProductId() + " quantity : " + p.getQuantity());
+        p.setQuantity(p.getQuantity() - 1);
+        productDao.updateProductQuantity(p);
+        p = productDao.findById(1);
+        System.out.println("product ID : " + p.getProductId() + " quantity : " + p.getQuantity());
+
+    }
 }

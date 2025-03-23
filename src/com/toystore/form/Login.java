@@ -46,14 +46,14 @@ public class Login extends javax.swing.JFrame {
             if (nhanVien == null) {
                 txtUserName.requestFocus();
                 txtUserName.setBackground(Color.red);
-                MsgBox.alert(this, "Đăng nhập thất bại! !");
+                MsgBox.alert(this, "Login failed!");
             } else if (!matKhau.equals(nhanVien.getPassword())) {
                 txtPassword.requestFocus();
                 txtPassword.setBackground(null);
                 txtPassword.setBackground(Color.red);
-                MsgBox.alert(this, "Đăng nhập thất bại! !");
+                MsgBox.alert(this, "Login failed!");
             } else {
-                MsgBox.alert(this, "Đăng nhập thành công !");
+                MsgBox.alert(this, "Login successful!");
 
                 Auth.account = nhanVien;
 //           new QuanLy.QuanLyNhanVien().setVisible(true);
@@ -75,7 +75,7 @@ public class Login extends javax.swing.JFrame {
             errorMessages.add("Vui lòng nhập mã đăng nhập");
             txtUserName.setBackground(Color.red);
             txtUserName.requestFocus();
-        } else if (txtUserName.getText().length() > 5) {
+        } else if (txtUserName.getText().length() > 15) {
             errorMessages.add("Vui lòng nhập dưới 5 kí tự");
             txtUserName.setBackground(Color.red);
             txtUserName.requestFocus();

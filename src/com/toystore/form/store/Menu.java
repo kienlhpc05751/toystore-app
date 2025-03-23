@@ -168,7 +168,7 @@ public class Menu extends javax.swing.JPanel {
                         if (event != null) {
                             event.itemClick(item, data);  // Gọi sự kiện itemClick
                         } else {
-                            System.out.println("EventItem chưa được thiết lập!");
+                            System.out.println("EventItem not set!");
                         }
                     }
                 }
@@ -178,7 +178,7 @@ public class Menu extends javax.swing.JPanel {
             panelItem1.revalidate();
         } else {
 //            MsgBox.alert(null, "");
-            System.out.println(" list product null");
+            System.out.println("list products null!");
         }
 
     }
@@ -194,7 +194,7 @@ public class Menu extends javax.swing.JPanel {
             @Override
             public void itemClick(Component com, product item) {
                 itemSelected = item;
-                System.out.println("Tên sản phẩm: " + item.getName());
+                System.out.println("Name product: " + item.getName());
                 boolean found = false;
                 for (OrderDetail orderDetail : orderDetails) {
                     if (orderDetail.getProductId() == item.getProductId()) {
@@ -203,7 +203,7 @@ public class Menu extends javax.swing.JPanel {
                             found = true;
                             break;
                         } else {
-                            MsgBox.alert(null, "Sản Phẩm" + item.getName() + " đã tới số lượng giới hạng!");
+                            MsgBox.alert(null, "Product" + item.getName() + " The quantity has been reached!");
                             found = true;
                             break;
                         }
@@ -230,7 +230,7 @@ public class Menu extends javax.swing.JPanel {
     }
 
     public void fillToTableHoaDon(List<OrderDetail> details) {
-        String row[] = {"Tên sản phẩm", "Giá", "Số lượng", "Tổng Tiền"};
+        String row[] = {"Product Name", "Price", "Quantity", "Total Amount"};
         DefaultTableModel modelTbl = new DefaultTableModel(row, 0);
         modelTbl.setRowCount(0);
 //        tblHoaDon.getColumn
@@ -249,9 +249,9 @@ public class Menu extends javax.swing.JPanel {
         txtTienSP.setText(df.format(totalAmountSP));
         tblHoaDon.setModel(modelTbl);
         if (OrderJustNow.isStatus()) {
-            lblTrangThai.setText("ĐÃ THANH TOÁN!");
+            lblTrangThai.setText("PAID!");
         } else {
-            lblTrangThai.setText("CHƯA THANH TOÁN!");
+            lblTrangThai.setText("NOT PAID!");
         }
         if (OrderJustNow.paymentMethodId == 1) {
             rdoTienMat.setSelected(true);
@@ -267,15 +267,14 @@ public class Menu extends javax.swing.JPanel {
     }
 
     public void filltableHDC(List<Order> orders) {
-        String row[] = {"Mã nhân viên", "Mã hóa hơn", "Tổng tiền", "Trạng thái Đơn"};
+        String row[] = {"Employee Code", "More Code", "Total Amount", "Order Status"};
         DefaultTableModel modelOr = new DefaultTableModel(row, 0);
         modelOr.setRowCount(0);
         Collections.reverse(orders);
-        String orderStatus = "ĐÃ TT";
-//        List<Order> orders1 = orderDAO.findAll();
-        for (Order o : orders) {
+        String orderStatus = "Paid";
+        for (Order o : orders) {//        List<Order> orders1 = orderDAO.findAll();
             if (!o.isStatus()) {
-                orderStatus = "CHƯA TT";
+                orderStatus = "Not Paid";
             }
             System.out.println("SHOW ORDER :" + o.getOrderId());
             modelOr.addRow(new Object[]{
@@ -379,10 +378,10 @@ public class Menu extends javax.swing.JPanel {
             lblThongBaoTienNhan.setVisible(false);
             alterTien = "";
         } catch (Exception e) {
-            alterTien = "Tiền nhận chưa đúng định dạng";
+            alterTien = "Money received is not in correct format";
             txtTienThua.setForeground(Color.red);
             txtTienNhan.setForeground(Color.red);
-            lblThongBaoTienNhan.setText("(*)Sai định dạng");
+            lblThongBaoTienNhan.setText("(*)Incorrect format");
             lblThongBaoTienNhan.setVisible(true);
             return false;
         }
@@ -393,9 +392,9 @@ public class Menu extends javax.swing.JPanel {
         try {
             double phiKhac = Double.parseDouble(txtChiPhiKhac.getText());
             if (phiKhac < 0) {
-                alterPhi = "Chi phí khác đang âm";
+                alterPhi = "Other expenses are negative";
                 txtChiPhiKhac.setForeground(Color.red);
-                lblThongBaoPhi.setText("(*)Phí đang âm");
+                lblThongBaoPhi.setText("(*)Fees are negative");
                 lblThongBaoPhi.setVisible(true);
                 return false;
             }
@@ -404,9 +403,9 @@ public class Menu extends javax.swing.JPanel {
             lblThongBaoPhi.setVisible(false);
             alterPhi = "";
         } catch (Exception e) {
-            alterPhi = "Chi phí khác chưa đúng định dạng";
+            alterPhi = "Orther costs are not in the correct format.";
             txtChiPhiKhac.setForeground(Color.red);
-            lblThongBaoPhi.setText("(*)Sai định dạng");
+            lblThongBaoPhi.setText("(*)Wrong format");
             lblThongBaoPhi.setVisible(true);
             return false;
         }
@@ -437,19 +436,6 @@ public class Menu extends javax.swing.JPanel {
     }
 
     public boolean tinhToanTien() {
-//        txtTienNhan.addKeyListener(new KeyAdapter() {
-//            @Override
-//            public void keyReleased(KeyEvent e) {
-//                formatTextField(txtTienNhan);
-//            }
-//        });
-
-//        txtChiPhiKhac.addKeyListener(new KeyAdapter() {
-//            @Override
-//            public void keyReleased(KeyEvent e) {
-//                formatTextField(txtChiPhiKhac);
-//            }
-//        });
         if (tblHoaDon.getRowCount() == 0) {
             txtTienThua.setForeground(Color.black);
             txtTienNhan.setForeground(Color.black);
@@ -481,10 +467,10 @@ public class Menu extends javax.swing.JPanel {
 
             // Kiểm tra nếu tiền nhận nhỏ hơn tổng tiền cần thanh toán
             if (tienNhan < tongTien) {
-                alterTien = "Tiền nhận chưa đủ";
+                alterTien = "The money received is not enough";
                 txtTienThua.setForeground(Color.red);
                 txtTienNhan.setForeground(Color.red);
-                lblThongBaoTienNhan.setText("(*)Chưa đủ tiền");
+                lblThongBaoTienNhan.setText("(*)Not enough money");
                 lblThongBaoTienNhan.setVisible(true);
                 return false;
             } else {
@@ -503,7 +489,7 @@ public class Menu extends javax.swing.JPanel {
 //   
     public boolean checkThanhToan() {
         if (tblHoaDon.getRowCount() == 0) {
-            MsgBox.alert(null, "Hãy thêm sản phẩm vào hóa đơn!");
+            MsgBox.alert(null, "Add products to your invoice!");
             return false;
         }
         if (!alterPhi.isEmpty()) {
@@ -514,8 +500,8 @@ public class Menu extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, alterTien);
             return false;
         }
-        if (!MsgBox.confirm(null, "Tổng tiền là " + df.format(totalAmountSP) + "(VND)"
-                + " xác nhận Đã thanh toán!")) {
+        if (!MsgBox.confirm(null, "The total amount is " + df.format(totalAmountSP) + "(VND)"
+                + "xác nhận Đã thanh toán!")) {
             return false;
         }
         return true;
@@ -571,7 +557,7 @@ public class Menu extends javax.swing.JPanel {
             }
             if (OrderJustNow != null) {
                 if (OrderJustNow.isStatus()) {
-                    MsgBox.alert(null, "Hóa đơn :" + OrderJustNow.getOrderId() + " Đã thành toán vui long tạo mới!");
+                    MsgBox.alert(null, "Bill :" + OrderJustNow.getOrderId() + " Completed payment please create new!");
                     cleadTable();
                     return;
                 } else {
@@ -596,13 +582,13 @@ public class Menu extends javax.swing.JPanel {
                 orderDetail.setOrderId(OrderJustNow.orderId);
                 orderDetailDAO.insertOrderDetail(orderDetail);
             }
-            MsgBox.alert(null, "Thêm sản phẩm  Thành Công !");
+            MsgBox.alert(null, "Product added successfully!");
             orderList = orderDAO.findAll();
             filltableHDC(orderList);
 
         } catch (Exception e) {
             e.printStackTrace();
-            MsgBox.alert(null, "Thêm sản phẩm Thất Bại !");
+            MsgBox.alert(null, "Add product failed!");
         }
     }
 
@@ -628,12 +614,12 @@ public class Menu extends javax.swing.JPanel {
                             fillToTableHoaDon(orderDetails);
                             return;
                         } else {
-                            MsgBox.alert(null, p.getName() + " chỉ có " + p.getQuantity() + " !");
+                            MsgBox.alert(null, p.getName() + " only " + p.getQuantity() + " !");
                             spinner.setValue(orderDetails.get(row).getQuantity());
                             return;
                         }
                     } else {
-                        MsgBox.alert(null, "không được là số âm!");
+                        MsgBox.alert(null, "cannot be negative!");
                     }
                     fireEditingStopped();
                     repaint();
@@ -957,7 +943,7 @@ public class Menu extends javax.swing.JPanel {
 
         buttonGroup1.add(rdoChuyenKhoang);
         rdoChuyenKhoang.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        rdoChuyenKhoang.setText("Chuyển khoản");
+        rdoChuyenKhoang.setText("bank");
         jPanel7.add(rdoChuyenKhoang, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 440, -1, -1));
 
         jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -1060,10 +1046,10 @@ public class Menu extends javax.swing.JPanel {
         jPanel7.add(txtkhachID1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 360, -1, -1));
 
         txtkhachID2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txtkhachID2.setText("Client phone ");
+        txtkhachID2.setText("Client phone :");
         jPanel7.add(txtkhachID2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, -1, 20));
 
-        btnThemKhach.setText("Thêm khách");
+        btnThemKhach.setText("Add customers");
         btnThemKhach.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnThemKhachMouseClicked(evt);
@@ -1162,9 +1148,9 @@ public class Menu extends javax.swing.JPanel {
             .addGap(0, 1120, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 40, Short.MAX_VALUE)
+                    .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 1040, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 40, Short.MAX_VALUE)))
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1277,9 +1263,9 @@ public class Menu extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThemKhachActionPerformed
 
     private void btnThemKhachMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemKhachMouseClicked
+        System.out.println("bài ");
         FormTimKhach formTim = new FormTimKhach(null);
         formTim.setVisible(true);
-
         // Lấy khách hàng được chọn
         String khachDuocChon = formTim.getSelectedCustomer();
         if (khachDuocChon != null) {
@@ -1305,11 +1291,11 @@ public class Menu extends javax.swing.JPanel {
 
     private void btnInHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInHoaDonActionPerformed
         if (tblHoaDon.getRowCount() == 0) {
-            MsgBox.alert(null, "Hãy chọn một hóa đơn chờ hoặc thanh toán hóa đơn mới để in!");
+            MsgBox.alert(null, "Please select a pending invoice or pay a new invoice to print!");
             return;
         }
         if (checkselected) {
-            MsgBox.alert(null, "Hãy chọn một hóa đơn chờ hoặc thanh toán hóa đơn hiện tại để in!");
+            MsgBox.alert(null, "Please select a pending bill or pay a current bill to print!");
             return;
         }
         prinBill();
@@ -1775,7 +1761,7 @@ public class Menu extends javax.swing.JPanel {
         String nameNV = "";
 
         if (!OrderJustNow.isStatus()) {
-            MsgBox.alert(null, "đơn hàng chưa thanh toán!");
+            MsgBox.alert(null, "unpaid order!");
             return;
         }
 //        if (!checkselected) {
@@ -1858,8 +1844,7 @@ public class Menu extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
-    
-    
+
 //
 //    public void fillTableHoaDonCT() {
 //        DefaultTableModel dtm = (DefaultTableModel) tblHoaDon.getModel();

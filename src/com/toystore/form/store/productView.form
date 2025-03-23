@@ -76,8 +76,8 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="C&#x1eac;P NH&#x1eac;T">
-                    <Property name="tabTitle" type="java.lang.String" value="C&#x1eac;P NH&#x1eac;T"/>
+                  <JTabbedPaneConstraints tabName="Form action">
+                    <Property name="tabTitle" type="java.lang.String" value="Form action"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -113,11 +113,11 @@
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="3d" green="33" red="1b" type="rgb"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="M&#xe3; SP"/>
+                        <Property name="text" type="java.lang.String" value="Code Product:"/>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="33" y="24" width="50" height="-1"/>
+                          <AbsoluteConstraints x="33" y="24" width="100" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>
@@ -157,7 +157,7 @@
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="3d" green="33" red="1b" type="rgb"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="T&#xea;n SP"/>
+                        <Property name="text" type="java.lang.String" value="Name product"/>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -176,7 +176,7 @@
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="3d" green="33" red="1b" type="rgb"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="M&#xf4; t&#x1ea3;"/>
+                        <Property name="text" type="java.lang.String" value="Description"/>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -252,7 +252,7 @@
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="3d" green="33" red="1b" type="rgb"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Gi&#xe1; b&#xe1;n"/>
+                        <Property name="text" type="java.lang.String" value="Price"/>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -289,7 +289,7 @@
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="3d" green="33" red="1b" type="rgb"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Th&#x1b0;&#x1a1;ng hi&#x1ec7;u"/>
+                        <Property name="text" type="java.lang.String" value="Brand"/>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -326,7 +326,7 @@
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="3d" green="33" red="1b" type="rgb"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="S&#x1ed1; L&#x1b0;&#x1ee3;ng"/>
+                        <Property name="text" type="java.lang.String" value="Quantity"/>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -445,7 +445,7 @@
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="3d" green="33" red="1b" type="rgb"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="&#x110;&#x1ed9; tu&#x1ed5;i"/>
+                        <Property name="text" type="java.lang.String" value="Age"/>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -464,7 +464,7 @@
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="3d" green="33" red="1b" type="rgb"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Ch&#x1ea5;t li&#x1ec7;u"/>
+                        <Property name="text" type="java.lang.String" value="Material"/>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -483,11 +483,11 @@
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="3d" green="33" red="1b" type="rgb"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Lo&#x1ea1;i SP"/>
+                        <Property name="text" type="java.lang.String" value="Category"/>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="290" y="270" width="50" height="-1"/>
+                          <AbsoluteConstraints x="290" y="270" width="70" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>
@@ -640,7 +640,7 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="cc" green="cc" red="cc" type="rgb"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
+                        <Property name="text" type="java.lang.String" value="Add"/>
                         <Property name="borderPainted" type="boolean" value="false"/>
                       </Properties>
                       <Events>
@@ -652,7 +652,7 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="cc" green="cc" red="cc" type="rgb"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="S&#x1eed;a"/>
+                        <Property name="text" type="java.lang.String" value="Update"/>
                         <Property name="borderPainted" type="boolean" value="false"/>
                       </Properties>
                       <Events>
@@ -664,7 +664,7 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="cc" green="cc" red="cc" type="rgb"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="X&#xf3;a"/>
+                        <Property name="text" type="java.lang.String" value="Delete"/>
                         <Property name="borderPainted" type="boolean" value="false"/>
                       </Properties>
                       <Events>
@@ -676,7 +676,7 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="cc" green="cc" red="cc" type="rgb"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="L&#xe0;m m&#x1edb;i"/>
+                        <Property name="text" type="java.lang.String" value="Refresh"/>
                         <Property name="borderPainted" type="boolean" value="false"/>
                       </Properties>
                       <Events>
@@ -702,7 +702,7 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="cc" green="cc" red="cc" type="rgb"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="t&#xec;m"/>
+                        <Property name="text" type="java.lang.String" value="Searcher"/>
                         <Property name="borderPainted" type="boolean" value="false"/>
                       </Properties>
                       <Events>
@@ -716,8 +716,8 @@
             <Container class="javax.swing.JPanel" name="btnList">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="DANH S&#xc1;CH">
-                    <Property name="tabTitle" type="java.lang.String" value="DANH S&#xc1;CH"/>
+                  <JTabbedPaneConstraints tabName="table list product">
+                    <Property name="tabTitle" type="java.lang.String" value="table list product"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -749,7 +749,7 @@
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jScrollPane1" min="-2" pref="555" max="-2" attributes="0"/>
-                          <EmptySpace pref="119" max="32767" attributes="0"/>
+                          <EmptySpace pref="53" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -837,6 +837,7 @@
                         </EtchetBorder>
                       </Border>
                     </Property>
+                    <Property name="text" type="java.lang.String" value="Seacher code product"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchText2ActionPerformed"/>
@@ -844,7 +845,7 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="btnTimkiem">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="T&#xec;m ki&#x1ebf;m"/>
+                    <Property name="text" type="java.lang.String" value="Seacher"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTimkiemActionPerformed"/>
@@ -863,7 +864,7 @@
               <Color blue="66" green="66" red="66" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="QU&#x1ea2;N L&#xdd; S&#x1ea2;N PH&#x1ea8;M"/>
+            <Property name="text" type="java.lang.String" value="Product management"/>
             <Property name="verticalAlignment" type="int" value="3"/>
           </Properties>
           <Constraints>

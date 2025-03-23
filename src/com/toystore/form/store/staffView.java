@@ -164,7 +164,7 @@ public class staffView extends javax.swing.JPanel {
         lblTitle.setFont(new java.awt.Font("Roboto", 1, 28)); // NOI18N
         lblTitle.setForeground(new java.awt.Color(102, 102, 102));
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitle.setText("QUẢN LÝ NHÂN VIÊN");
+        lblTitle.setText("Management Staff");
         lblTitle.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel1.add(lblTitle, java.awt.BorderLayout.PAGE_START);
 
@@ -176,9 +176,9 @@ public class staffView extends javax.swing.JPanel {
         lblMaNV.setBackground(new java.awt.Color(102, 0, 204));
         lblMaNV.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblMaNV.setForeground(new java.awt.Color(27, 51, 61));
-        lblMaNV.setText("Mã NV");
+        lblMaNV.setText("Employee code :");
         jPanel2.add(lblMaNV);
-        lblMaNV.setBounds(190, 20, 50, 18);
+        lblMaNV.setBounds(190, 20, 100, 18);
 
         txtMaNV.setBorder(null);
         jPanel2.add(txtMaNV);
@@ -187,42 +187,42 @@ public class staffView extends javax.swing.JPanel {
         lblMaNV1.setBackground(new java.awt.Color(102, 0, 204));
         lblMaNV1.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblMaNV1.setForeground(new java.awt.Color(27, 51, 61));
-        lblMaNV1.setText("Tên NV");
+        lblMaNV1.setText("Employee name :");
         jPanel2.add(lblMaNV1);
-        lblMaNV1.setBounds(190, 90, 50, 18);
+        lblMaNV1.setBounds(190, 90, 110, 18);
 
         lblMaNV5.setBackground(new java.awt.Color(102, 0, 204));
         lblMaNV5.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblMaNV5.setForeground(new java.awt.Color(27, 51, 61));
-        lblMaNV5.setText("Mật khẩu");
+        lblMaNV5.setText("Password :");
         jPanel2.add(lblMaNV5);
         lblMaNV5.setBounds(190, 160, 80, 18);
 
         lblMaNV6.setBackground(new java.awt.Color(102, 0, 204));
         lblMaNV6.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblMaNV6.setForeground(new java.awt.Color(27, 51, 61));
-        lblMaNV6.setText("Email");
+        lblMaNV6.setText("Email :");
         jPanel2.add(lblMaNV6);
-        lblMaNV6.setBounds(570, 20, 80, 18);
+        lblMaNV6.setBounds(570, 20, 90, 18);
 
         lblMaNV7.setBackground(new java.awt.Color(102, 0, 204));
         lblMaNV7.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblMaNV7.setForeground(new java.awt.Color(27, 51, 61));
-        lblMaNV7.setText("Số điện thoại");
+        lblMaNV7.setText("Number phone :");
         jPanel2.add(lblMaNV7);
         lblMaNV7.setBounds(570, 90, 106, 18);
 
         lblngaysinh.setBackground(new java.awt.Color(102, 0, 204));
         lblngaysinh.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblngaysinh.setForeground(new java.awt.Color(27, 51, 61));
-        lblngaysinh.setText("Ngày sinh");
+        lblngaysinh.setText("Date of birth :");
         jPanel2.add(lblngaysinh);
-        lblngaysinh.setBounds(570, 160, 80, 18);
+        lblngaysinh.setBounds(570, 160, 100, 18);
 
         lblMaNV8.setBackground(new java.awt.Color(102, 0, 204));
         lblMaNV8.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblMaNV8.setForeground(new java.awt.Color(27, 51, 61));
-        lblMaNV8.setText("Chức vụ");
+        lblMaNV8.setText("Position");
         jPanel2.add(lblMaNV8);
         lblMaNV8.setBounds(830, 170, 80, 18);
 
@@ -259,7 +259,7 @@ public class staffView extends javax.swing.JPanel {
         lblHinhAnh.setBounds(14, 14, 158, 170);
 
         buttonGroup1.add(cboNhanVien);
-        cboNhanVien.setText("Nhân viên");
+        cboNhanVien.setText("Staff");
         cboNhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboNhanVienActionPerformed(evt);
@@ -269,7 +269,7 @@ public class staffView extends javax.swing.JPanel {
         cboNhanVien.setBounds(830, 200, 98, 23);
 
         buttonGroup1.add(cboQuanLy);
-        cboQuanLy.setText("Quản lý");
+        cboQuanLy.setText("customer");
         cboQuanLy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboQuanLyActionPerformed(evt);
@@ -333,7 +333,7 @@ public class staffView extends javax.swing.JPanel {
         });
 
         btnThem.setBackground(new java.awt.Color(204, 204, 204));
-        btnThem.setText("Thêm");
+        btnThem.setText("Add");
         btnThem.setBorderPainted(false);
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -342,7 +342,7 @@ public class staffView extends javax.swing.JPanel {
         });
 
         btnSua.setBackground(new java.awt.Color(204, 204, 204));
-        btnSua.setText("Sửa");
+        btnSua.setText("Update");
         btnSua.setBorderPainted(false);
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -351,7 +351,7 @@ public class staffView extends javax.swing.JPanel {
         });
 
         btnXoa.setBackground(new java.awt.Color(204, 204, 204));
-        btnXoa.setText("Xóa");
+        btnXoa.setText("Delete");
         btnXoa.setBorderPainted(false);
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -360,7 +360,7 @@ public class staffView extends javax.swing.JPanel {
         });
 
         btnLamMoi.setBackground(new java.awt.Color(204, 204, 204));
-        btnLamMoi.setText("Làm mới");
+        btnLamMoi.setText("Refresh");
         btnLamMoi.setBorderPainted(false);
         btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -381,7 +381,7 @@ public class staffView extends javax.swing.JPanel {
                 .addComponent(btnNext)
                 .addGap(18, 18, 18)
                 .addComponent(btnLast)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 182, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
                 .addComponent(btnThem)
                 .addGap(18, 18, 18)
                 .addComponent(btnSua)
@@ -410,7 +410,7 @@ public class staffView extends javax.swing.JPanel {
         );
 
         jPanel2.add(pnButton);
-        pnButton.setBounds(20, 250, 741, 60);
+        pnButton.setBounds(20, 250, 691, 60);
 
         tblNhanVien.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         tblNhanVien.setFont(new java.awt.Font("UTM BryantLG", 1, 14)); // NOI18N
@@ -422,7 +422,7 @@ public class staffView extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã nhân viên", "Tên nhân viên", "Email", "SDT", "Ngày Sinh", "Chức Vụ", "ảnh"
+                "Employee code", "Employee name", "Email", "Number phone", "Date of birth", "Position", "image"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -704,13 +704,13 @@ public class staffView extends javax.swing.JPanel {
     }
 
     void fillTable(List<Account> listAccount) {
-        String row[] = {"Mã SP", "Tên SP", "Giá SP", "Lượng SP", "Trạng thái SP", "Bar CODE", "___"};
+//        String row[] = {"Mã SP", "Tên SP", "Giá SP", "Lượng SP", "Trạng thái SP", "Bar CODE", "___"};
         DefaultTableModel model = new DefaultTableModel(row, 0);
         model.setRowCount(0);
 //        DefaultTableModel model = new DefaultTableModel();
 
         // Thêm các cột
-        model.setColumnIdentifiers(new Object[]{"ID nhân viên ", "Name nhân viên", "email nhân viên", "số điện thoại nhân viên", "ngày sinh", "chức vụ", "ảnh"});
+        model.setColumnIdentifiers(new Object[]{"employee ID", "employee name", "employee email", "employee phone number", "date of birth", "position", "photo"});
         tblNhanVien.setModel(model);
 
         // Thêm dữ liệu mẫu
@@ -836,12 +836,12 @@ public class staffView extends javax.swing.JPanel {
                 fillTable(accountList);
 //                this.load(nhanVienList);
 //            this.clear();
-                MsgBox.alert(this, "Them moi thanh cong!");
+                MsgBox.alert(this, "Add new success!");
             } catch (Exception e) {
-                MsgBox.alert(this, "Them that bai!");
+                MsgBox.alert(this, "Add failed!");
             }
         } else {
-            MsgBox.alert(this, "Bạn không có quyền thêm nhân viên");
+            MsgBox.alert(this, "You do not have permission to add employees!");
         }
 
     }
@@ -853,33 +853,33 @@ public class staffView extends javax.swing.JPanel {
                 accountDAO.updateAccount(nv);
                 accountList = accountDAO.findAll();
                 fillTable(accountList);
-                MsgBox.alert(this, "Cap nhat thanh cong!");
+                MsgBox.alert(this, "Update success!");
             } catch (Exception e) {
                 e.printStackTrace();
-                MsgBox.alert(this, "Cap nhat that bai!");
+                MsgBox.alert(this, "Update failed!");
             }
         } else {
-            MsgBox.alert(this, "Bạn không có quyền thay đổi nhân viên");
+            MsgBox.alert(this, "You do not have the right to change employees");
         }
     }
 
     void delete() {
         if (Auth.isManager()) {
-            if (MsgBox.confirm(this, "Ban that su muon xoa nhan vien nay khong?")) {
+            if (MsgBox.confirm(this, "Do you really want to delete this employee?")) {
                 String manv = txtMaNV.getText();
                 try {
                     accountDAO.deleteAccount(Integer.parseInt(manv));
                     accountList = accountDAO.findAll();
                     fillTable(accountList);
                     this.clear();
-                    MsgBox.alert(this, "Xoa thanh cong!");
+                    MsgBox.alert(this, "Delete success!");
                 } catch (Exception e) {
                     e.printStackTrace();
-                    MsgBox.alert(this, "Xoa that bai!");
+                    MsgBox.alert(this, "Delete failed!");
                 }
             }
         } else {
-            MsgBox.alert(this, "Bạn không có quyền xóa nhân viên");
+            MsgBox.alert(this, "You do not have permission to delete employees!");
         }
     }
 
@@ -916,7 +916,7 @@ public class staffView extends javax.swing.JPanel {
 
         // có thể thay đổi
         if (txtMatKhau.getText().isEmpty()) {
-            errorMessages.add("Vui lòng mật khẩu");
+            errorMessages.add("Please enter password!");
             txtMatKhau.setBackground(Color.red);
             txtMatKhau.requestFocus();
         } else {
@@ -924,11 +924,11 @@ public class staffView extends javax.swing.JPanel {
         }
 
         if (txtMaNV.getText().isEmpty()) {
-            errorMessages.add("Vui lòng nhập mã nhân viên");
+            errorMessages.add("Please get employee code!");
             txtMaNV.setBackground(Color.red);
             txtMaNV.requestFocus();
         } else if (txtMaNV.getText().length() > 5) {
-            errorMessages.add("Vui lòng nhập dưới 5 kí tự ");
+            errorMessages.add("Please enter less than 5 characters !");
             txtMaNV.setBackground(Color.red);
             txtMaNV.requestFocus();
         } else {
@@ -936,7 +936,7 @@ public class staffView extends javax.swing.JPanel {
         }
 
         if (txtTenNV.getText().isEmpty()) {
-            errorMessages.add("Vui lòng nhập họ tên nhân viên");
+            errorMessages.add("Please enter employee name!");
             txtTenNV.setBackground(Color.red);
             txtTenNV.requestFocus();
         } else {
@@ -948,11 +948,11 @@ public class staffView extends javax.swing.JPanel {
             int SDT = Integer.parseInt(txtSDT.getText());
             txtSDT.setBackground(null);  // Reset background to white if not empty
             if (txtSDT.getText().isEmpty()) {
-                errorMessages.add("Vui lòng nhập tên san phẩm");
+                errorMessages.add("Please enter product name !");
                 txtSDT.setBackground(Color.red);
                 txtSDT.requestFocus();
             } else if (SDT > 11) {
-                errorMessages.add("Vui lòng nhập số điện thoại đúng");
+                errorMessages.add("Please enter a valid phone number!");
                 txtSDT.setBackground(Color.red);
                 txtSDT.requestFocus();
             } else {
@@ -961,12 +961,12 @@ public class staffView extends javax.swing.JPanel {
 
         } catch (NumberFormatException e) {
             // Handle the exception (e.g., display an error message or log it)
-            errorMessages.add("vui long nhập số Điện thoại đúng định dạng");
+            errorMessages.add("Please enter the correct phone number format!");
             txtSDT.setBackground(Color.red);
             txtSDT.requestFocus();
         }
         if (txtEmail.getText().equalsIgnoreCase("")) {
-            errorMessages.add("vui lòng nhập Email !");
+            errorMessages.add("Please enter Email!");
             txtEmail.requestFocus();
             txtEmail.setBackground(Color.red);
         } else {
@@ -976,7 +976,7 @@ public class staffView extends javax.swing.JPanel {
         String EMAIL_REGEX = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z0-9.-]{1,3}$";
 
         if (!txtEmail.getText().matches(EMAIL_REGEX)) {
-            errorMessages.add("vui long nhập số Điện thoại đúng định dạng");
+            errorMessages.add("Please enter the correct phone number format!");
             txtEmail.setBackground(Color.red);
             txtEmail.requestFocus();
         } else {
@@ -992,7 +992,7 @@ public class staffView extends javax.swing.JPanel {
         int age = Period.between(selectedDate, currentDate).getYears();
         if (!(age >= 18)) {
             lblngaysinh.setBackground(Color.red);
-            errorMessages.add(" Tuổi không được nhỏ hơn 18");
+            errorMessages.add("The person is not younger than 18");
             System.out.println("The person is not younger than 18.");
         } else {
             lblngaysinh.setBackground(null);

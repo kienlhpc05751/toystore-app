@@ -19,7 +19,7 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 
 public class FormTimKhach extends JDialog {
-    
+
     private JTable table;
     private JTextField txtSoDienThoai;
     private JButton btnTimKiem, btnChon;
@@ -27,16 +27,16 @@ public class FormTimKhach extends JDialog {
     private String selectedCustomer;
     private List<Account> list;  // Danh sách khách hàng
     private AccountDAO accountDAO = new AccountDAO();
-    
+
     public FormTimKhach(Frame parent) {
-        super(parent, "Tìm Khách Hàng", true);
+        super(parent, "find by Customer", true);
         setSize(500, 400);
         setLayout(new BorderLayout());
-        setBackground(Color.decode("AAD3FF"));
+//        setBackground(Color.decode("AAD3FF"));
 
         // Panel tìm kiếm
         JPanel panelSearch = new JPanel();
-        panelSearch.add(new JLabel("Số điện thoại:"));
+        panelSearch.add(new JLabel("Phone Number:"));
         txtSoDienThoai = new JTextField(15);
         panelSearch.add(txtSoDienThoai);
         btnTimKiem = new JButton("Tìm");
@@ -44,9 +44,9 @@ public class FormTimKhach extends JDialog {
         add(panelSearch, BorderLayout.NORTH);
 
         // Bảng danh sách khách hàng
-        model = new DefaultTableModel(new Object[]{"Tên Khách", "Số Điện Thoại"}, 0);
+        model = new DefaultTableModel(new Object[]{"Fullname", "Phone Number"}, 0);
         this.list = accountDAO.findAll();
-        
+
         for (Account object : list) {
             model.addRow(new Object[]{object.getFullname(), object.getPhoneNumber()});
         }
@@ -55,7 +55,7 @@ public class FormTimKhach extends JDialog {
         add(scrollPane, BorderLayout.CENTER);
 
         // Nút chọn khách hàng
-        btnChon = new JButton("Chọn");
+        btnChon = new JButton("Select");
         add(btnChon, BorderLayout.SOUTH);
 
         // Xử lý sự kiện tìm kiếm khách hàng
@@ -72,7 +72,7 @@ public class FormTimKhach extends JDialog {
                 }
             }
         });
-        
+
         setLocationRelativeTo(parent);
     }
 
@@ -81,29 +81,29 @@ public class FormTimKhach extends JDialog {
         String sdt = txtSoDienThoai.getText();
         model.setRowCount(0); // Xóa dữ liệu cũ
         boolean found = false;
-        
+
         for (Account acc : list) {
             if (acc.getPhoneNumber().contains(sdt)) {  // Kiểm tra nếu số điện thoại chứa chuỗi nhập vào
                 model.addRow(new Object[]{acc.getFullname(), acc.getPhoneNumber()});
                 found = true;
             }
         }
-        
+
         if (!found) {
-            MsgBox.alert(this, "Không tìm thấy khách hàng có số điện thoại: " + sdt);
+            MsgBox.alert(this, "No customer found with phone number: " + sdt);
         }
     }
-    
+
     private void chonKhach() {
         int row = table.getSelectedRow();
         if (row >= 0) {
             selectedCustomer = (String) table.getValueAt(row, 1);
             dispose(); // Đóng form sau khi chọn
         } else {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn một khách hàng!");
+            JOptionPane.showMessageDialog(this, "Please select a customer!");
         }
     }
-    
+
     public String getSelectedCustomer() {
         return selectedCustomer;
     }

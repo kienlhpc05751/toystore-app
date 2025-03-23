@@ -121,10 +121,10 @@ public class productView extends javax.swing.JPanel {
         ageModel.removeAllElements();
         materialModel.removeAllElements();
 //
-        categoryModel.addElement("Vui lòng chọn Category!");
-        brandModel.addElement("Vui lòng chọn Brand!");
-        ageModel.addElement("Vui lòng chọn Age!");
-        materialModel.addElement("Vui lòng chọn Material!");
+        categoryModel.addElement("Please Category!");
+        brandModel.addElement("Please Brand!");
+        ageModel.addElement("Please Age!");
+        materialModel.addElement("Please Material!");
         for (Category category : listCategory) {
             categoryModel.addElement(category.getName());
         }
@@ -141,7 +141,7 @@ public class productView extends javax.swing.JPanel {
     // fill dữ liệu lên bảng
 
     void fillTable(List<product> list) {
-        String row[] = {"Mã SP", "Tên SP", "Giá SP", "Lượng SP", "Trạng thái SP", "Bar CODE", "___"};
+        String row[] ={"Product Code", "Product Name", "Product Price", "Product Quantity", "Product Status", "Barcode", "___"};
         DefaultTableModel model = new DefaultTableModel(row, 0);
         model.setRowCount(0);
         listSP = pDAO.getAllProducts();
@@ -295,13 +295,13 @@ public class productView extends javax.swing.JPanel {
             String code = p.getBarcode();
             p.setUrlBarcode(BarcodeUtil.generateBarcodeImage(p.getBarcode()));
             pDAO.insertProduct(p);
-            MsgBox.alert(null, "Thêm sản phẩm  Thành Công !");
+            MsgBox.alert(null, "Add product Success!");
             listSP = pDAO.findAll();
             fillTable(listSP);
 
         } catch (Exception e) {
             e.printStackTrace();
-            MsgBox.alert(null, "Thêm sản phẩm Thất Bại !");
+            MsgBox.alert(null, "Add product Failed!");
         }
 //        if (checkFrom()) {
 //            try {
@@ -320,11 +320,11 @@ public class productView extends javax.swing.JPanel {
     void update() {
         try {
             pDAO.updateProduct(getForm());
-            MsgBox.alert(null, "Cập nhật sản phẩm Thành Công !");
+            MsgBox.alert(null, "Product update successful!");
             listSP = pDAO.findAll();
             fillTable(listSP);
         } catch (Exception e) {
-            MsgBox.alert(null, "Cập nhật sản phẩm Thất Bại !");
+            MsgBox.alert(null, "Product update failed!");
         }
     }
 
@@ -333,7 +333,7 @@ public class productView extends javax.swing.JPanel {
             int MSP = Integer.parseInt(txtMaSP.getText());
             pDAO.deleteProduct(MSP);
             clearForm();
-            MsgBox.alert(null, "Xóa sản phẩm Thành Công !");
+            MsgBox.alert(null, "Delete product Successfully!");
 //            listSP.stream()
 //                    .filter(p -> p.getProductId() == MSP)
 //                    .findFirst()
@@ -342,7 +342,7 @@ public class productView extends javax.swing.JPanel {
             listSP = pDAO.findAll();
             fillTable(listSP);
         } catch (Exception e) {
-            MsgBox.alert(null, "Xóa sản phẩm Thất Bại !");
+            MsgBox.alert(null, "Delete product failed !");
         }
 //        try {
 //            if (!Auth.isManager()) {
@@ -360,11 +360,11 @@ public class productView extends javax.swing.JPanel {
     void seacher() {
         String input = searchText1.getText().trim(); // Lấy giá trị nhập vào và loại bỏ khoảng trắng
         if (input.isEmpty()) {
-            MsgBox.alert(null, "Vui lòng nhập mã sản phẩm!");
+            MsgBox.alert(null, "Please product!");
             return;
         }
         if (!input.matches("\\d+")) { // Kiểm tra xem input có phải là số không
-            MsgBox.alert(null, "Mã sản phẩm phải là số!");
+            MsgBox.alert(null, "Product code must be a number!");
             return;
         }
         try {
@@ -373,10 +373,10 @@ public class productView extends javax.swing.JPanel {
             if (p != null) {
                 setForm(p);
             } else {
-                MsgBox.alert(null, "Không tìm thấy sản phẩm với mã: " + MSP);
+                MsgBox.alert(null, "Product code must be a number: " + MSP);
             }
         } catch (NumberFormatException e) {
-            MsgBox.alert(null, "Lỗi chuyển đổi số! Vui lòng nhập mã hợp lệ.");
+            MsgBox.alert(null, "Number conversion error! Please enter a valid code.");
         }
     }
 
@@ -422,11 +422,11 @@ public class productView extends javax.swing.JPanel {
 //            txtKichCo.setBackground(null);  // Reset background to white if not empty
 //        }
         if (txtMaSP.getText().isEmpty()) {
-            errorMessages.add("Vui lòng nhập mã đăng nhập SP !");
+            errorMessages.add("Please fill in code product !");
             txtMaSP.setBackground(Color.red);
             txtMaSP.requestFocus();
         } else if (txtMaSP.getText().length() > 10) {
-            errorMessages.add("Vui lòng nhập dưới 10 kí tự !");
+            errorMessages.add("Please enter less than 10 characters!");
             txtMaSP.setBackground(Color.red);
             txtMaSP.requestFocus();
         } else {
@@ -434,7 +434,7 @@ public class productView extends javax.swing.JPanel {
         }
 
         if (txtMota1.getText().isEmpty()) {
-            errorMessages.add("Vui lòng nhập màu !");
+            errorMessages.add("Please fill in description!");
             txtMota1.setBackground(Color.red);
             txtMota1.requestFocus();
         } else {
@@ -442,7 +442,7 @@ public class productView extends javax.swing.JPanel {
         }
 
         if (txtTenSP.getText().isEmpty()) {
-            errorMessages.add("Vui lòng nhập tên san phẩm !");
+            errorMessages.add("Please name product!");
             txtTenSP.setBackground(Color.red);
             txtTenSP.requestFocus();
         } else {
@@ -456,7 +456,7 @@ public class productView extends javax.swing.JPanel {
 
             if (soluong <= 0) {
                 txtSoLuong.setBackground(Color.BLUE);
-                errorMessages.add("vui lòng nhập số lượng lớn hơn 0 !");
+                errorMessages.add("Please enter quantity greater than !");
 
             } else {
                 txtSoLuong.setBackground(null);
@@ -464,7 +464,7 @@ public class productView extends javax.swing.JPanel {
 
         } catch (NumberFormatException e) {
             // Handle the exception (e.g., display an error message or log it)
-            errorMessages.add("vui long nhập số lượng !");
+            errorMessages.add("Please enter quantity!");
             txtSoLuong.setBackground(Color.red);
             txtSoLuong.requestFocus();
         }
@@ -473,30 +473,30 @@ public class productView extends javax.swing.JPanel {
             double gia = Double.parseDouble(txtGiaBan.getText());
             if (gia <= 0) {
                 txtGiaBan.setBackground(Color.red);
-                errorMessages.add("vui lòng nhập giá lớn hơn 0 !");
+                errorMessages.add("Please enter a price greater than 0!");
             } else {
                 txtGiaBan.setBackground(null);
             }
         } catch (NumberFormatException e) {
-            errorMessages.add("vui long nhập giá !");
+            errorMessages.add("Please enter price!");
             txtGiaBan.setBackground(Color.red);
             txtGiaBan.requestFocus();
         }
 
         int d = CboBrand.getSelectedIndex();
-        System.out.println("chọn:" + d);
+        System.out.println("select:" + d);
         if (d != 0) {
 //            row = CboMaloai.getSelectedIndex() - 1;
 
         } else {
-            errorMessages.add("vui lòng chọn loại sản phẩm !");
+            errorMessages.add("Please select product type !");
 
         }
 
         // Check if there were any errors
         if (!errorMessages.isEmpty()) {
             // Display error messages
-            StringBuilder errorMessage = new StringBuilder("Lỗi:\n");
+            StringBuilder errorMessage = new StringBuilder("Error:\n");
             for (String error : errorMessages) {
                 errorMessage.append("- ").append(error).append("\n");
             }
@@ -514,7 +514,7 @@ public class productView extends javax.swing.JPanel {
         List<String> list = new ArrayList<>();
         for (product p : listSP) {
             if (txtMaSP.getText() == String.valueOf(p.getProductId())) {
-                list.add("Mã Sp đã có");
+                list.add("Product code already exists");
                 txtMaSP.setBackground(Color.blue);
             } else {
                 txtMaSP.setBackground(null);
@@ -522,7 +522,7 @@ public class productView extends javax.swing.JPanel {
         }
         if (!list.isEmpty()) {
             // Display error messages
-            StringBuilder errorMessage = new StringBuilder("Lỗi:\n");
+            StringBuilder errorMessage = new StringBuilder("Erro:\n");
             for (String error : list) {
                 errorMessage.append("- ").append(error).append("\n");
             }
@@ -614,9 +614,9 @@ public class productView extends javax.swing.JPanel {
         lblMaSP.setBackground(new java.awt.Color(102, 0, 204));
         lblMaSP.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblMaSP.setForeground(new java.awt.Color(27, 51, 61));
-        lblMaSP.setText("Mã SP");
+        lblMaSP.setText("Code Product:");
         jPanel2.add(lblMaSP);
-        lblMaSP.setBounds(33, 24, 50, 18);
+        lblMaSP.setBounds(33, 24, 100, 18);
 
         txtMaSP.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtMaSP.setBorder(null);
@@ -633,14 +633,14 @@ public class productView extends javax.swing.JPanel {
         lblMaNV1.setBackground(new java.awt.Color(102, 0, 204));
         lblMaNV1.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblMaNV1.setForeground(new java.awt.Color(27, 51, 61));
-        lblMaNV1.setText("Tên SP");
+        lblMaNV1.setText("Name product");
         jPanel2.add(lblMaNV1);
         lblMaNV1.setBounds(33, 102, 50, 18);
 
         lblMaNV7.setBackground(new java.awt.Color(102, 0, 204));
         lblMaNV7.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblMaNV7.setForeground(new java.awt.Color(27, 51, 61));
-        lblMaNV7.setText("Mô tả");
+        lblMaNV7.setText("Description");
         jPanel2.add(lblMaNV7);
         lblMaNV7.setBounds(640, 210, 106, 18);
 
@@ -673,7 +673,7 @@ public class productView extends javax.swing.JPanel {
         lblGiaBan.setBackground(new java.awt.Color(102, 0, 204));
         lblGiaBan.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblGiaBan.setForeground(new java.awt.Color(27, 51, 61));
-        lblGiaBan.setText("Giá bán");
+        lblGiaBan.setText("Price");
         jPanel2.add(lblGiaBan);
         lblGiaBan.setBounds(33, 267, 80, 18);
 
@@ -690,7 +690,7 @@ public class productView extends javax.swing.JPanel {
         lblMaLoai.setBackground(new java.awt.Color(102, 0, 204));
         lblMaLoai.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblMaLoai.setForeground(new java.awt.Color(27, 51, 61));
-        lblMaLoai.setText("Thương hiệu");
+        lblMaLoai.setText("Brand");
         jPanel2.add(lblMaLoai);
         lblMaLoai.setBounds(292, 25, 87, 18);
 
@@ -705,7 +705,7 @@ public class productView extends javax.swing.JPanel {
         lblSoLuong.setBackground(new java.awt.Color(102, 0, 204));
         lblSoLuong.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblSoLuong.setForeground(new java.awt.Color(27, 51, 61));
-        lblSoLuong.setText("Số Lượng");
+        lblSoLuong.setText("Quantity");
         jPanel2.add(lblSoLuong);
         lblSoLuong.setBounds(33, 183, 80, 18);
 
@@ -754,23 +754,23 @@ public class productView extends javax.swing.JPanel {
         lblMaLoai1.setBackground(new java.awt.Color(102, 0, 204));
         lblMaLoai1.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblMaLoai1.setForeground(new java.awt.Color(27, 51, 61));
-        lblMaLoai1.setText("Độ tuổi");
+        lblMaLoai1.setText("Age");
         jPanel2.add(lblMaLoai1);
         lblMaLoai1.setBounds(292, 100, 50, 18);
 
         lblMaLoai2.setBackground(new java.awt.Color(102, 0, 204));
         lblMaLoai2.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblMaLoai2.setForeground(new java.awt.Color(27, 51, 61));
-        lblMaLoai2.setText("Chất liệu");
+        lblMaLoai2.setText("Material");
         jPanel2.add(lblMaLoai2);
         lblMaLoai2.setBounds(292, 178, 68, 18);
 
         lblMaLoai3.setBackground(new java.awt.Color(102, 0, 204));
         lblMaLoai3.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblMaLoai3.setForeground(new java.awt.Color(27, 51, 61));
-        lblMaLoai3.setText("Loại SP");
+        lblMaLoai3.setText("Category");
         jPanel2.add(lblMaLoai3);
-        lblMaLoai3.setBounds(290, 270, 50, 18);
+        lblMaLoai3.setBounds(290, 270, 70, 18);
 
         txtMota.setColumns(20);
         txtMota.setRows(5);
@@ -822,7 +822,7 @@ public class productView extends javax.swing.JPanel {
         });
 
         btnThem.setBackground(new java.awt.Color(204, 204, 204));
-        btnThem.setText("Thêm");
+        btnThem.setText("Add");
         btnThem.setBorderPainted(false);
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -831,7 +831,7 @@ public class productView extends javax.swing.JPanel {
         });
 
         btnSua.setBackground(new java.awt.Color(204, 204, 204));
-        btnSua.setText("Sửa");
+        btnSua.setText("Update");
         btnSua.setBorderPainted(false);
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -840,7 +840,7 @@ public class productView extends javax.swing.JPanel {
         });
 
         btnXoa.setBackground(new java.awt.Color(204, 204, 204));
-        btnXoa.setText("Xóa");
+        btnXoa.setText("Delete");
         btnXoa.setBorderPainted(false);
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -849,7 +849,7 @@ public class productView extends javax.swing.JPanel {
         });
 
         btnLamMoi.setBackground(new java.awt.Color(204, 204, 204));
-        btnLamMoi.setText("Làm mới");
+        btnLamMoi.setText("Refresh");
         btnLamMoi.setBorderPainted(false);
         btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -865,7 +865,7 @@ public class productView extends javax.swing.JPanel {
         });
 
         btnThem1.setBackground(new java.awt.Color(204, 204, 204));
-        btnThem1.setText("tìm");
+        btnThem1.setText("Searcher");
         btnThem1.setBorderPainted(false);
         btnThem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -923,7 +923,7 @@ public class productView extends javax.swing.JPanel {
         pnUpdate.add(pnButton);
         pnButton.setBounds(-6, 404, 1040, 310);
 
-        tabs.addTab("CẬP NHẬT", pnUpdate);
+        tabs.addTab("Form action", pnUpdate);
 
         tblSanPham.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         tblSanPham.setFont(new java.awt.Font("UTM BryantLG", 1, 14)); // NOI18N
@@ -952,13 +952,14 @@ public class productView extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tblSanPham);
 
         searchText2.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(0, 51, 51), null));
+        searchText2.setText("Seacher code product");
         searchText2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchText2ActionPerformed(evt);
             }
         });
 
-        btnTimkiem.setText("Tìm kiếm");
+        btnTimkiem.setText("Seacher");
         btnTimkiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTimkiemActionPerformed(evt);
@@ -988,17 +989,17 @@ public class productView extends javax.swing.JPanel {
                     .addComponent(btnTimkiem))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
-        tabs.addTab("DANH SÁCH", btnList);
+        tabs.addTab("table list product", btnList);
 
         jPanel1.add(tabs, java.awt.BorderLayout.CENTER);
 
         lblTitle.setFont(new java.awt.Font("Roboto", 1, 28)); // NOI18N
         lblTitle.setForeground(new java.awt.Color(102, 102, 102));
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitle.setText("QUẢN LÝ SẢN PHẨM");
+        lblTitle.setText("Product management");
         lblTitle.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel1.add(lblTitle, java.awt.BorderLayout.PAGE_START);
 
@@ -1031,7 +1032,7 @@ public class productView extends javax.swing.JPanel {
                 update();
             }
         } else {
-            MsgBox.alert(null, "Bạn không có quyền cập nhật !");
+            MsgBox.alert(null, "You do not have permission to update!");
         }
 
     }//GEN-LAST:event_btnSuaActionPerformed
@@ -1044,7 +1045,7 @@ public class productView extends javax.swing.JPanel {
                 }
             }
         } else {
-            MsgBox.alert(null, "Bạn không có quyền  thêm sp !");
+            MsgBox.alert(null, "You do not have permission to add!");
 
         }
 
@@ -1170,7 +1171,7 @@ public class productView extends javax.swing.JPanel {
                     Files.copy(selectedFile.toPath(), destination.toPath(), StandardCopyOption.REPLACE_EXISTING);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    MsgBox.alert(this, "Lỗi khi sao chép ảnh!");
+                    MsgBox.alert(this, "Error copying image!");
                     return;
                 }
             }
