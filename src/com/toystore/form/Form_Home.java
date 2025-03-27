@@ -3,6 +3,7 @@ package com.toystore.form;
 import com.toystore.chart.ModelChart;
 import com.toystore.dao.ThongKeDao;
 import com.toystore.dao.store.OrderDAO;
+import com.toystore.dao.store.StatisticsDAO;
 import com.toystore.model.Model_Card;
 import com.toystore.model.StatusType;
 import com.toystore.model.store.Order;
@@ -16,7 +17,9 @@ import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -26,13 +29,20 @@ import javax.swing.table.DefaultTableModel;
 
 public class Form_Home extends javax.swing.JPanel {
 
+    StatisticsDAO dao = new StatisticsDAO();
+    OrderDAO orderDao = new OrderDAO();
+    DecimalFormat df = new DecimalFormat("#,###,###,###");
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
     public Form_Home() {
         initComponents();
-
+        loadStatistics();
         filltable1();
-        lineChart1.addLegend("áo", new Color(12, 84, 175), new Color(0, 108, 247));
-        lineChart1.addLegend("quần", new Color(54, 4, 143), new Color(104, 49, 200));
-        lineChart1.addLegend("áo khóa", new Color(5, 125, 0), new Color(95, 209, 69));
+
+        lineChart1.addLegend("1", new Color(12, 84, 175), new Color(0, 108, 247));
+        lineChart1.addLegend("2", new Color(54, 4, 143), new Color(104, 49, 200));
+        lineChart1.addLegend("3", new Color(5, 125, 0), new Color(95, 209, 69));
 //        lineChart1.addLegend("Cost", new Color(186, 37, 37), new Color(241, 100, 120));
         lineChart1.addData(new ModelChart("January", new double[]{500, 200, 80}));
         lineChart1.addData(new ModelChart("February", new double[]{600, 750, 90}));
@@ -56,8 +66,7 @@ public class Form_Home extends javax.swing.JPanel {
         Date n = XDate.now();
         String nn = XDate.toString(n, "dd-MM-yyyy");
         List<Object[]> list1 = dao.theoNgay();
-        card1.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/toystore/icon/stock.png")), "ngày " + nn, tongtienString + " VN", "Số lượng SP " + soLuong + " d/c"));
-
+//        card1.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/toystore/icon/stock.png")), "ngày " + list1.indexOf() + " VN", "Số lượng SP " + soLuong + " d/c"));
         if (list1 == null) {
             return;
         }
@@ -65,7 +74,7 @@ public class Form_Home extends javax.swing.JPanel {
 
             soLuong = String.valueOf(db[1]);
             tongtienString = String.valueOf(db[2]);
-            card1.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/toystore/icon/stock.png")), "ngày " + nn, tongtienString + " VN", "Số lượng SP " + soLuong + " d/c"));
+            card1.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/toystore/icon/stock.png")), "ngày " + db, tongtienString + " VN", "Số lượng SP " + soLuong + " d/c"));
         }
 
         List<Object[]> list2 = dao.theoThang();
@@ -143,11 +152,6 @@ public class Form_Home extends javax.swing.JPanel {
 //        });
     }
 
-    OrderDAO orderDao = new OrderDAO();
-    DecimalFormat df = new DecimalFormat("#,###,###,###");
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
     public void filltable1() {
         String row1[] = {"Mã SP", "Tên SP", "Giá SP", "Lượng SP", "Trạng thái SP", "Bar CODE", "___"};
         DefaultTableModel model = new DefaultTableModel(row1, 0);
@@ -186,6 +190,26 @@ public class Form_Home extends javax.swing.JPanel {
             });
         }
         table1.setModel(model);
+    }
+
+    private void loadStatistics() {
+
+        int totalStock = dao.getTotalStock();
+        double totalRevenue = dao.getTotalRevenue();
+        int approvedUsers = dao.getUserCountByStatus("1");
+        int pendingUsers = dao.getUserCountByStatus("0");
+        int rejectedUsers = dao.getUserCountByStatus("3");
+
+        card1.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/toystore/icon/stock.png")),
+                "Stock Total", totalStock + " sản phẩm", "Updated now"));
+
+        card2.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/toystore/icon/profit.png")),
+                "Total Revenue", df.format(totalRevenue) + " VNĐ", "Updated now"));
+
+        card3.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/toystore/icon/flag.png")),
+                "User Status",
+                "✔ " + approvedUsers + " | ⏳ " + pendingUsers + " | ❌ " + rejectedUsers,
+                "Updated now"));
     }
 
     @SuppressWarnings("unchecked")
