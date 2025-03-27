@@ -66,7 +66,7 @@ public class staffView extends javax.swing.JPanel {
 
     public staffView() {
         initComponents();
-        accountList = accountDAO.findAll();
+        accountList = accountDAO.getALLStaff();
         fillTable(accountList);
     }
 
@@ -149,7 +149,6 @@ public class staffView extends javax.swing.JPanel {
         btnLamMoi = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblNhanVien = new javax.swing.JTable();
-        pnList = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(170, 211, 255));
         setMinimumSize(new java.awt.Dimension(1040, 720));
@@ -410,7 +409,7 @@ public class staffView extends javax.swing.JPanel {
         );
 
         jPanel2.add(pnButton);
-        pnButton.setBounds(20, 250, 691, 60);
+        pnButton.setBounds(20, 250, 681, 60);
 
         tblNhanVien.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         tblNhanVien.setFont(new java.awt.Font("UTM BryantLG", 1, 14)); // NOI18N
@@ -467,19 +466,6 @@ public class staffView extends javax.swing.JPanel {
         );
 
         jPanel1.add(pnUpdate, java.awt.BorderLayout.PAGE_END);
-
-        javax.swing.GroupLayout pnListLayout = new javax.swing.GroupLayout(pnList);
-        pnList.setLayout(pnListLayout);
-        pnListLayout.setHorizontalGroup(
-            pnListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 452, Short.MAX_VALUE)
-        );
-        pnListLayout.setVerticalGroup(
-            pnListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(pnList, java.awt.BorderLayout.LINE_END);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -653,7 +639,6 @@ public class staffView extends javax.swing.JPanel {
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblngaysinh;
     private javax.swing.JPanel pnButton;
-    private javax.swing.JPanel pnList;
     private javax.swing.JPanel pnUpdate;
     private javax.swing.JTable tblNhanVien;
     private javax.swing.JTextField txtEmail;
