@@ -83,8 +83,9 @@ public class Main extends javax.swing.JFrame {
             @Override
             public void selected(int index) {
                 if (index == 0) {
-                    setForm(home);
+                    System.out.println("bạn ");
                 } else if (index == 1) {
+                    setForm(home);
 //                    setForm(khachhang);
                 } else if (index == 2) {
                     setForm(orderView);
@@ -111,7 +112,7 @@ public class Main extends javax.swing.JFrame {
                         Auth.clear();
                         dispose();
                     }
-                } else if (index == 15) {
+                } else if (index == 16) {
                     if (MsgBox.confirm(null, "bạn có chắc muốn thoát ứng dụng ?")) {
                         dispose();
                     }

@@ -2,13 +2,19 @@ package com.toystore.form;
 
 import com.toystore.chart.ModelChart;
 import com.toystore.dao.ThongKeDao;
+import com.toystore.dao.store.OrderDAO;
 import com.toystore.model.Model_Card;
 import com.toystore.model.StatusType;
+import com.toystore.model.store.Order;
 import com.toystore.swing.ButtonRendererEditor;
 import com.toystore.swing.ScrollBar;
 import com.toystore.utils.XDate;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -22,7 +28,7 @@ public class Form_Home extends javax.swing.JPanel {
 
     public Form_Home() {
         initComponents();
-        filltable();
+
         filltable1();
         lineChart1.addLegend("áo", new Color(12, 84, 175), new Color(0, 108, 247));
         lineChart1.addLegend("quần", new Color(54, 4, 143), new Color(104, 49, 200));
@@ -137,45 +143,10 @@ public class Form_Home extends javax.swing.JPanel {
 //        });
     }
 
-    public void filltable() {
-        String row1[] = {"Mã SP", "Tên SP", "Giá SP", "Lượng SP", "Trạng thái SP", "Bar CODE", "___"};
-        DefaultTableModel model = new DefaultTableModel(row1, 0);
-        model.setRowCount(0);
-//        DefaultTableModel model = new DefaultTableModel();
-//        tableCategory.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-//        tableCategory.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-
-        tableCategory.getVerticalScrollBar().setPreferredSize(new Dimension(2, 0));
-        tableCategory.getHorizontalScrollBar().setPreferredSize(new Dimension(2, 0));
-        // Thêm các cột
-        model.setColumnIdentifiers(new Object[]{"ID", "Tên Sản Phẩm", "Số Lượng", "Giá", "Trạng Thái"});
-        table.setModel(model);
-//        table.setBackground(Color.BLUE);
-        table.setForeground(Color.WHITE);
-
-        // Thêm dữ liệu mẫu
-        table.addRow(new Object[]{1, "Gundam RX-78", 10, 500000, 500000});
-        table.addRow(new Object[]{2, "Lego Star Wars", 5, 1200000, 500000});
-        table.addRow(new Object[]{3, "Hot Wheels Ferrari", 15, 200000, 500000});
-        table.addRow(new Object[]{4, "Gundam RX-78", 10, 500000, 500000});
-        table.addRow(new Object[]{5, "Lego Star Wars", 5, 1200000, 500000});
-        table.addRow(new Object[]{6, "Hot Wheels Ferrari", 15, 200000, 500000});
-        table.addRow(new Object[]{7, "Gundam RX-78", 10, 500000, 500000});
-        table.addRow(new Object[]{8, "Lego Star Wars", 5, 1200000, 500000});
-        table.addRow(new Object[]{9, "Hot Wheels Ferrari", 15, 200000, 500000});
-        // Áp dụng Renderer & Editor cho cột nút
-        table.getColumnModel().getColumn(4).setCellRenderer(new ButtonRendererEditor());
-        table.getColumnModel().getColumn(4).setCellEditor(new ButtonRendererEditor());
-//        for (Category category : categoryList) {
-//            model.addRow(new Object[]{category.getCategoryId(),
-//                category.getName(),
-//                category.getCreatedAt(),
-//                category.getDescription(),
-//                StatusType.PENDING
-//            });
-//        }
-        table.setModel(model);
-    }
+    OrderDAO orderDao = new OrderDAO();
+    DecimalFormat df = new DecimalFormat("#,###,###,###");
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public void filltable1() {
         String row1[] = {"Mã SP", "Tên SP", "Giá SP", "Lượng SP", "Trạng thái SP", "Bar CODE", "___"};
@@ -186,32 +157,34 @@ public class Form_Home extends javax.swing.JPanel {
         tableCategory1.getHorizontalScrollBar().setPreferredSize(new Dimension(2, 0));
 
         // Thêm các cột
-        model.setColumnIdentifiers(new Object[]{"ID", "Tên Sản Phẩm", "Số Lượng", "Giá", "Trạng Thái"});
+        model.setColumnIdentifiers(new Object[]{"ID", "Date", "TotalAmount"});
         table1.setModel(model);
 //        table.setBackground(Color.BLUE);
         table1.setForeground(Color.WHITE);
 
         // Thêm dữ liệu mẫu
-        table1.addRow(new Object[]{1, "Gundam RX-78", 10, 500000, 500000});
-        table1.addRow(new Object[]{2, "Lego Star Wars", 5, 1200000, 500000});
-        table1.addRow(new Object[]{3, "Hot Wheels Ferrari", 15, 200000, 500000});
-        table1.addRow(new Object[]{4, "Gundam RX-78", 10, 500000, 500000});
-        table1.addRow(new Object[]{5, "Lego Star Wars", 5, 1200000, 500000});
-        table1.addRow(new Object[]{6, "Hot Wheels Ferrari", 15, 200000, 500000});
-        table1.addRow(new Object[]{7, "Gundam RX-78", 10, 500000, 500000});
-        table1.addRow(new Object[]{8, "Lego Star Wars", 5, 1200000, 500000});
-        table1.addRow(new Object[]{9, "Hot Wheels Ferrari", 15, 200000, 500000});
+//        table1.addRow(new Object[]{1, "Gundam RX-78", 10, 500000, 500000});
+//        table1.addRow(new Object[]{2, "Lego Star Wars", 5, 1200000, 500000});
+//        table1.addRow(new Object[]{3, "Hot Wheels Ferrari", 15, 200000, 500000});
+//        table1.addRow(new Object[]{4, "Gundam RX-78", 10, 500000, 500000});
+//        table1.addRow(new Object[]{5, "Lego Star Wars", 5, 1200000, 500000});
+//        table1.addRow(new Object[]{6, "Hot Wheels Ferrari", 15, 200000, 500000});
+//        table1.addRow(new Object[]{7, "Gundam RX-78", 10, 500000, 500000});
+//        table1.addRow(new Object[]{8, "Lego Star Wars", 5, 1200000, 500000});
+//        table1.addRow(new Object[]{9, "Hot Wheels Ferrari", 15, 200000, 500000});
         // Áp dụng Renderer & Editor cho cột nút
-        table1.getColumnModel().getColumn(4).setCellRenderer(new ButtonRendererEditor());
-        table1.getColumnModel().getColumn(4).setCellEditor(new ButtonRendererEditor());
-//        for (Category category : categoryList) {
-//            model.addRow(new Object[]{category.getCategoryId(),
-//                category.getName(),
-//                category.getCreatedAt(),
-//                category.getDescription(),
-//                StatusType.PENDING
-//            });
-//        }
+        List<Order> list = orderDao.findAll();
+
+        Collections.reverse(list);
+//        table1.getColumnModel().getColumn(4).setCellRenderer(new ButtonRendererEditor());
+//        table1.getColumnModel().getColumn(4).setCellEditor(new ButtonRendererEditor());
+        for (Order o : list) {
+            model.addRow(new Object[]{
+                o.getOrderId(),
+                o.getOrderDate(),
+                df.format(o.getTotalAmount()) + " VND", //                StatusType.PENDING
+            });
+        }
         table1.setModel(model);
     }
 
@@ -227,8 +200,6 @@ public class Form_Home extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         panelBorder2 = new com.toystore.swing.PanelBorder();
         lineChart1 = new com.toystore.chart.LineChart();
-        tableCategory = new javax.swing.JScrollPane();
-        table = new com.toystore.swing.Table();
         tableCategory1 = new javax.swing.JScrollPane();
         table1 = new com.toystore.swing.Table();
 
@@ -271,24 +242,6 @@ public class Form_Home extends javax.swing.JPanel {
         panelBorder1.add(panelBorder2);
         panelBorder2.setBounds(357, 44, 670, 430);
 
-        table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        table.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableMouseClicked(evt);
-            }
-        });
-        tableCategory.setViewportView(table);
-
-        panelBorder1.add(tableCategory);
-        tableCategory.setBounds(10, 270, 330, 220);
-
         table1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -305,7 +258,7 @@ public class Form_Home extends javax.swing.JPanel {
         tableCategory1.setViewportView(table1);
 
         panelBorder1.add(tableCategory1);
-        tableCategory1.setBounds(10, 40, 330, 220);
+        tableCategory1.setBounds(10, 40, 330, 430);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -327,12 +280,6 @@ public class Form_Home extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
-        // TODO add your handling code here:
-        int row = table.getSelectedRow();
-        System.out.println("lỏ" + row);
-    }//GEN-LAST:event_tableMouseClicked
-
     private void table1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table1MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_table1MouseClicked
@@ -347,9 +294,7 @@ public class Form_Home extends javax.swing.JPanel {
     private javax.swing.JLayeredPane panel;
     private com.toystore.swing.PanelBorder panelBorder1;
     private com.toystore.swing.PanelBorder panelBorder2;
-    private com.toystore.swing.Table table;
     private com.toystore.swing.Table table1;
-    private javax.swing.JScrollPane tableCategory;
     private javax.swing.JScrollPane tableCategory1;
     // End of variables declaration//GEN-END:variables
 }
