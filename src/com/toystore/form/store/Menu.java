@@ -718,8 +718,6 @@ public class Menu extends javax.swing.JPanel {
         jPanel6 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         txtSearch = new javax.swing.JTextField();
-        cboLoaiSP = new javax.swing.JComboBox<>();
-        jLabel14 = new javax.swing.JLabel();
         btnVC = new javax.swing.JButton();
         lblvoucher = new javax.swing.JLabel();
         lblGiaTriVC = new javax.swing.JLabel();
@@ -810,16 +808,6 @@ public class Menu extends javax.swing.JPanel {
             }
         });
 
-        cboLoaiSP.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        cboLoaiSP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboLoaiSPActionPerformed(evt);
-            }
-        });
-
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel14.setText("Category");
-
         btnVC.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnVC.setText("Voucher");
         btnVC.addActionListener(new java.awt.event.ActionListener() {
@@ -843,36 +831,27 @@ public class Menu extends javax.swing.JPanel {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13)
                     .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(112, 112, 112)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(cboLoaiSP, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblvoucher)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblGiaTriVC)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
-                        .addComponent(btnVC))
-                    .addComponent(jLabel14))
+                .addGap(335, 335, 335)
+                .addComponent(lblvoucher)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblGiaTriVC)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addComponent(btnVC)
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cboLoaiSP)
-                            .addComponent(btnVC, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblvoucher)
-                            .addComponent(lblGiaTriVC))))
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnVC, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblvoucher)
+                    .addComponent(lblGiaTriVC))
                 .addContainerGap())
         );
 
@@ -1268,24 +1247,6 @@ public class Menu extends javax.swing.JPanel {
         //        rScanne.setVisible(true);
     }//GEN-LAST:event_btnVCActionPerformed
 
-    private void cboLoaiSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboLoaiSPActionPerformed
-        //        if (cboLoaiSP.getSelectedIndex() != 0) {
-        //            try {
-        //                listSP = SPDao.selectByLoaiSP(cboLoaiSP.getSelectedItem().toString());
-        //                if (listSP.size() == 0) {
-        //                    panelItem1.removeAll();
-        //                    panelItem1.repaint();
-        //                }
-        //                panelItem1.removeAll();
-        //                testData();
-        //            } catch (Exception e) {
-        //            }
-        //        } else {
-        //            fillPanelSP();
-        //        }
-
-    }//GEN-LAST:event_cboLoaiSPActionPerformed
-
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
         SearchProduct();
     }//GEN-LAST:event_txtSearchKeyReleased
@@ -1432,10 +1393,8 @@ public class Menu extends javax.swing.JPanel {
     private javax.swing.JButton btnThemKhach;
     private javax.swing.JButton btnVC;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox<String> cboLoaiSP;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;

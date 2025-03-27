@@ -24,7 +24,7 @@ public class StatisticsDAO {
 
     // Lấy tổng số user theo từng trạng thái
     public int getUserCountByStatus(String status) {
-        String sql = "SELECT COUNT(*) FROM`order` WHERE status = ?";
+        String sql = "SELECT COUNT(*) FROM `order` WHERE status = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, status);
             ResultSet rs = ps.executeQuery();
