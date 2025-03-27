@@ -30,24 +30,27 @@ public class Menu extends javax.swing.JPanel {
     }
 
     private void init() {
+        listMenu2.addItem(new Model_Menu("", "", Model_Menu.MenuType.EMPTY));
         listMenu2.addItem(new Model_Menu("1", "Home", Model_Menu.MenuType.MENU));
 //        listMenu2.addItem(new Model_Menu("2", "Khách hàng", Model_Menu.MenuType.MENU));
-        listMenu2.addItem(new Model_Menu("", "", Model_Menu.MenuType.EMPTY));
         listMenu2.addItem(new Model_Menu("3", "Order", Model_Menu.MenuType.MENU));
-        listMenu2.addItem(new Model_Menu("4", "Product", Model_Menu.MenuType.MENU));
+
         if (Auth.isManagerAccount()) {
+            listMenu2.addItem(new Model_Menu("4", "Product", Model_Menu.MenuType.MENU));
             listMenu2.addItem(new Model_Menu("5", "Staff", Model_Menu.MenuType.MENU));
         } else {
-            listMenu2.addItem(new Model_Menu("5", "kkkdkfakdkfskafdkf", Model_Menu.MenuType.MENU));
+            listMenu2.addItem(new Model_Menu("5", "OrderShiff", Model_Menu.MenuType.EMPTY));
+            listMenu2.addItem(new Model_Menu("5", "Shiff", Model_Menu.MenuType.EMPTY));
         }
         listMenu2.addItem(new Model_Menu("6", "POS menu", Model_Menu.MenuType.MENU));
-        listMenu2.addItem(new Model_Menu("7", "Category", Model_Menu.MenuType.MENU));
+        listMenu2.addItem(new Model_Menu("", "____________", Model_Menu.MenuType.EMPTY));
         listMenu2.addItem(new Model_Menu("5", "Attributes", Model_Menu.MenuType.MENU));
-        listMenu2.addItem(new Model_Menu("", "My Data____________", Model_Menu.MenuType.TITLE));
+        listMenu2.addItem(new Model_Menu("", "____________", Model_Menu.MenuType.TITLE));
 
         listMenu2.addItem(new Model_Menu("7", "Sign out", Model_Menu.MenuType.MENU));
         listMenu2.addItem(new Model_Menu("", "", Model_Menu.MenuType.EMPTY));
-        listMenu2.addItem(new Model_Menu("8", "Thống kê", Model_Menu.MenuType.MENU));
+//        listMenu2.addItem(new Model_Menu("8", "Thống kê", Model_Menu.MenuType.MENU));
+        listMenu2.addItem(new Model_Menu("", "____________", Model_Menu.MenuType.TITLE));
         listMenu2.addItem(new Model_Menu("", "", Model_Menu.MenuType.EMPTY));
         listMenu2.addItem(new Model_Menu("", "", Model_Menu.MenuType.EMPTY));
         listMenu2.addItem(new Model_Menu("", " ", Model_Menu.MenuType.EMPTY));

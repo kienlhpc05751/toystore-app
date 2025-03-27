@@ -15,17 +15,17 @@ import java.util.stream.Collectors;
  * @author Asus
  */
 public class AccountDAO extends BaseDAO<Account, Integer> {
-    
+
     @Override
     public String getTableName() {
         return "account";
     }
-    
+
     @Override
     public String getPrimaryKeyColumn() {
         return "accountId";
     }
-    
+
     @Override
     public Account mapResultSetToObject(ResultSet rs) throws SQLException {
         return new Account(
@@ -42,7 +42,7 @@ public class AccountDAO extends BaseDAO<Account, Integer> {
                 rs.getDate("birthday")
         );
     }
-    
+
     public boolean insertAccount(Account account) {
         String query = "INSERT INTO account (username, password, email, roleId, IsDelete, fullname, phoneNumber, image, address, birthday) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -59,7 +59,7 @@ public class AccountDAO extends BaseDAO<Account, Integer> {
                 account.getBirthday()
         );
     }
-    
+
     public boolean updateAccount(Account account) {
         String query = "UPDATE account SET username=?,email=?, roleId=?, IsDelete=?, fullname=?, phoneNumber=?, image=?, address=?, birthday=? "
                 + "WHERE accountId=?";
@@ -77,20 +77,24 @@ public class AccountDAO extends BaseDAO<Account, Integer> {
                 account.getAccountId()
         );
     }
-    
+
     public boolean deleteAccount(int accountId) {
         return delete(accountId);
     }
-    
+
     public Account getAccountById(int accountId) {
         return findById(accountId);
     }
-    
+
     public List<Account> getAllAccounts() {
         return findAll();
     }
-    
+
     public List<Account> getALLCustom() {
+        return getAllAccounts().stream().filter(account -> account.getRoleId() == 3).collect(Collectors.toList());
+    }
+
+    public List<Account> getALLStaff() {
         return getAllAccounts().stream().filter(account -> account.getRoleId() == 2).collect(Collectors.toList());
     }
 
@@ -98,16 +102,16 @@ public class AccountDAO extends BaseDAO<Account, Integer> {
     public List<String> validColumns() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
     public Account validColumnUSERNAME(String key) {
         String column = "Username";
         return findByColumnT(key, column);
     }
-    
+
     public boolean login(String username, String Column) {
         String key, column;
-        
+
         return true;
     }
-    
+
 }

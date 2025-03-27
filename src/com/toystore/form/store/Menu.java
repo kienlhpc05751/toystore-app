@@ -349,8 +349,11 @@ public class Menu extends javax.swing.JPanel {
         // Lấy dữ liệu tìm kiếm từ ô nhập
         String keyword = txtSearch.getText().trim();
         listPSseacher = productDao.getProductbyName(keyword);
-        if (listPSseacher.size() < 0) {
-            System.out.println(" lỏ");
+        if (listPSseacher.isEmpty()) {
+//            System.out.println(" lỏ");
+            listPSseacher = productDao.getAllProducts();
+            fillpanelItem(listPSseacher);
+
         } else {
             System.out.println("searcher :" + listPSseacher.get(0).getName());
             fillpanelItem(listPSseacher);
