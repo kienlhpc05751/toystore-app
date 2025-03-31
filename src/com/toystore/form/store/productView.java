@@ -141,7 +141,7 @@ public class productView extends javax.swing.JPanel {
     // fill dữ liệu lên bảng
 
     void fillTable(List<product> list) {
-        String row[] ={"Product Code", "Product Name", "Product Price", "Product Quantity", "Product Status", "Barcode", "___"};
+        String row[] = {"Product Code", "Product Name", "Product Price", "Product Quantity", "Product Status", "Barcode", "___"};
         DefaultTableModel model = new DefaultTableModel(row, 0);
         model.setRowCount(0);
         listSP = pDAO.getAllProducts();
@@ -433,12 +433,12 @@ public class productView extends javax.swing.JPanel {
             txtMaSP.setBackground(null);  // Reset background to white if not empty
         }
 
-        if (txtMota1.getText().isEmpty()) {
+        if (txtMota.getText().isEmpty()) {
             errorMessages.add("Please fill in description!");
-            txtMota1.setBackground(Color.red);
-            txtMota1.requestFocus();
+            txtMota.setBackground(Color.red);
+            txtMota.requestFocus();
         } else {
-            txtMota1.setBackground(null);  // Reset background to white if not empty
+            txtMota.setBackground(null);  // Reset background to white if not empty
         }
 
         if (txtTenSP.getText().isEmpty()) {
@@ -1027,27 +1027,27 @@ public class productView extends javax.swing.JPanel {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
 
-        if (Auth.isManager()) {
+//        if (Auth.isManagerAccount()) {
             if (checkFrom()) {
                 update();
             }
-        } else {
-            MsgBox.alert(null, "You do not have permission to update!");
-        }
+//        } else {
+//            MsgBox.alert(null, "You do not have permission to update!");
+//        }
 
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        if (Auth.isLogin()) {
+//        if (Auth.isManagerAccount()) {
             if (CheckMa()) {
                 if (checkFrom()) {
                     insert();
                 }
             }
-        } else {
-            MsgBox.alert(null, "You do not have permission to add!");
-
-        }
+//        } else {
+//            MsgBox.alert(null, "You do not have permission to add!");
+//
+//        }
 
     }//GEN-LAST:event_btnThemActionPerformed
 

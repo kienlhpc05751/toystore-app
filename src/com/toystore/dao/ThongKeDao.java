@@ -7,6 +7,19 @@ import java.sql.*;
 
 public class ThongKeDao {
 
+    public List<Object[]> theoNgay() {
+        String sql = "SELECT DATE(h.OrderDate) AS NgayBan, "
+                + "SUM(hdt.Quantity) AS TongSoLuongBan, "
+                + "SUM(hdt.UnitPrice) AS TongTienBanHang "
+                + "FROM order h "
+                + "JOIN orderdetail hdt ON h.OrderID = hdt.OrderID "
+                + "WHERE DATE(h.OrderDate) = CURDATE() "
+                + "GROUP BY DATE(h.OrderDate);";
+
+        String[] cols = {"NgayBan", "TongSoLuongBan", "TongTienBanHang"};
+        return this.getListOfArray(sql, cols);
+    }
+
     public List<Object[]> getListOfArray(String sql, String[] cols, Object... args) {
 //        try {
 //            List<Object[]> list = new ArrayList<>();
@@ -58,17 +71,15 @@ public class ThongKeDao {
         return null;
     }
 
-    public List<Object[]> theoNgay() {
+//    public List<Object[]> theoNgay() {
 //        String sql = "SELECT h.NgayTao AS NgayBan,SUM(hdt.SoLuong) AS TongSoLuongBan,SUM(h.TongTien) AS TongTienBanHang\n"
 //                + "FROM hoadon h JOIN hoadonchitiet hdt ON h.MaHD = hdt.MaHD\n"
 //                + "WHERE CONVERT(date, h.NgayTao) = CONVERT(date, GETDATE())\n"
 //                + "GROUP BY h.NgayTao;";
 //        String[] cols = {"NgayBan", "TongSoLuongBan", "TongTienBanHang"};
 //        return this.getListOfArray(sql, cols);
-        return null;
-
-    }
-
+//        return null;
+//    }
     public List<Object[]> theoThang() {
 ////        String sql = "SELECT h.NgayTao AS NgayBan,SUM(hdt.SoLuong) AS TongSoLuongBan,SUM(h.TongTien) AS TongTienBanHang\n"
 ////                + "FROM hoadon h JOIN hoadonchitiet hdt ON h.MaHD = hdt.MaHD\n"
