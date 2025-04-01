@@ -78,7 +78,7 @@ import javax.swing.table.TableCellRenderer;
  * @author HP
  */
 public class Menu extends javax.swing.JPanel {
-    
+
     DefaultTableModel model, modelHD;
 //    HoaDonDAO_1 hddao = new HoaDonDAO_1();
 //    HoaDonChiTietDAO hdctdao = new HoaDonChiTietDAO();
@@ -123,13 +123,13 @@ public class Menu extends javax.swing.JPanel {
     int giatrivoucher = 0;
     int maVoucher = 0;
     public double totalAmountSP;
-    
+
     Order OrderJustNow = new Order();
     List<OrderDetail> orderDetails = new ArrayList<>();
     List<Order> orderList = new ArrayList<>();
     List<product> listSP = new ArrayList<>();
     List<product> listPSseacher = new ArrayList<>();
-    
+
     public int indexHD = 0;
     OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
     OrderDAO orderDAO = new OrderDAO();
@@ -149,13 +149,13 @@ public class Menu extends javax.swing.JPanel {
         filltableHDC(orderList);
 //        filltableHD;
     }
-    
+
     public void setEvent(EventItem event) {
         this.event = event;
     }
-    
+
     private EventItem event;
-    
+
     public void addItem(product data) {
         Item item = new Item();
         if (data != null) {
@@ -180,9 +180,9 @@ public class Menu extends javax.swing.JPanel {
 //            MsgBox.alert(null, "");
             System.out.println("list products null!");
         }
-        
+
     }
-    
+
     public void fillpanelItem(List<product> list) {
         panelItem1.removeAll();  // Xóa tất cả các item cũ trong panel
         panelItem1.revalidate(); // Cập nhật lại giao diện
@@ -228,7 +228,7 @@ public class Menu extends javax.swing.JPanel {
         scroll1.getVerticalScrollBar().setUnitIncrement(16);  // Mặc định là 1, tăng lên 16 sẽ cuộn nhanh hơn
 
     }
-    
+
     public void fillToTableHoaDon(List<OrderDetail> details) {
         String row[] = {"Product Name", "Price", "Quantity", "Total Amount"};
         DefaultTableModel modelTbl = new DefaultTableModel(row, 0);
@@ -265,7 +265,7 @@ public class Menu extends javax.swing.JPanel {
 //            tblHoaDon.setRow
         }
     }
-    
+
     public void filltableHDC(List<Order> orders) {
         String row[] = {"Employee Code", "More Code", "Total Amount", "Order Status"};
         DefaultTableModel modelOr = new DefaultTableModel(row, 0);
@@ -282,7 +282,7 @@ public class Menu extends javax.swing.JPanel {
         }
         tblHoaDonCho.setModel(modelOr);
     }
-    
+
     public void cleadTable() {
         OrderJustNow = new Order();
         model = (DefaultTableModel) tblHoaDon.getModel();
@@ -305,7 +305,7 @@ public class Menu extends javax.swing.JPanel {
         lblvoucher.setVisible(false);
         lblGiaTriVC.setVisible(false);
     }
-    
+
     public void setSelected(Component item) {
         for (Component com : panelItem1.getComponents()) {
             Item i = (Item) com;
@@ -315,18 +315,18 @@ public class Menu extends javax.swing.JPanel {
         }
         ((Item) item).setSelected(true);
     }
-    
+
     public Point getPanelItemLocation() {
         Point p = scroll1.getLocation();
         return new Point(p.x, p.y - scroll1.getViewport().getViewPosition().y);
     }
-    
+
     public void fillPanelSP() throws SQLException {
         listSP = productDao.getAllProducts();
         panelItem1.removeAll();
 //        testData();
     }
-    
+
     public void init() {
 //        fillComBoBoxLoaiSP();
 //        fillToTableHoaDon();
@@ -344,7 +344,7 @@ public class Menu extends javax.swing.JPanel {
         lblvoucher.setVisible(false);
         lblGiaTriVC.setVisible(false);
     }
-    
+
     public void SearchProduct() {
         // Lấy dữ liệu tìm kiếm từ ô nhập
         String keyword = txtSearch.getText().trim();
@@ -353,11 +353,11 @@ public class Menu extends javax.swing.JPanel {
 //            System.out.println(" lỏ");
             listPSseacher = productDao.getAllProducts();
             fillpanelItem(listPSseacher);
-            
+
         } else {
             System.out.println("searcher :" + listPSseacher.get(0).getName());
             fillpanelItem(listPSseacher);
-            
+
         }
         // Kiểm tra nếu danh sách rỗng
 //        if (listPSseacher.) {
@@ -367,13 +367,13 @@ public class Menu extends javax.swing.JPanel {
 //        }
 //        // Cập nhật lại giao diện với danh sách tìm thấy (hoặc giữ nguyên danh sách cũ)
     }
-    
+
     public void selectFillHDC(int indexHD1) {
         OrderJustNow = orderList.get(indexHD);
         orderDetails = orderDetailDAO.findByOrderID(String.valueOf(OrderJustNow.getOrderId()));
         fillToTableHoaDon(orderDetails);
     }
-    
+
     public boolean checkTienNhan() {
         try {
             double tienNhan = Double.parseDouble(txtTienNhan.getText());
@@ -391,7 +391,7 @@ public class Menu extends javax.swing.JPanel {
         }
         return true;
     }
-    
+
     public boolean checkPhiKhac() {
         try {
             double phiKhac = Double.parseDouble(txtChiPhiKhac.getText());
@@ -415,7 +415,7 @@ public class Menu extends javax.swing.JPanel {
         }
         return true;
     }
-    
+
     private void formatTextField(JTextField textField) {
         try {
             String input = textField.getText().replaceAll("[^0-9]", ""); // Xóa ký tự không phải số
@@ -426,7 +426,7 @@ public class Menu extends javax.swing.JPanel {
             textField.setText(""); // Nếu có lỗi, đặt về rỗng
         }
     }
-    
+
     public double parseCurrency(String amount) {
         try {
             if (amount == null || amount.trim().isEmpty()) {
@@ -438,7 +438,7 @@ public class Menu extends javax.swing.JPanel {
             return 0; // Nếu có lỗi, trả về 0 thay vì gây crash
         }
     }
-    
+
     public boolean tinhToanTien() {
         if (tblHoaDon.getRowCount() == 0) {
             txtTienThua.setForeground(Color.black);
@@ -446,11 +446,11 @@ public class Menu extends javax.swing.JPanel {
             lblThongBaoTienNhan.setVisible(false);
             return false;
         }
-        
+
         if (!checkTienNhan() || !checkPhiKhac()) {
             return false;  // Dừng lại nếu có lỗi định dạng
         }
-        
+
         try {
             double tienSP = parseCurrency(txtTienSP.getText());
             double tienNhan = parseCurrency(txtTienNhan.getText());
@@ -511,7 +511,7 @@ public class Menu extends javax.swing.JPanel {
         }
         return true;
     }
-    
+
     public Order setFormOrder() { // tào lao rồi
         Order o = new Order();
         o.setAccountId(Auth.account.getAccountId());
@@ -526,7 +526,7 @@ public class Menu extends javax.swing.JPanel {
         return o;
     }
     double dicount = 0.0;
-    
+
     public Order getFormOrder() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return new Order(OrderJustNow.orderId,
@@ -545,7 +545,7 @@ public class Menu extends javax.swing.JPanel {
 //            String code = p.getBarcode();
 //            p.setUrlBarcode(BarcodeUtil.generateBarcodeImage(p.getBarcode()));
     Account clien = new Account();
-    
+
     AccountDAO accountDAO = new AccountDAO();
 
 //    public Account FindbyAccout(){
@@ -582,7 +582,7 @@ public class Menu extends javax.swing.JPanel {
                 }
             }
             System.out.println("OrderJustNow " + OrderJustNow.isStatus() + "Ư" + OrderJustNow.getTotalAmount() + "tostring :" + OrderJustNow.toString());
-            
+
             if (!tinhToanTien()) {
                 return;
             };
@@ -597,17 +597,17 @@ public class Menu extends javax.swing.JPanel {
             MsgBox.alert(null, "Product added successfully!");
             orderList = orderDAO.findAll();
             filltableHDC(orderList);
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             MsgBox.alert(null, "Add product failed!");
         }
     }
-    
+
     public void insertOrderDetailAndUpdateQuantityProduct(List<OrderDetail> orderDetails) {
         for (OrderDetail orderDetail : orderDetails) {
             // in đơn
-            
+
             orderDetail.setOrderId(OrderJustNow.orderId);
             orderDetailDAO.insertOrderDetail(orderDetail);
             product p = productDao.findById(orderDetail.productId);
@@ -619,7 +619,7 @@ public class Menu extends javax.swing.JPanel {
             System.out.println("product ID : " + p.getProductId() + " quantity : " + p.getQuantity());
         }
     }
-    
+
     public void UpdateQuantityProduct(List<OrderDetail> orderDetails) {
         for (OrderDetail orderDetail : orderDetails) {
             // in đơn
@@ -632,9 +632,9 @@ public class Menu extends javax.swing.JPanel {
             System.out.println("product ID : " + p.getProductId() + " quantity : " + p.getQuantity());
         }
     }
-    
+
     class SpinnerEditor extends AbstractCellEditor implements TableCellEditor {
-        
+
         public SpinnerEditor() {
             spinner = new JSpinner();
             spinner.setModel(new SpinnerNumberModel(1, 1, 100, 1));
@@ -667,25 +667,25 @@ public class Menu extends javax.swing.JPanel {
                 }
             });
         }
-        
+
         @Override
         public Object getCellEditorValue() {
             return spinner.getValue();
         }
-        
+
         @Override
         public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
             spinner.setValue(value);
             return spinner;
         }
     }
-    
+
     class SpinnerRenderer extends JSpinner implements TableCellRenderer {
-        
+
         public SpinnerRenderer() {
             setModel(new SpinnerNumberModel(1, 1, 100, 1));
         }
-        
+
         @Override // nè he
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             setValue(value);
@@ -846,17 +846,18 @@ public class Menu extends javax.swing.JPanel {
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jLabel13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnVC, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblvoucher)
+                            .addComponent(lblGiaTriVC))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnVC, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblvoucher)
-                    .addComponent(lblGiaTriVC))
-                .addContainerGap())
         );
 
         jPanel5.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 70));
@@ -1189,7 +1190,7 @@ public class Menu extends javax.swing.JPanel {
         }
         Collections.sort(listrow);
         int number = -1;
-        
+
         while (true) {
             if (listrow.size() == 0) {
                 break;
@@ -1761,7 +1762,7 @@ public class Menu extends javax.swing.JPanel {
         Date taoLuc = null;
         Date thanhToanLuc = null;
         String nameNV = "";
-        
+
         if (!OrderJustNow.isStatus()) {
             MsgBox.alert(null, "unpaid order!");
             return;
@@ -1778,6 +1779,10 @@ public class Menu extends javax.swing.JPanel {
         Date dateBill = new Date();
         String DateBill = sdf.format(dateBill);
         String TT = lblTongTien.getText().replaceAll("VNĐ", "");
+        if (TT.isEmpty()) {
+            TT = Double.toString(OrderJustNow.getTotalAmount()); // Thiếu dấu chấm phẩy đã được thêm vào
+        }
+
         String phiKhac = "0";
         if (txtChiPhiKhac.getText().equals("0")) {
             phiKhac = "0";
@@ -1787,7 +1792,7 @@ public class Menu extends javax.swing.JPanel {
         }
         try {
             bill = new JTextPane();
-            
+
             bill.setContentType("text/html");
 
             // Nội dung hóa đơn của bạn
@@ -1808,7 +1813,7 @@ public class Menu extends javax.swing.JPanel {
 
 // Thêm hàng tiêu đề với canh lề cụ thể cho từng cột
             billContent.append("<tr><th style='width:65%; text-align:left;'>Tên sản phẩm</th><th style='width:10%; text-align:center;'>SL</th><th style='width:25%; text-align:right;'>TT</th></tr>");
-            
+
             if (tblHoaDon.getRowCount() != 0) {
                 for (int i = 0; i < tblHoaDon.getRowCount(); i++) {
                     String tenSp = tblHoaDon.getValueAt(i, 0).toString();
@@ -1820,7 +1825,7 @@ public class Menu extends javax.swing.JPanel {
                             .append("</td><td style='text-align:center;'>").append(soluong)
                             .append("</td><td style='text-align:right;'>").append(tongTien.toString()).append("</td></tr>");
                 }
-                
+
             }
             billContent.append("</table>");
             billContent.append("<hr>");
@@ -1836,12 +1841,12 @@ public class Menu extends javax.swing.JPanel {
                     + "<br<b>Xin cảm ơn, hẹn gặp lại quý khách!</b></p>");
             billContent.append("</body></html>");
             Font font = new Font("Arial", Font.PLAIN, 8);
-            
+
             bill.setText(billContent.toString());
             bill.setFont(font);
             JOptionPane.showMessageDialog(null, bill);
             bill.print();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }

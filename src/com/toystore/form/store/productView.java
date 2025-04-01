@@ -294,8 +294,12 @@ public class productView extends javax.swing.JPanel {
             p.setBarcode(BarcodeUtil.generateBarcode());
             String code = p.getBarcode();
             p.setUrlBarcode(BarcodeUtil.generateBarcodeImage(p.getBarcode()));
-            pDAO.insertProduct(p);
-            MsgBox.alert(null, "Add product Success!");
+            boolean insert = pDAO.insertProduct(p);
+            if (insert) {
+                MsgBox.alert(null, "Add product Failed!");
+            } else {
+                MsgBox.alert(null, "Add product Failed!");
+            }
             listSP = pDAO.findAll();
             fillTable(listSP);
 
@@ -331,9 +335,15 @@ public class productView extends javax.swing.JPanel {
     void delete() {
         try {
             int MSP = Integer.parseInt(txtMaSP.getText());
-            pDAO.deleteProduct(MSP);
+            boolean delete = pDAO.deleteProduct(MSP);
             clearForm();
-            MsgBox.alert(null, "Delete product Successfully!");
+            if (delete) {
+                MsgBox.alert(null, "Delete product Successfully!");
+
+            } else {
+                MsgBox.alert(null, "Delete product failed!");
+
+            }
 //            listSP.stream()
 //                    .filter(p -> p.getProductId() == MSP)
 //                    .findFirst()
@@ -1028,9 +1038,9 @@ public class productView extends javax.swing.JPanel {
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
 
 //        if (Auth.isManagerAccount()) {
-            if (checkFrom()) {
-                update();
-            }
+        if (checkFrom()) {
+            update();
+        }
 //        } else {
 //            MsgBox.alert(null, "You do not have permission to update!");
 //        }
@@ -1039,11 +1049,11 @@ public class productView extends javax.swing.JPanel {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
 //        if (Auth.isManagerAccount()) {
-            if (CheckMa()) {
-                if (checkFrom()) {
-                    insert();
-                }
+        if (CheckMa()) {
+            if (checkFrom()) {
+                insert();
             }
+        }
 //        } else {
 //            MsgBox.alert(null, "You do not have permission to add!");
 //

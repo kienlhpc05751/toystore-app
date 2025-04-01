@@ -40,7 +40,7 @@ public class Menu extends javax.swing.JPanel {
             listMenu2.addItem(new Model_Menu("5", "Staff", Model_Menu.MenuType.MENU));
         } else {
             listMenu2.addItem(new Model_Menu("5", "OrderShiff", Model_Menu.MenuType.EMPTY));
-            listMenu2.addItem(new Model_Menu("5", "Shiff", Model_Menu.MenuType.EMPTY));
+            listMenu2.addItem(new Model_Menu("5", "Customer", Model_Menu.MenuType.MENU));
         }
         listMenu2.addItem(new Model_Menu("6", "POS menu", Model_Menu.MenuType.MENU));
         listMenu2.addItem(new Model_Menu("", "____________", Model_Menu.MenuType.EMPTY));

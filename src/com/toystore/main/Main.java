@@ -90,7 +90,7 @@ public class Main extends javax.swing.JFrame {
                 } else if (index == 2) {
                     setForm(orderView);
                 } else if (index == 3) {
-                    if (!Auth.isLogin()) {// if (Auth.isManager()) {
+                    if (!Auth.isLoginAccount()) {// if (Auth.isManager()) {
                         setForm(pView); // view product
                     } else {
                         MsgBox.alert(null, "bạn không có quyền thao tác !");

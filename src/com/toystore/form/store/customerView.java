@@ -790,7 +790,7 @@ public class customerView extends javax.swing.JPanel {
         model.setEmail(txtEmail.getText());
         model.setPhoneNumber(txtSDT.getText());
 //        model.setRoleId(cboQuanLy.isSelected());
-        model.setRoleId(1);
+        model.setRoleId(3);
         Date date = jDateChooser1.getDate();
 //        model.setBirthday(sdf.format(date));
         model.setImage(lblHinhAnh.getToolTipText());
@@ -816,11 +816,17 @@ public class customerView extends javax.swing.JPanel {
         if (Auth.isManagerAccount()) {
             Account nv = getModel();
             try {
-                accountDAO.insertAccount(nv);
+                boolean delete = accountDAO.insertAccount(nv);
                 accountList = accountDAO.getALLCustom();
                 fillTable(accountList);
 //                this.load(nhanVienList);
 //            this.clear();
+                if (delete) {
+                    MsgBox.alert(this, "Delete success!");
+                } else {
+                    MsgBox.alert(this, "Delete failed!");
+
+                }
                 MsgBox.alert(this, "Add new success!");
             } catch (Exception e) {
                 MsgBox.alert(this, "Add failed!");
@@ -853,11 +859,18 @@ public class customerView extends javax.swing.JPanel {
             if (MsgBox.confirm(this, "Do you really want to delete this employee?")) {
                 String manv = txtMaNV.getText();
                 try {
-                    accountDAO.deleteAccount(Integer.parseInt(manv));
+                    boolean delete = accountDAO.deleteAccount(Integer.parseInt(manv));
                     accountList = accountDAO.getALLCustom();
+                    if (delete) {
+                        MsgBox.alert(this, "Delete success!");
+
+                    } else {
+                        MsgBox.alert(this, "Customer  foreign key!");
+
+                    }
                     fillTable(accountList);
+
                     this.clear();
-                    MsgBox.alert(this, "Delete success!");
                 } catch (Exception e) {
                     e.printStackTrace();
                     MsgBox.alert(this, "Delete failed!");

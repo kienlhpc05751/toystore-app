@@ -219,7 +219,6 @@ public class productAttributesView extends javax.swing.JPanel {
                 MsgBox.alert(null, "Category FOREIGN KEY !");
             }
             clearForm();
-            MsgBox.alert(null, "Category deleted successfully!");
             categoryList = categoryDAO.findAll();
             fillTable(categoryList);
         } catch (Exception e) {
@@ -1745,13 +1744,18 @@ public class productAttributesView extends javax.swing.JPanel {
     void deleteBrand() {
         try {
             int brandID = Integer.parseInt(txtBrandID.getText());
-            brandDAO.deleteBrand(brandID);
+            boolean detete = brandDAO.deleteBrand(brandID);
             clearFormBrand();
-            MsgBox.alert(null, "Delete product Successfully!");
+            if (detete) {
+                MsgBox.alert(null, "Delete brand Successfully!");
+            } else {
+                MsgBox.alert(null, "Delete brand FOREIGN KEY!");
+
+            }
             brandList = brandDAO.findAll();
             fillTableBrand(brandList);
         } catch (Exception e) {
-            MsgBox.alert(null, "Delete product Failed!");
+            MsgBox.alert(null, "Delete brand Failed!");
         }
     }
 
@@ -1884,9 +1888,16 @@ public class productAttributesView extends javax.swing.JPanel {
     void deleteMaterial() {
         try {
             int MaterialID = Integer.parseInt(txtMaterialID.getText());
-            materialDAO.deleteMaterial(MaterialID);
+            boolean delete = materialDAO.deleteMaterial(MaterialID);
             clearFormBrand();
-            MsgBox.alert(null, "Delete material Success !");
+            if (delete) {
+                MsgBox.alert(null, "Delete material Success !");
+
+            } else {
+                MsgBox.alert(null, "Delete material FOREIGN key !");
+
+            }
+
             materialList = materialDAO.findAll();
             fillTableMaterial(materialList);
         } catch (Exception e) {
@@ -2016,9 +2027,15 @@ public class productAttributesView extends javax.swing.JPanel {
     void deleteAge() {
         try {
             int ageID = Integer.parseInt(txtAgeID.getText());
-            ageDAO.deleteAge(ageID);
+            boolean delete = ageDAO.deleteAge(ageID);
             clearFormAge();
-            MsgBox.alert(null, "Delete Age successfully !");
+            if (delete) {
+                MsgBox.alert(null, "Delete Age successfully !");
+
+            } else {
+                MsgBox.alert(null, "Delete Age FOREIGN key !");
+
+            }
             ageList = ageDAO.findAll();
             fillTableAge(ageList);
         } catch (Exception e) {

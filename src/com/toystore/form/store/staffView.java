@@ -790,7 +790,7 @@ public class staffView extends javax.swing.JPanel {
         model.setEmail(txtEmail.getText());
         model.setPhoneNumber(txtSDT.getText());
 //        model.setRoleId(cboQuanLy.isSelected());
-        model.setRoleId(1);
+        model.setRoleId(2);
         Date date = jDateChooser1.getDate();
 //        model.setBirthday(sdf.format(date));
         model.setImage(lblHinhAnh.getToolTipText());
@@ -815,20 +815,33 @@ public class staffView extends javax.swing.JPanel {
     void insert() {
         if (Auth.isManagerAccount()) {
             Account nv = getModel();
+            if (nv == null) {
+                MsgBox.alert(this, "Invalid account details!");
+                return;
+            }
+
+            // Kiểm tra xem tên tài khoản đã tồn tại chưa
+            boolean isDuplicate = accountList.stream()
+                    .anyMatch(acc -> acc.getUsername().equalsIgnoreCase(nv.getUsername()));
+
+            if (isDuplicate) {
+                MsgBox.alert(this, " Username already exists !");
+                return;
+            }
+
             try {
                 accountDAO.insertAccount(nv);
                 accountList = accountDAO.getALLStaff();
                 fillTable(accountList);
-//                this.load(nhanVienList);
-//            this.clear();
+                this.clear(); // Reset input fields after successful insertion
                 MsgBox.alert(this, "Add new success!");
             } catch (Exception e) {
-                MsgBox.alert(this, "Add failed!");
+                e.printStackTrace(); // Log lỗi giúp debug
+                MsgBox.alert(this, "Add failed! " + e.getMessage());
             }
         } else {
             MsgBox.alert(this, "You do not have permission to add employees!");
         }
-
     }
 
     void update() {
@@ -853,11 +866,17 @@ public class staffView extends javax.swing.JPanel {
             if (MsgBox.confirm(this, "Do you really want to delete this employee?")) {
                 String manv = txtMaNV.getText();
                 try {
-                    accountDAO.deleteAccount(Integer.parseInt(manv));
+                    boolean delete = accountDAO.deleteAccount(Integer.parseInt(manv));
                     accountList = accountDAO.getALLStaff();
                     fillTable(accountList);
                     this.clear();
-                    MsgBox.alert(this, "Delete success!");
+
+                    if (delete) {
+                        MsgBox.alert(this, "Delete success!");
+                    } else {
+                        MsgBox.alert(this, "Delete failed!");
+
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                     MsgBox.alert(this, "Delete failed!");
