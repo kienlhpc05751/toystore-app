@@ -163,7 +163,7 @@ public class customerView extends javax.swing.JPanel {
         lblTitle.setFont(new java.awt.Font("Roboto", 1, 28)); // NOI18N
         lblTitle.setForeground(new java.awt.Color(102, 102, 102));
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitle.setText("Management Staff");
+        lblTitle.setText("Management Customer");
         lblTitle.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel1.add(lblTitle, java.awt.BorderLayout.PAGE_START);
 
@@ -409,7 +409,7 @@ public class customerView extends javax.swing.JPanel {
         );
 
         jPanel2.add(pnButton);
-        pnButton.setBounds(20, 250, 0, 60);
+        pnButton.setBounds(20, 250, 681, 60);
 
         tblNhanVien.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         tblNhanVien.setFont(new java.awt.Font("UTM BryantLG", 1, 14)); // NOI18N
@@ -695,7 +695,7 @@ public class customerView extends javax.swing.JPanel {
 //        DefaultTableModel model = new DefaultTableModel();
 
         // Thêm các cột
-        model.setColumnIdentifiers(new Object[]{"employee ID", "employee name", "employee email", "employee phone number", "date of birth", "position", "photo"});
+        model.setColumnIdentifiers(new Object[]{"customer ID", "customer name", "customer email", "customer phone number", "date of birth", "position", "photo"});
         tblNhanVien.setModel(model);
 
         // Thêm dữ liệu mẫu

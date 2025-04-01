@@ -69,7 +69,7 @@
               <Color blue="66" green="66" red="66" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Management Staff"/>
+            <Property name="text" type="java.lang.String" value="Management Customer"/>
             <Property name="verticalAlignment" type="int" value="3"/>
           </Properties>
           <Constraints>

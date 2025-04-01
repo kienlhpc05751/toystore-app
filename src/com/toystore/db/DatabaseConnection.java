@@ -15,6 +15,8 @@ public class DatabaseConnection {
     private static final String URL = "jdbc:mysql://localhost:3306/toystoredb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
     private static final String USER = "root";
     private static final String PASSWORD = "123456789";
+//    private static final String PASSWORD = "password";
+
     private static Connection connection = null;
     private static final Logger LOGGER = Logger.getLogger(DatabaseConnection.class.getName());
 

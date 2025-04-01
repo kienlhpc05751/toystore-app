@@ -17,6 +17,7 @@ import com.toystore.form.store.Menu;
 import com.toystore.form.store.Menu1;
 import com.toystore.form.store.OrderView;
 import com.toystore.form.store.categoryView;
+import com.toystore.form.store.customerView;
 import com.toystore.form.store.productAttributesView;
 import com.toystore.form.store.productView;
 import com.toystore.form.store.staffView;
@@ -47,6 +48,7 @@ public class Main extends javax.swing.JFrame {
     private staffView stView;
     private OrderView orderView;
     private KhachHangView khachhang;
+    private customerView customerView;
 
     public Main() {
         initComponents();
@@ -71,7 +73,7 @@ public class Main extends javax.swing.JFrame {
 
         khachhang = new KhachHangView();
 //        form5 = new SanPhamView1();
-
+        customerView = new customerView();
         posMenu = new Menu();
         pView = new productView();
         cView = new categoryView();
@@ -90,13 +92,19 @@ public class Main extends javax.swing.JFrame {
                 } else if (index == 2) {
                     setForm(orderView);
                 } else if (index == 3) {
-                    if (!Auth.isLoginAccount()) {// if (Auth.isManager()) {
+                    if (Auth.isLoginAccount()) {// if (Auth.isManager()) {
                         setForm(pView); // view product
                     } else {
                         MsgBox.alert(null, "bạn không có quyền thao tác !");
                     }
                 } else if (index == 4) {
-                    setForm(stView);// form 4 this is from staff
+                    if (Auth.isManagerAccount()) {
+                        setForm(stView);// form 4 this is from staff
+                    } else {
+                        setForm(customerView);// form 4 this is from staff
+
+                    }
+
                 } else if (index == 5) {
                     setForm(posMenu);  // pos menu view
                 } else if (index == 6) {

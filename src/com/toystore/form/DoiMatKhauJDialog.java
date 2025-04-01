@@ -5,7 +5,9 @@
 package com.toystore.form;
 
 //import com.toystore.dao.NhanVienDao;
+import com.toystore.dao.store.AccountDAO;
 import com.toystore.model.NhanVien;
+import com.toystore.model.store.Account;
 import com.toystore.utils.Auth;
 import com.toystore.utils.MsgBox;
 import java.util.ArrayList;
@@ -231,17 +233,30 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
         this.dispose();
     }
 
-    NhanVien getModel() {
-        NhanVien model = new NhanVien();
+    Account getModel() {
+        Account model = new Account();
+        String mkMoi = new String(txtMatKhauMoi.getPassword());
 //        model.setMatKhau(nvdao.hashPassword(txtMatKhauMoi.getText()));
-        model.setMaNV(ma);
+//        model.setAccountId(Integer.parseInt(ma));
+        model = dao.findById(Integer.parseInt(ma));
+        account.setPassword(Auth.hashPassword(mkMoi));
         return model;
     }
+    AccountDAO dao = new AccountDAO();
+    Account account = new Account();
 
     void update() {
-        NhanVien nv = getModel();
+        Account nv = getModel();
+        String mkMoi = new String(txtMatKhauMoi.getPassword());
+
         try {
-//            nvdao.updatedp(nv);
+            boolean update = dao.updateAccount(account);
+            if (update) {
+                MsgBox.alert(this, "update password sucsessfully");
+
+            } else {
+                MsgBox.alert(this, "Đổi mật khẩu thất bại!");
+            }
         } catch (Exception e) {
             e.printStackTrace();
             MsgBox.alert(this, "Đổi mật khẩu thất bại!");
