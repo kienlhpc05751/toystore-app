@@ -50,7 +50,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author RAVEN
  */
-public class staffView extends javax.swing.JPanel {
+public class customerView extends javax.swing.JPanel {
 
     /**
      * Creates new form Form_1
@@ -64,9 +64,9 @@ public class staffView extends javax.swing.JPanel {
     List<Account> accountList = new ArrayList<>();
     AccountDAO accountDAO = new AccountDAO();
 
-    public staffView() {
+    public customerView() {
         initComponents();
-        accountList = accountDAO.getALLStaff();
+        accountList = accountDAO.getALLCustom();
         fillTable(accountList);
     }
 
@@ -409,7 +409,7 @@ public class staffView extends javax.swing.JPanel {
         );
 
         jPanel2.add(pnButton);
-        pnButton.setBounds(20, 250, 681, 60);
+        pnButton.setBounds(20, 250, 0, 60);
 
         tblNhanVien.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         tblNhanVien.setFont(new java.awt.Font("UTM BryantLG", 1, 14)); // NOI18N
@@ -817,7 +817,7 @@ public class staffView extends javax.swing.JPanel {
             Account nv = getModel();
             try {
                 accountDAO.insertAccount(nv);
-                accountList = accountDAO.getALLStaff();
+                accountList = accountDAO.getALLCustom();
                 fillTable(accountList);
 //                this.load(nhanVienList);
 //            this.clear();
@@ -836,7 +836,7 @@ public class staffView extends javax.swing.JPanel {
             Account nv = getModel();
             try {
                 accountDAO.updateAccount(nv);
-                accountList = accountDAO.getALLStaff();
+                accountList = accountDAO.getALLCustom();
                 fillTable(accountList);
                 MsgBox.alert(this, "Update success!");
             } catch (Exception e) {
@@ -854,7 +854,7 @@ public class staffView extends javax.swing.JPanel {
                 String manv = txtMaNV.getText();
                 try {
                     accountDAO.deleteAccount(Integer.parseInt(manv));
-                    accountList = accountDAO.getALLStaff();
+                    accountList = accountDAO.getALLCustom();
                     fillTable(accountList);
                     this.clear();
                     MsgBox.alert(this, "Delete success!");

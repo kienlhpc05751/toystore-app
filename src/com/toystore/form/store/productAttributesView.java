@@ -32,7 +32,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Asus
  */
 public class productAttributesView extends javax.swing.JPanel {
-    
+
     public int IndexComBox = 0;
     public int row = 0;
 
@@ -41,7 +41,7 @@ public class productAttributesView extends javax.swing.JPanel {
      */
     List<Brand> brandList = new ArrayList<>();
     BrandDAO brandDAO = new BrandDAO();
-    
+
     public productAttributesView() {
         initComponents();
         Init();
@@ -50,23 +50,23 @@ public class productAttributesView extends javax.swing.JPanel {
         tableCategory.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
         categoryList = categoryDAO.findAll();
         fillTable(categoryList);
-        
+
         brandList = brandDAO.findAll();
         fillTableBrand(brandList);
-        
+
         materialList = materialDAO.findAll();
         fillTableMaterial(materialList);
-        
+
         ageList = ageDAO.findAll();
         fillTableAge(ageList);
     }
-    
+
     public void Init() {
         fillCombobox();
     }
     CategoryDAO categoryDAO = new CategoryDAO();
     List<Category> categoryList = new ArrayList<>();
-    
+
     void fillTable(List<Category> categoryList) {
         String row[] = {"Mã SP", "Tên SP", "Giá SP", "Lượng SP", "Trạng thái SP", "Bar CODE", "___"};
         DefaultTableModel model = new DefaultTableModel(row, 0);
@@ -90,18 +90,18 @@ public class productAttributesView extends javax.swing.JPanel {
 //        table.getColumnModel().getColumn(4).setCellEditor(new ButtonRendererEditor());
         table.setModel(model);
     }
-    
+
     List<SuperCategory> listSuperCategorys = new ArrayList<>();
     SuperCategory superCategory = new SuperCategory();
     SuperCategoryDAO superCategoryDAO = new SuperCategoryDAO();
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    
+
     void chonComboBox(int index) {
         if (index >= 0) {
             SuperCategory cd = listSuperCategorys.get(index);
         }
     }
-    
+
     void fillCombobox() {
         listSuperCategorys = superCategoryDAO.findAll();
         DefaultComboBoxModel SuperCategoryModel = (DefaultComboBoxModel) CboSuperCategory.getModel();
@@ -111,7 +111,7 @@ public class productAttributesView extends javax.swing.JPanel {
             SuperCategoryModel.addElement(superCategory.getName());
         }
     }
-    
+
     Category getForm() {
         Category category = new Category();
         category.setCategoryId(Integer.parseInt(txtCategoryID.getText()));
@@ -126,7 +126,7 @@ public class productAttributesView extends javax.swing.JPanel {
         category.toString();
         return category;
     }
-    
+
     void setForm(Category category) {
         txtCategoryID.setText(String.valueOf(category.getCategoryId()));
         txtCategoryName1.setText(category.getName());
@@ -138,19 +138,19 @@ public class productAttributesView extends javax.swing.JPanel {
                 .findFirst() // Lấy kết quả đầu tiên nếu có
                 .orElse(null);  // Nếu không tìm thấy, trả về null
         CboSuperCategory.setSelectedItem(selectedSuperCategory);
-        
+
     }
-    
+
     void edit(int index) {
         Category kh = categoryList.get(index);
         setForm(kh);
     }
-    
+
     void first() {
         this.row = 0;
         this.edit(row);
     }
-    
+
     void prev() {
         if (this.row < 1) {
             return;
@@ -159,7 +159,7 @@ public class productAttributesView extends javax.swing.JPanel {
             this.edit(row);
         }
     }
-    
+
     void next() {
         if (this.row > table.getRowCount() - 2) {
             return;
@@ -168,12 +168,12 @@ public class productAttributesView extends javax.swing.JPanel {
             this.edit(row);
         }
     }
-    
+
     void last() {
         this.row = table.getRowCount() - 1;
         this.edit(row);
     }
-    
+
     void insert() {
         try {
             Category category = getForm();
@@ -189,22 +189,35 @@ public class productAttributesView extends javax.swing.JPanel {
             MsgBox.alert(null, "Add category failed !");
         }
     }
-    
+
     void update() {
         try {
-            categoryDAO.updateCategory(getForm());
-            MsgBox.alert(null, "Category deleted successfully !");
+            boolean update
+                    = categoryDAO.updateCategory(getForm());
+            if (update) {
+                MsgBox.alert(null, "Category deleted successfully !");
+
+            } else {
+                MsgBox.alert(null, "Category FOREIGN KEY !");
+
+            }
             categoryList = categoryDAO.findAll();
             fillTable(categoryList);
         } catch (Exception e) {
             MsgBox.alert(null, "Category deleted failed!");
         }
     }
-    
+
     void delete() {
         try {
             int categoryID = Integer.parseInt(txtCategoryID.getText());
-            categoryDAO.deleteCategory(categoryID);
+            boolean delete = categoryDAO.deleteCategory(categoryID);
+
+            if (delete) {
+                MsgBox.alert(null, "Category deleted successfully !");
+            } else {
+                MsgBox.alert(null, "Category FOREIGN KEY !");
+            }
             clearForm();
             MsgBox.alert(null, "Category deleted successfully!");
             categoryList = categoryDAO.findAll();
@@ -213,7 +226,7 @@ public class productAttributesView extends javax.swing.JPanel {
             MsgBox.alert(null, "Category deleted failed");
         }
     }
-    
+
     void seacher() {
         String input = searchText1.getText().trim(); // Lấy giá trị nhập vào và loại bỏ khoảng trắng
         if (input.isEmpty()) {
@@ -236,7 +249,7 @@ public class productAttributesView extends javax.swing.JPanel {
             MsgBox.alert(null, "Number conversion error! Please enter a valid code.");
         }
     }
-    
+
     void clearForm() {
         Category category = new Category();
         this.setForm(category);
@@ -1504,32 +1517,32 @@ public class productAttributesView extends javax.swing.JPanel {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         //        if (checkFrom()) {
-            delete();
-            //        }
+        delete();
+        //        }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
 
         //        if (Auth.isManager()) {
-            //            if (checkFrom()) {
-                update();
-                //            }
-            //        } else {
-            //            MsgBox.alert(null, "Bạn không có quyền cập nhật !");
-            //        }
+        //            if (checkFrom()) {
+        update();
+        //            }
+        //        } else {
+        //            MsgBox.alert(null, "Bạn không có quyền cập nhật !");
+        //        }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         //        if (Auth.isLogin()) {
-            //            if (CheckMa()) {
-                //                if (checkFrom()) {
-                    insert();
-                    //                }
-                //            }
-            //        } else {
-            //            MsgBox.alert(null, "Bạn không có quyền  thêm sp !");
-            //
-            //        }
+        //            if (CheckMa()) {
+        //                if (checkFrom()) {
+        insert();
+        //                }
+        //            }
+        //        } else {
+        //            MsgBox.alert(null, "Bạn không có quyền  thêm sp !");
+        //
+        //        }
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
@@ -1684,15 +1697,15 @@ public class productAttributesView extends javax.swing.JPanel {
         }
         tableBrand.setModel(model);
     }
-    
+
     void setFormBrand(Brand brand) {
         txtBrandID.setText(String.valueOf(brand.getBrandId()));
         txtBrandName.setText(brand.getName());
         txtOriginBrand.setText(brand.getOriginBrand());
         txtDescriptionBrand.setText(brand.getDescription());
-        
+
     }
-    
+
     Brand getFormBrand() {
         Brand brand = new Brand();
         brand.setBrandId(Integer.parseInt(txtBrandID.getText()));
@@ -1701,7 +1714,7 @@ public class productAttributesView extends javax.swing.JPanel {
         brand.setDescription(txtDescriptionBrand.getText());
         return brand;
     }
-    
+
     void insertBrand() {
         try {
             Brand brand = getFormBrand();
@@ -1717,7 +1730,7 @@ public class productAttributesView extends javax.swing.JPanel {
             MsgBox.alert(null, "Added brand Failed !");
         }
     }
-    
+
     void updateBrand() {
         try {
             brandDAO.updateBrand(getFormBrand());
@@ -1728,7 +1741,7 @@ public class productAttributesView extends javax.swing.JPanel {
             MsgBox.alert(null, "Product Update Failed!");
         }
     }
-    
+
     void deleteBrand() {
         try {
             int brandID = Integer.parseInt(txtBrandID.getText());
@@ -1741,7 +1754,7 @@ public class productAttributesView extends javax.swing.JPanel {
             MsgBox.alert(null, "Delete product Failed!");
         }
     }
-    
+
     void seacherBrand() {
         String input = txtSeacherBrand.getText().trim(); // Lấy giá trị nhập vào và loại bỏ khoảng trắng
         if (input.isEmpty()) {
@@ -1764,7 +1777,7 @@ public class productAttributesView extends javax.swing.JPanel {
             MsgBox.alert(null, "Number conversion error! Please enter a valid code.");
         }
     }
-    
+
     void clearFormBrand() {
         Brand brand = new Brand();
         this.setFormBrand(brand);
@@ -1774,14 +1787,14 @@ public class productAttributesView extends javax.swing.JPanel {
         txtBrandName.setBackground(null);
         txtOriginBrand.setBackground(null);
         txtDescriptionBrand.setBackground(null);
-        
+
     }
-    
+
     void firstBrand() {
         this.row = 0;
         this.editBrand(row);
     }
-    
+
     void nextBrand() {
         if (this.row > table.getRowCount() - 2) {
             return;
@@ -1790,7 +1803,7 @@ public class productAttributesView extends javax.swing.JPanel {
             this.editBrand(row);
         }
     }
-    
+
     void prevBrand() {
         if (this.row < 1) {
             return;
@@ -1799,20 +1812,20 @@ public class productAttributesView extends javax.swing.JPanel {
             this.editBrand(row);
         }
     }
-    
+
     void editBrand(int index) {
         Brand kh = brandList.get(index);
         setFormBrand(kh);
     }
-    
+
     void lastBrand() {
         this.row = table.getRowCount() - 1;
         this.editBrand(row);
     }
-    
+
     List<Material> materialList = new ArrayList<>();
     MaterialDAO materialDAO = new MaterialDAO();
-    
+
     void fillTableMaterial(List<Material> material) {
         DefaultTableModel model = new DefaultTableModel(row, 0);
         model.setRowCount(0);
@@ -1826,14 +1839,14 @@ public class productAttributesView extends javax.swing.JPanel {
         }
         tableMaterial.setModel(model);
     }
-    
+
     void setFormMaterial(Material material) {
         txtMaterialID.setText(String.valueOf(material.getMaterialId()));
         txtMaterialName.setText(material.getName());
         txtMaterialDescription.setText(material.getDescription());
-        
+
     }
-    
+
     Material getFormMaterial() {
         Material material = new Material();
         material.setMaterialId(Integer.parseInt(txtMaterialID.getText()));
@@ -1841,7 +1854,7 @@ public class productAttributesView extends javax.swing.JPanel {
         material.setDescription(txtMaterialDescription.getText());
         return material;
     }
-    
+
     void insertMaterial() {
         try {
             Material material = getFormMaterial();
@@ -1856,7 +1869,7 @@ public class productAttributesView extends javax.swing.JPanel {
             MsgBox.alert(null, "Added material failed!");
         }
     }
-    
+
     void updateMaterial() {
         try {
             materialDAO.updateMaterial(getFormMaterial());
@@ -1867,7 +1880,7 @@ public class productAttributesView extends javax.swing.JPanel {
             MsgBox.alert(null, "Update material Failed !");
         }
     }
-    
+
     void deleteMaterial() {
         try {
             int MaterialID = Integer.parseInt(txtMaterialID.getText());
@@ -1880,7 +1893,7 @@ public class productAttributesView extends javax.swing.JPanel {
             MsgBox.alert(null, "Delete material Failed !");
         }
     }
-    
+
     void seacherMaterial() {
         String input = txtSeacherMaterial.getText().trim(); // Lấy giá trị nhập vào và loại bỏ khoảng trắng
         if (input.isEmpty()) {
@@ -1903,7 +1916,7 @@ public class productAttributesView extends javax.swing.JPanel {
             MsgBox.alert(null, "Number conversion error! Please enter a valid code.");
         }
     }
-    
+
     void clearFormMaterial() {
         Material material = new Material();
         this.setFormMaterial(material);
@@ -1911,14 +1924,14 @@ public class productAttributesView extends javax.swing.JPanel {
         txtMaterialID.setBackground(null);
         txtMaterialName.setBackground(null);
         txtMaterialDescription.setBackground(null);
-        
+
     }
-    
+
     void firstMateril() {
         this.row = 0;
         this.editMaterial(row);
     }
-    
+
     void nextMaterial() {
         if (this.row > tableMaterial.getRowCount() - 2) {
             return;
@@ -1927,29 +1940,29 @@ public class productAttributesView extends javax.swing.JPanel {
             this.editMaterial(row);
         }
     }
-    
+
     void prevMaterial() {
         if (this.row < 1) {
             return;
         } else {
-            this.row--; 
+            this.row--;
             this.editMaterial(row);
         }
     }
-    
+
     void editMaterial(int index) {
         Material material = materialList.get(index);
         setFormMaterial(material);
     }
-    
+
     void lastMaterial() {
         this.row = tableMaterial.getRowCount() - 1;
         this.editMaterial(row);
     }
-    
+
     List<Age> ageList = new ArrayList<>();
     AgeDAO ageDAO = new AgeDAO();
-    
+
     void fillTableAge(List<Age> ages) {
         DefaultTableModel model = new DefaultTableModel(row, 0);
         model.setRowCount(0);
@@ -1962,19 +1975,19 @@ public class productAttributesView extends javax.swing.JPanel {
         }
         tableAge.setModel(model);
     }
-    
+
     void setFormAge(Age age) {
         txtAgeID.setText(String.valueOf(age.getAgeId()));
         txtAgeName.setText(age.getAgeRange());
     }
-    
+
     Age getFormAge() {
         Age age = new Age();
         age.setAgeId(Integer.parseInt(txtAgeID.getText()));
         age.setAgeRange(txtAgeName.getText());
         return age;
     }
-    
+
     void insertAge() {
         try {
             Age age = getFormAge();
@@ -1988,7 +2001,7 @@ public class productAttributesView extends javax.swing.JPanel {
             MsgBox.alert(null, "Added Age Failed !");
         }
     }
-    
+
     void updateAge() {
         try {
             ageDAO.updateAge(getFormAge());
@@ -1999,7 +2012,7 @@ public class productAttributesView extends javax.swing.JPanel {
             MsgBox.alert(null, "Update Age Failed !");
         }
     }
-    
+
     void deleteAge() {
         try {
             int ageID = Integer.parseInt(txtAgeID.getText());
@@ -2012,7 +2025,7 @@ public class productAttributesView extends javax.swing.JPanel {
             MsgBox.alert(null, "Delete Age Failed !");
         }
     }
-    
+
     void seacherAge() {
         String input = txtSeacherAge.getText().trim(); // Lấy giá trị nhập vào và loại bỏ khoảng trắng
         if (input.isEmpty()) {
@@ -2035,7 +2048,7 @@ public class productAttributesView extends javax.swing.JPanel {
             MsgBox.alert(null, "Number conversion error! Please enter a valid code.");
         }
     }
-    
+
     void clearFormAge() {
         Age age = new Age();
         this.setFormAge(age);
@@ -2044,12 +2057,12 @@ public class productAttributesView extends javax.swing.JPanel {
         txtAgeID.setBackground(null);
         txtAgeName.setBackground(null);
     }
-    
+
     void firstAge() {
         this.row = 0;
         this.editAge(row);
     }
-    
+
     void nextAge() {
         if (this.row > tableAge.getRowCount() - 2) {
             return;
@@ -2058,7 +2071,7 @@ public class productAttributesView extends javax.swing.JPanel {
             this.editAge(row);
         }
     }
-    
+
     void prevAge() {
         if (this.row < 1) {
             return;
@@ -2067,12 +2080,12 @@ public class productAttributesView extends javax.swing.JPanel {
             this.editAge(row);
         }
     }
-    
+
     void editAge(int index) {
         Age age = ageList.get(index);
         setFormAge(age);
     }
-    
+
     void lastAge() {
         this.row = tableAge.getRowCount() - 1;
         this.editAge(row);
